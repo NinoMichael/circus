@@ -1,0 +1,29 @@
+.main-book-setting {
+    padding : 1rem 0rem 0rem 19rem;
+}
+
+.custom-form-container {
+    width : 89.3%;
+    height : 29rem;
+}
+
+.custom-form {
+    margin-top: 2.25rem;
+}
+
+.custom-img-promo-container {
+    width : 17rem;
+}
+
+.custom-img-promo {
+    margin : 4rem 0rem 0rem 2.5rem;
+}
+
+.custom-title-form {
+    font-size: 1.5em;
+    margin-left: 8rem;
+}
+
+.custom-btn-group {
+    margin : 0rem -4rem;
+}

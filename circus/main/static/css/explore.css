@@ -1,0 +1,80 @@
+.bg-gray-explore {
+    background-color: rgb(218, 218, 218);
+}
+
+.bg-gray-explore:hover {
+    background-color: rgb(202, 200, 200);
+}
+
+.header-setting {
+    width : 17rem;
+    height: 47.5vmax;
+}
+
+.custom-bg-logo {
+    background-image: url(../images/gare.JPG);
+    background-color: rgba(0, 0, 0, 0.637);
+    background-position : top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+}
+
+.custom-logo-img-explore {
+    width : 9rem;
+    margin-left : 3.75rem;
+}
+
+.custom-nav-explore {
+    padding : 0.5rem 3.5rem;
+}
+
+.custom-footer-header {
+    margin-top: 4.5rem;
+}
+
+.custom-copyright-footer {
+    font-size: 0.75em;
+}
+
+.main-setting-explore {
+    padding: 1.5rem 0rem 0rem 19rem;
+}
+
+.custom-input-form {
+    width : 117%;
+}
+
+.custom-icon-input {
+    color : rgba(0, 0, 0, 0.5);
+    top : 0.75rem;
+    left : 0.75rem;
+}
+
+.btn-exchange {
+    top : 1.5rem;
+    left : 12rem;
+    transform: rotate(90deg);
+} 
+
+.custom-tarif-container {
+    margin : 0.5rem 0rem 0rem 3.5rem;
+}
+
+.custom-suggest-container {
+    margin: 7rem 0rem 0rem 0rem;
+    padding-top : 1rem; 
+}
+
+.custom-offer-container {
+    margin : 12.5rem 0rem 0rem 0rem;
+}
+
+.custom-icon-filter {
+    font-size: 1.4em;
+}
+
+.custom-duration {
+    top : 3rem;
+    left : 3rem;
+}

@@ -1,0 +1,97 @@
+{% extends 'inc/head.html' %}
+{% load static %}
+
+{% block body %}
+    <body class = "body-details-setting">
+        {% block header %}
+            {% include 'inc/navbar.html' %}
+        {% endblock %}
+
+        {% block main %}
+            <main class = "custom-main-details row">
+                <section class = "bg-white shadow rounded col-6">
+                    <div class = "d-flex flex-row justify-content-between bg-yellow p-3" style = "margin-left: -0.75rem; width : 104.7%;">
+                        <div class = "d-flex flex-row">
+                            <div class="d-flex flex-column">
+                                <img src="{% static 'images/besady.jpg' %}" alt="Image de coopérative" width = "60px" height = "40px">
+                            </div>
+                            <div class = "ms-3">
+                                <p style = "font-size: 0.8em;">Coopérative</p>
+                                <p class = "h5 poppins-font" style = "margin-top: -1rem;">Besady</p>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <p style = "font-size: 0.8em;">Expire dans</p>
+                            <p class = "h5 poppins-font" style = "margin-top: -1rem;">06h 02min 09s</p>
+                        </div>
+                    </div>
+
+                    <div class = "d-flex flex-row justify-content-between mt-3 mx-3">
+                        <div class = "text-start">
+                            <h6>Départ</h6>
+                            <p style = "margin-top : 0rem;">Gare Andohatapenaka,</p>
+                            <p style = "margin-top: -1.1rem;">Antananarivo</p>
+                            <p style = "margin-top : -1.1rem">Ven 12, 17:00</p>
+                        </div>
+
+                        <div class = "d-flex flex-column">
+                            <div class = "d-flex flex-row">
+                                <i class = "fa fa-road mt-3"></i>
+                                <div class = "d-flex flex-column ms-2">
+                                    <p style = "font-size: 0.85em;">Distance</p>
+                                    <p class = "poppins-font" style = "margin-top : -0.85rem;">574km</p>
+                                </div>
+                            </div>
+                            <div class = "d-flex flex-row">
+                                <i class = "fa fa-clock mt-3"></i>
+                                <div class = "d-flex flex-column ms-2">
+                                    <p style = "font-size: 0.85em;">Durée</p>
+                                    <p class = "poppins-font" style = "margin-top : -0.85rem;">14h</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "text-end">
+                            <h6>Arrivée</h6>
+                            <p style = "margin-top : 0rem;">Gare Marovato,</p>
+                            <p style = "margin-top: -1.1rem;">Mahajanga</p>
+                            <p style = "margin-top : -1.1rem">Sam 13, 07:00</p>
+                        </div>
+                    </div>
+
+                    <hr class = "mx-3">
+
+                    <h4 class="h6 text-center mt-3">Informations du véhicule</h4>
+                    <div class = "d-flex flex-row justify-content-between mx-3 mt-3">
+                        <div>
+                            <img src="{% static 'images/sprinter.png' %}" alt="Image de voiture Sprinter" class = "img-fluid" width = "170px">
+                        </div>
+                        <div class = "mt-2">
+                            <p>Type de voiture : Sprinter</p>
+                            <p>Matricule : TAF 8899</p>
+                            <p>Coopérative : Besady</p>
+                            <p>Conducteur : Mr RABEMAHAFALY</p>
+                        </div>
+                    </div>
+
+                    <div class = "d-flex flex-row mx-3 mt-4 mb-5 w-100">
+                        <a href="{url 'explore'}" class = "btn bg-gray-explore" style = "width : 45%;">Retour</a>
+                        <a href="{url 'bookInfo'}" class = "btn bg-yellow ms-2" style = "width : 45%;">Réserver</a>
+                    </div>
+                </section>
+
+                <section style = "width : 40%; margin-left : 2.5rem;">
+                    <section class = "bg-white shadow rounded p-3">
+                        <h4 class = "h6">Situation géographique</h4>
+
+                        <div id = "map-leaflet" class = "map-details-setting mt-3"></div>
+                    </section>
+
+                    <section class = "bg-white shadow rounded mt-3 p-3">
+                        <h5 class="h6">Voir aussi</h5>
+                    </section>
+                </section>
+            </main>
+        {% endblock %}
+    </body>
+{% endblock %}

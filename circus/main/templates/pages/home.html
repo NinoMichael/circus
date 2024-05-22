@@ -1,0 +1,84 @@
+{% extends 'inc/head.html' %}
+{% load static %}
+
+{% block body %}
+    <body class = "main-setting position-relative overflow-hidden">
+        {% block header %}
+        <header class = "d-flex flex-row justify-content-between mt-3 mx-3">
+            <div class = "d-flex flex-row ms-5">
+                <div>
+                    <img src="{% static 'images/logo.PNG' %}" alt="Logo de Circus" width="150px">
+                </div>
+    
+                <nav class = "navbar ms-5">
+                    <a href="{% url 'home' %}" class = "nav-item nav-link poppins-font link-light link-hover ms-5">Accueil</a>
+                    <a href="{% url 'explore' %}" class = "nav-item nav-link poppins-font link-light link-hover ms-5">Découvrir</a>
+                    <a href="" class = "nav-item nav-link poppins-font link-light link-hover ms-5">Support</a>
+                    <a href="" class = "nav-item nav-link poppins-font link-light link-hover ms-5">A propos</a>
+                </nav>
+            </div>
+          
+            <div class = "d-flex flex-row mt-2 me-5">
+                <i class = "fa fa-globe text-light me-4 mt-3"></i>
+                <div class = "dropdown">
+                    <button class = "btn bg-yellow dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">FR</button>
+                    <ul class="dropdown-menu" width = "50px">
+                        <li><a class="dropdown-item nav-pills active" href="#">FR</a></li>
+                        <li><a class="dropdown-item" href="#">MG</a></li>
+                        <li><a class="dropdown-item" href="#">EN</a></li>
+                      </ul>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    {% block main %}
+    <main class = "mt-4 position-relative">
+        <div class = "custom-main-title">
+            <h1 class = "h2 text-light">Bienvenue sur <span class = "h1 text-yellow">Circus</span>, la plateforme de réservation de transport régional à Madagascar</h1>
+        </div>
+
+        <div class = "d-flex flex-row">
+            <div class = "custom-txt-intro p-3">
+                <p class = "text-light">Réservez vos billets en ligne en quelques clics pour effectuer votre voyage avec les offres présentes sur la plateforme et bénéficiez de prix compétitifs et abordables pour chaque coopérative choisie.</p>
+            </div>
+
+            <div class = "mt-5">
+                <a href="{% url 'explore' %}" class = "btn bg-yellow custom-btn-explore py-4 px-4 ms-3 mt-3">Explorer<i class = "fa fa-chevron-right ms-2"></i></a>
+            </div>
+        </div>
+        
+
+        <div>
+            <img src="{% static 'images/madagascar.png' %}" alt="Carte de Madagascar" class = "img-fluid custom-img-mada">
+        </div>
+
+        <div class = "d-flex flex-row poppins-font text-light custom-item-info">
+            <div class = "d-flex flex-column text-center">
+                <p class = "h1 w-25">+2K</p>
+                <p class = "h5 w-25">transports disponibles</p>
+            </div>
+            <div class = "d-flex flex-column text-center">
+                <p class = "h1 w-25">+8K</p>
+                <p class = "h5 w-50">passagers en voyage</p>
+            </div>
+            <div class = "d-flex flex-column text-center">
+                <p class = "h1 w-25">+100K</p>
+                <p class = "h5 w-25">réservations accomplies</p>
+            </div>
+        </div>
+    </main>
+    {% endblock %}
+
+    {% block footer %}
+        <footer class="footer position-absolute custom-footer-home d-flex flex-column">
+            <div class = "text-end">
+                <a href="" class = "link-light"><i class = "fa-brands fa-facebook custom-icon-brands me-5"></i></a>
+                <a href="" class = "link-light"><i class="fa-brands fa-whatsapp custom-icon-brands me-2"></i></a>
+            </div>
+            <p class = "mt-2 text-end custom-p-footer text-light">Copyright 2024 - Tous droits réservés</p>
+        </footer>
+    {% endblock %}
+    </body>
+  
+{% endblock %}

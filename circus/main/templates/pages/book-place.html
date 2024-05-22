@@ -1,0 +1,80 @@
+{% extends 'inc/book.html' %}
+{% load static %}
+
+{% block text %}
+    <h1 style = "font-size: 1.5em; margin-left: 4rem;">Réservez dès maintenant !</h1>
+    <p style = "margin-left: 3rem;" id = "text-warningPlace">Veuillez choisir votre emplacement dans la voiture</p>              
+{% endblock %}
+
+{% block form %}
+    <form class="mx-3 custom-form position-relative" autocomplete="off">
+        <div class = "d-flex flex-row justify-content-between position-absolute custom-place-setting">
+            <p class = "bg-gray-explore px-3 py-1 rounded" style = "font-size: 0.9em;">6</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">5</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">4</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">3</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">2</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">1</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded custom-m-place-book" style = "font-size: 0.9em;">Dv</p>
+        </div>
+
+        <div class = "d-flex flex-column position-absolute custom-category-place">
+            <button class = "btn"><i class="fa fa-circle-info fs-5"></i></button>
+            <p class = "bg-gray-explore px-3 py-1 rounded" style = "font-size : 0.9em; margin-top: 1.25rem;">A</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded" style = "font-size : 0.9em;">B</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded" style = "font-size : 0.9em;">C</p>
+            <p class = "bg-gray-explore px-3 py-1 rounded" style = "font-size : 0.9em;">D</p>
+        </div>
+
+        <section class = "d-flex flex-row ms-3">
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left: 3.75rem;">
+                <button class = "btn bg-white shadow place mt-5" id = "place1"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place2"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place3"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place4"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2.5rem;">
+                <button class = "btn bg-white shadow place mt-5" id = "place5"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place6"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place7"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place8"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2rem;">
+                <button class = "btn bg-white shadow place mt-5" id = "place9"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place10"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place11"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow place mt-2" id = "place12"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2.25rem;">
+                <button class = "btn bg-white shadow mt-5 place" id = "place13"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place14"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place15"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place16"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2rem;">
+                <button class = "btn bg-white shadow mt-5 place" id = "place17"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place18"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place19"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place20"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2rem;">
+                <button class = "btn bg-white shadow mt-5 place" id = "place21"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place22"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place23"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place24"><i class="fa fa-chair"></i></button>
+            </div>
+            <div class = "d-flex flex-column" style = "width : 10%; margin-left : 2.4rem;">
+                <div class = "bg-gray-explore px-2 py-4 rounded mt-5"><img src="{% static 'images/driver.png' %}" alt="Icône de chauffeur" class = "img-fluid" width = "40px"></div>
+                <button class = "btn bg-white shadow mt-3 place" id = "place25"><i class="fa fa-chair"></i></button>
+                <button class = "btn bg-white shadow mt-2 place" id = "place26"><i class="fa fa-chair"></i></button>
+            </div>
+        </section>
+
+        <div class = "d-flex flex-row" style = "margin-top: 2.5rem;">
+            <a href="{% url 'bookInfo' %}" class = "btn bg-gray-explore d-block w-50 me-2">Retour</a>
+            <button type="submit" class = "btn bg-yellow w-50 ms-2" id = "btnSubmit2">Suivant</button>
+        </div>
+
+        </div>
+    </form>
+{% endblock %}

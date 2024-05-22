@@ -1,0 +1,27 @@
+.custom-check-input-radio-payment {
+    top : 1.25rem;
+    left : 1rem;
+}
+
+.custom-img-container-payment {
+    margin-left: 2.5rem;
+}
+
+.custom-section-ticketplace {
+    top : 14rem;
+    right : 6.75rem;
+    font-size: 0.85em;
+    width : 17.5%;
+}
+
+.custom-btn-back-payment {
+    bottom : -4rem;
+    width : 54%;
+    left : 3rem;
+}
+
+.custom-btn-submit-payment {
+    bottom : -4rem;
+    width : 54%;
+    left : 20.5rem;
+}

@@ -1,0 +1,92 @@
+{% extends 'inc/book.html' %}
+{% load static %}
+
+{% block text %}
+    <h1 class = "custom-title-form">Réservez dès maintenant !</h1>
+    <p style = "margin-left: 7rem;" id = "text-warning">Veuillez sélectionner votre mode de paiement</p>
+{% endblock %}
+
+{% block form %}
+    <form>
+        <section class = "row ms-2 mt-3">
+            <div class = "col-6">
+                <div class = "bg-white shadow d-flex flex-row position-relative rounded p-2" style = "width : 160%;">
+                    <div class = "form-check position-absolute custom-check-input-radio-payment">
+                        <input type="radio" name="payment" id="espece" class = "form-check-input" >
+                    </div>
+                    <div class = "custom-img-container-payment">
+                        <img src="{% static 'images/espece.png' %}" alt="Logo de Mvola mt-1" width = "50px" height="40px">
+                    </div>
+                    <div>
+                        <p class="poppins-font ms-3 mt-2">Espèces</p>
+                    </div>
+                </div>
+                <div class = "bg-white shadow-sm d-flex flex-row position-relative rounded p-2 mt-2" style = "width : 160%;">
+                    <div class = "form-check position-absolute custom-check-input-radio-payment">
+                        <input type="radio" name="payment" id="espece" class = "form-check-input" >
+                    </div>
+                    <div class = "custom-img-container-payment">
+                        <img src="{% static 'images/mvola.png' %}" alt="Logo de Mvola mt-1" width = "50px" height="40px">
+                    </div>
+                    <div>
+                        <p class="poppins-font ms-3 mt-2">Mvola</p>
+                    </div>
+                </div>
+                <div class = "bg-white shadow d-flex flex-row position-relative rounded p-2 mt-2" style = "width : 160%;">
+                    <div class = "form-check position-absolute custom-check-input-radio-payment">
+                        <input type="radio" name="payment" id="espece" class = "form-check-input" >
+                    </div>
+                    <div class = "custom-img-container-payment">
+                        <img src="{% static 'images/orange-money.png' %}" alt="Logo de Orange Money" width = "50px" height="40px">
+                    </div>
+                    <div>
+                        <p class="poppins-font ms-3 mt-2">Orange Money</p>
+                    </div>
+                </div>
+                <div class = "bg-white shadow d-flex flex-row position-relative rounded p-2 mt-2" style = "width : 160%;">
+                    <div class = "form-check position-absolute custom-check-input-radio-payment">
+                        <input type="radio" name="payment" id="espece" class = "form-check-input" >
+                    </div>
+                    <div class = "custom-img-container-payment">
+                        <img src="{% static 'images/airtel-money.png' %}" alt="Logo de Airtel Money" width = "50px" height="40px">
+                    </div>
+                    <div>
+                        <p class="poppins-font ms-3 mt-2">Airtel Money</p>
+                    </div>
+                </div>
+            </div>
+        </section>     
+        
+        <section class="position-absolute shadow-sm p-3 custom-section-ticketplace">
+            <h4 class = "h6 text-center">Détails de tickets</h4>
+            <div class = "d-flex flex-row justify-content-between mt-4">
+                <p class = "text-start">Tarif</p>
+                <p class = "text-end">50 000 MGA</p>
+            </div>
+            <div class = "d-flex flex-row justify-content-between">
+                <p class = "text-start">Places réservées</p>
+                <p class = "text-end">3</p>
+            </div>
+            <div class = "d-flex flex-row justify-content-between">
+                <p class = "text-start">Frais de transfert</p>
+                <p class = "text-end">0%</p>
+            </div>
+            <div class = "d-flex flex-row justify-content-between">
+                <p class = "text-start">Réduction</p>
+                <p class = "text-end">3%</p>
+            </div>
+            <hr style = "margin-top: 0.5rem;">
+            <div class = "d-flex flex-row justify-content-between">
+                <p class = "poppins-font text-start">Total</p>
+                <p class = "text-end">146 300 MGA</p>
+            </div>
+        </section>
+
+        <div class = "position-relative">
+            <a href="{% url 'bookPlace' %}" class="btn bg-gray-explore position-absolute custom-btn-back-payment">Retour</a>
+            <button type="submit" class = "btn bg-yellow position-absolute custom-btn-submit-payment">Suivant</button>
+        </div>
+    </form>
+{% endblock %}
+
+    

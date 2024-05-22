@@ -1,0 +1,31 @@
+{% load static %}
+
+<header class = "position-fixed bg-light shadow-lg header-setting">
+    <div class = "position-relative custom-bg-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo de circus" class = "img-fluid custom-logo-img-explore">
+    </div>
+
+    <nav class = "navbar-nav nav-pills mt-4">
+        <a href="{% url 'explore' %}" class = "nav-link nav-item active poppins-font custom-nav-explore"><i class = "fa fa-calendar me-4"></i>Explorer</a>
+        <a href="{% url 'home' %}" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-house me-4"></i>Accueil</a>
+        <a href="" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-gears me-4"></i>Nos services</a>
+        <a href="" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-car me-4"></i>Coopérative</a>
+        <hr class = "mx-3">
+        <a href="" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-house me-4"></i>Feedback</a>
+        <a href="" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-user me-4"></i>Support</a>
+        <a href="" class = "nav-link nav-item poppins-font bg-gray custom-nav-explore mt-2"><i class = "fa fa-info-circle me-4"></i>A propos</a>
+    </nav>
+
+    {% block footer %}
+        <footer class = "footer custom-footer-header">
+            <div class = "d-flex flex-row justify-content-between mx-4">
+                <a href="" class = "link-dark custom-copyright-footer">Termes de service</a>
+                <div>
+                    <a href="" class = "link-dark"><i class="fa-brands fa-facebook me-2"></i></a>
+                    <a href="" class = "link-dark"><i class="fa-brands fa-whatsapp me-2"></i></a>
+                </div>
+            </div>
+            <p class = "custom-copyright-footer text-center mt-2">Copyright 2024 - Tous droits réservés</p>
+        </footer>
+    {% endblock %}
+</header>
