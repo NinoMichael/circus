@@ -105,16 +105,16 @@ export default function Search() {
             
             </div>
             
-                <Button label = "Rechercher" icon = "pi pi-search" className="text-sm font-medium h-9"/>
+                <Button label = "Rechercher" icon = "pi pi-search" className="text-sm font-medium h-9 bg-green-300 border border-green-400 font-kanit"/>
             </form>
 
-            <form className = "min-md:hidden mx-8 ">
-                <section className="grid grid-cols-2 gap-2 bg-main p-3 rounded">
+            <form className = "min-[769px]:hidden mx-8 mt-12 bg-main px-4 pt-6 pb-4 rounded max-[524px]:mx-2 max-[430px]:-mx-4">
+                <section className="grid grid-cols-2 gap-8 max-[430px]:gap-4">
                     <div>
                         <FloatLabel>
                             <Dropdown inputId="departRegion" value={selectRegionDepart} onChange = {(e) => setSelectRegionDepart(e.target.value)} options = {regions}  
                                 optionLabel="name" filter panelClassName='text-sm' dropdownIcon = "pi pi-chevron-down text-sm"
-                                className="w-full"/>
+                                className="w-full custom-p-dropdown"/>
                             <label htmlFor = "departRegion" className="text-sm mb-4">Départ</label>
                         </FloatLabel>
                     </div>
@@ -123,11 +123,32 @@ export default function Search() {
                         <FloatLabel>
                             <Dropdown inputId="dd-arriveeRegion" value={selectRegionArrivee} onChange = {(e) => setSelectRegionArrivee(e.target.value)} options = {regions}  
                                 optionLabel="name" filter panelClassName='text-sm' dropdownIcon = "pi pi-chevron-down text-sm"
-                                className="w-full"/>
-                            <label htmlFor = "dd-arriveeRegion" className="text-sm mb-4">Arrivée</label>
+                                className="w-full custom-p-dropdown"/>
+                            <label htmlFor = "dd-arriveeRegion" className="text-sm mb-4.custom-p-dropdown">Arrivée</label>
                         </FloatLabel>
                     </div>
 
                     <div>
                         <FloatLabel>
-             
+                            <Dropdown inputId="cooperative" value={selectCooperative} onChange = {(e) => setSelectCooperative(e.target.value)} options = {cooperatives}  
+                                optionLabel="name" filter panelClassName='text-sm' dropdownIcon = "pi pi-chevron-down text-sm"
+                                className="w-full custom-p-dropdown"/>
+                            <label htmlFor = "cooperative" className="text-sm mb-4 ">Coopérative</label>
+                        </FloatLabel>
+                    </div>
+
+                    <div>
+                        <FloatLabel>
+                            <Calendar value = {dates} onChange={(e) => setDates(e.target.value)} dateFormat="dd/mm/yy" 
+                                className="text-sm" locale='fr' panelClassName="text-xs"/>
+                            <label htmlFor = "dateVoyage" className="text-sm mb-4 custom-p-dropdown">Date de voyage</label>
+                        </FloatLabel>
+                    </div>
+                </section>
+
+                  <Button label = "Rechercher" icon = "pi pi-search" className="text-sm font-medium bg-green-300 border border-green-400 font-kanit mt-4 block ms-1 me-3 w-full"/>
+            </form>
+        </>
+        
+    )
+}
