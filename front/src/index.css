@@ -1,0 +1,42 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url(../public/fonts/Poppins/Poppins-Regular.ttf);
+  }
+
+  @font-face {
+    font-family: 'Kanit';
+    src: url(../public/fonts/Kanit/Kanit-Regular.ttf);
+  }
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+body {
+    @apply font-poppins;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-kanit;
+}
+
+.custom-p-dropdown .p-dropdown-label {
+  @apply text-sm;
+  @apply font-poppins;
+}
+
+.custom-menubar .p-menuitem-link {
+  @apply hover:bg-green-300;
+  @apply rounded;
+}
+
+
+
+
