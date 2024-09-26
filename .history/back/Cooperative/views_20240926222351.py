@@ -10,4 +10,5 @@ class ChauffeurDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chauffeur.objects.all()
     serializer_class = ChauffeurSerializer
 
+
 # Create your views here.

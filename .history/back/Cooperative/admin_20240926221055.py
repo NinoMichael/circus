@@ -8,7 +8,7 @@ class ChauffeurAdmin(admin.ModelAdmin):
     readonly_fields = ('date_creation', 'date_maj')
     fieldsets = (
         ('Informations Personnelles', {
-            'fields': ('nom_chauffeur', 'cin', 'permis', 'contact', 'img')  # img peut être éditable
+            'fields': ('nom_chauffeur', 'cin', 'permis', 'contact', 'img')
         }),
         ('Dates', {
             'fields': ('date_creation', 'date_maj'),
@@ -18,3 +18,6 @@ class ChauffeurAdmin(admin.ModelAdmin):
     ordering = ('-date_creation',)
 
 admin.site.register(Chauffeur, ChauffeurAdmin)
+
+
+# Register your models here.
