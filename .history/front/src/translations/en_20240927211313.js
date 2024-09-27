@@ -166,7 +166,6 @@ const en = {
 
     age: 'Age',
     contact: 'Phone number',
-    validate: 'Validate',
 }
 
 export default en

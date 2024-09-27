@@ -169,8 +169,7 @@ const fr = {
     addImage: "Ajouter une image",
 
     age: 'Age',
-    contact: 'Numéro de téléphone',
-    validate: 'Valider',
+
 }
 
 export default fr

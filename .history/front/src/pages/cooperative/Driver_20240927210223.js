@@ -94,7 +94,7 @@ const DriverCoop = () => {
                         <h1 className="text-xl font-semibold">{t('listDriver')}</h1>
 
                         <div className="flex justify-start">
-                            <Link to="/add-driver"><Button label={t('addDriver')} className="font-poppins text-sm" icon="pi pi-plus" /></Link>
+                            <Link to=""><Button label={t('addDriver')} className="font-poppins text-sm" icon="pi pi-plus" /></Link>
                         </div>
                     </div>
 

@@ -165,8 +165,6 @@ const en = {
     capacite: "Capacity",
 
     age: 'Age',
-    contact: 'Phone number',
-    validate: 'Validate',
 }
 
 export default en

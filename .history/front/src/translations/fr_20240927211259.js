@@ -170,7 +170,6 @@ const fr = {
 
     age: 'Age',
     contact: 'Numéro de téléphone',
-    validate: 'Valider',
 }
 
 export default fr

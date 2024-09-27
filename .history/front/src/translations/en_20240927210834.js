@@ -162,11 +162,9 @@ const en = {
     contactText: "For any questions regarding these Terms of Use or for any other request, you can contact us via Circus technical support.",
 
     matricule: "Immatriculation",
-    capacite: "Capacity",
+    capacite: "Capacity"
 
     age: 'Age',
-    contact: 'Phone number',
-    validate: 'Validate',
 }
 
 export default en
