@@ -127,7 +127,7 @@ const AddBus = () => {
                                     <span className="p-inputgroup-addon">
                                         <i className="pi pi-user"></i>
                                     </span>
-                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={drivers} optionLabel="type"
+                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={types} optionLabel="type"
                                         placeholder={t('assignDriver')} filter itemTemplate={optionAssignmentTemplate} className="custom-p-dropdown font-poppins" panelClassName="text-sm font-poppins" />
                                 </div>
                             </div>

@@ -24,11 +24,6 @@ const AddBus = () => {
         { id: '3', nom: 'Crafter' },
         { id: '4', nom: 'Karabe' },
     ]
-    const drivers = [
-        { id: '1', nom: 'Rakoto' },
-        { id: '2', nom: 'Rabe' },
-        { id: '3', nom: 'Rabary' },
-    ]
     const [imgTransport, setImgTransport] = useState(null)
 
     const [loading, setLoading] = useState(false);
@@ -84,7 +79,7 @@ const AddBus = () => {
                         <Link title="Aide"><i className="pi pi-info-circle text-xl"></i></Link>
                     </div>
 
-                    <form className="bg-white shadow-lg rounded mx-24 pb-12 mt-2">
+                    <form className="bg-white shadow-lg rounded mx-24 pb-12 -mt-6">
                         <section className="grid grid-cols-2">
                             <div>
                                 <FileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize={1000000} customUpload auto uploadHandler={onUpload} className="invisible" />
@@ -127,7 +122,7 @@ const AddBus = () => {
                                     <span className="p-inputgroup-addon">
                                         <i className="pi pi-user"></i>
                                     </span>
-                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={drivers} optionLabel="type"
+                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={types} optionLabel="type"
                                         placeholder={t('assignDriver')} filter itemTemplate={optionAssignmentTemplate} className="custom-p-dropdown font-poppins" panelClassName="text-sm font-poppins" />
                                 </div>
                             </div>

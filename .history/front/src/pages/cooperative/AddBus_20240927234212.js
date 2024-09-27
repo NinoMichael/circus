@@ -9,7 +9,6 @@ import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { FileUpload } from "primereact/fileupload"
 import { Avatar } from "primereact/avatar"
-import { Button } from "primereact/button"
 
 import "../../styles/user/menu.css"
 
@@ -23,11 +22,6 @@ const AddBus = () => {
         { id: '2', nom: 'Sprinter' },
         { id: '3', nom: 'Crafter' },
         { id: '4', nom: 'Karabe' },
-    ]
-    const drivers = [
-        { id: '1', nom: 'Rakoto' },
-        { id: '2', nom: 'Rabe' },
-        { id: '3', nom: 'Rabary' },
     ]
     const [imgTransport, setImgTransport] = useState(null)
 
@@ -84,8 +78,8 @@ const AddBus = () => {
                         <Link title="Aide"><i className="pi pi-info-circle text-xl"></i></Link>
                     </div>
 
-                    <form className="bg-white shadow-lg rounded mx-24 pb-12 mt-2">
-                        <section className="grid grid-cols-2">
+                    <form>
+                        <section className="grid grid-cols-2 mt-8">
                             <div>
                                 <FileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize={1000000} customUpload auto uploadHandler={onUpload} className="invisible" />
                                 {imgTransport ? <div className="border border-black-300 w-64 mt-12 py-2 flex mx-auto justify-center items-center">
@@ -127,7 +121,7 @@ const AddBus = () => {
                                     <span className="p-inputgroup-addon">
                                         <i className="pi pi-user"></i>
                                     </span>
-                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={drivers} optionLabel="type"
+                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={types} optionLabel="type"
                                         placeholder={t('assignDriver')} filter itemTemplate={optionAssignmentTemplate} className="custom-p-dropdown font-poppins" panelClassName="text-sm font-poppins" />
                                 </div>
                             </div>

@@ -9,7 +9,6 @@ import { InputText } from "primereact/inputtext"
 import { Dropdown } from "primereact/dropdown"
 import { FileUpload } from "primereact/fileupload"
 import { Avatar } from "primereact/avatar"
-import { Button } from "primereact/button"
 
 import "../../styles/user/menu.css"
 
@@ -23,11 +22,6 @@ const AddBus = () => {
         { id: '2', nom: 'Sprinter' },
         { id: '3', nom: 'Crafter' },
         { id: '4', nom: 'Karabe' },
-    ]
-    const drivers = [
-        { id: '1', nom: 'Rakoto' },
-        { id: '2', nom: 'Rabe' },
-        { id: '3', nom: 'Rabary' },
     ]
     const [imgTransport, setImgTransport] = useState(null)
 
@@ -84,20 +78,20 @@ const AddBus = () => {
                         <Link title="Aide"><i className="pi pi-info-circle text-xl"></i></Link>
                     </div>
 
-                    <form className="bg-white shadow-lg rounded mx-24 pb-12 mt-2">
-                        <section className="grid grid-cols-2">
-                            <div>
-                                <FileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize={1000000} customUpload auto uploadHandler={onUpload} className="invisible" />
-                                {imgTransport ? <div className="border border-black-300 w-64 mt-12 py-2 flex mx-auto justify-center items-center">
-                                    {<img src={imgTransport} alt="Transport" className="h-full" />}
-                                </div>
-                                    :
-                                    <div className="border border-dashed border-black py-20 px-12 w-64 mt-12 mx-auto flex justify-center items-center">
-                                        {<p className=" border border-dashed text-sm flex justify-center items-center m-auto cursor-pointer" onClick={() => document.querySelector('.p-fileupload-choose input').click()}><i className="pi pi-plus me-2"></i>{t('addImage')}</p>}
-                                    </div>}
+                    <section className="grid grid-cols-2 mt-8">
+                        <div>
+                            <FileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize={1000000} customUpload auto uploadHandler={onUpload} className="invisible" />
+                            {imgTransport ? <div className="border border-black-300 w-64 m-auto flex justify-center items-center">
+                                {<img src={imgTransport} alt="Transport" />}
                             </div>
+                                :
+                                <div className="border border-dashed border-black py-20 px-12 w-64 m-auto flex justify-center items-center">
+                                    {<p className=" border border-dashed text-sm flex justify-center items-center m-auto cursor-pointer" onClick={() => document.querySelector('.p-fileupload-choose input').click()}><i className="pi pi-plus me-2"></i>{t('addImage')}</p>}
+                                </div>}
+                        </div>
 
-                            <div className="w-96 text-sm">
+                        <div className="w-96 text-sm">
+                            <form>
                                 <div className="p-inputgroup flex-1 mt-10 max-[530px]:w-80 max-[530px]:text-xs max-[410px]:w-64">
                                     <span className="p-inputgroup-addon">
                                         <i className="pi pi-id-card"></i>
@@ -127,15 +121,12 @@ const AddBus = () => {
                                     <span className="p-inputgroup-addon">
                                         <i className="pi pi-user"></i>
                                     </span>
-                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={drivers} optionLabel="type"
+                                    <Dropdown value={selectedDriver} onChange={(e) => setSelectedDriver(e.value)} options={types} optionLabel="type"
                                         placeholder={t('assignDriver')} filter itemTemplate={optionAssignmentTemplate} className="custom-p-dropdown font-poppins" panelClassName="text-sm font-poppins" />
                                 </div>
-                            </div>
-                        </section >
-
-                        <Button label={t('validate')} className="py-2 px-48 text-black bg-amber-400 hover:bg-amber-500 border border-none outline outline-none flex justify-center items-center mx-auto mt-16 font-poppins shadow"
-                            icon="pi pi-check" loading={loading} onClick={load} />
-                    </form>
+                            </form>
+                        </div>
+                    </section >
                 </main >
             </motion.div >
         </>
