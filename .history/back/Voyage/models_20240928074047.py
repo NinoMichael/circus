@@ -13,12 +13,12 @@ class Axe(models.Model):
 class Ville(models.Model):
     id_ville = models.AutoField(primary_key=True)
     nom_ville = models.CharField(max_length=100)
-    axe = models.ForeignKey(Axe, on_delete=models.CASCADE)
+    id_axe = models.ForeignKey(Axe, on_delete=)
 
     class Meta:
-        verbose_name = "Ville"
+        verbose_name = "Axe"
 
     def __str__(self):
-        return self.nom_ville
+        return self.cardinal
 
 # Create your models here.

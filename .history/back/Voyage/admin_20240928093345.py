@@ -9,11 +9,11 @@ class AxeAdmin(admin.ModelAdmin):
 class VilleAdmin(admin.ModelAdmin):
     list_display = ('id_ville', 'nom_ville')
     search_fields = ('ville',)
-    list_filter = ('axe',)
+    list_filter = ('id_axe',)
     list_per_page = 15
 
     def axe_cardinal(self, obj):
-        return obj.axe
+        return obj.id_axe
     axe_cardinal.short_description = 'Axe'
 
 admin.site.register(Axe, AxeAdmin)
