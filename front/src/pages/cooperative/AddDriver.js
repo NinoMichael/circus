@@ -35,10 +35,10 @@ const AddDriver = () => {
 
         reader.onload = (e) => {
             setImgDriver(e.target.result)
-        };
+        }
 
         reader.readAsDataURL(file)
-    };
+    }
 
     const { t } = useLanguage()
 
