@@ -7,19 +7,23 @@ import { Link } from "react-router-dom"
 import { FloatLabel } from "primereact/floatlabel"
 import { InputText } from "primereact/inputtext"
 import { FileUpload } from "primereact/fileupload"
-
+import { createChauffeur } from "../../API/driverService"
 import "../../styles/user/menu.css"
 import imgUser from '../../images/icons/user.png'
 import { Avatar } from "primereact/avatar"
 import { Button } from "primereact/button"
 
 const AddDriver = () => {
-    const [nomValue, nomSetValue] = useState()
-    const [ageValue, setAgeValue] = useState()
-    const [phoneValue, setPhoneValue] = useState()
+    const [nomValue, setNomValue] = useState("")
+    const [ageValue, setAgeValue] = useState("")
+    const [phoneValue, setPhoneValue] = useState("")
     const [imgDriver, setImgDriver] = useState(null)
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
+
+    const { t } = useLanguage()
 
     const load = () => {
         setLoading(true)
@@ -27,7 +31,7 @@ const AddDriver = () => {
         setTimeout(() => {
             setLoading(false)
         }, 3000)
-    };
+    }
 
     const onUpload = (e) => {
         const file = e.files[0]
@@ -35,12 +39,38 @@ const AddDriver = () => {
 
         reader.onload = (e) => {
             setImgDriver(e.target.result)
-        };
+        }
 
         reader.readAsDataURL(file)
-    };
+    }
 
-    const { t } = useLanguage()
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setErrorMessage("")
+        setSuccessMessage("")
+
+        if (!nomValue || !ageValue || !phoneValue || !imgDriver) {
+            setErrorMessage(t('pleaseFillAllFields'))
+            setLoading(false)
+            return
+        }
+
+        const formData = new FormData()
+        formData.append('nom', nomValue)
+        formData.append('age', ageValue)
+        formData.append('phone', phoneValue)
+        formData.append('image', imgDriver)
+
+        try {
+            const response = await createChauffeur(formData)
+            setSuccessMessage(t('driverAddedSuccessfully'))
+            setLoading(false)
+        } catch (error) {
+            setErrorMessage(t('errorWhileAddingDriver'))
+            setLoading(false)
+        }
+    }
 
     return (
         <>
@@ -55,7 +85,7 @@ const AddDriver = () => {
                         <Link title="Aide"><i className="pi pi-info-circle text-xl"></i></Link>
                     </div>
 
-                    <form className="bg-white shadow-lg rounded mx-24 pb-12 mt-6">
+                    <form className="bg-white shadow-lg rounded mx-24 pb-12 mt-6" onSubmit={handleSubmit}>
                         <section className="grid grid-cols-2 mt-8">
                             <div className="flex justify-center items-center m-auto relative">
                                 <Avatar image={imgDriver || imgUser} size="xlarge" shape="circle" className="border border-black-300 p-2 w-full h-full" />
@@ -69,7 +99,7 @@ const AddDriver = () => {
                                         <i className="pi pi-user"></i>
                                     </span>
                                     <FloatLabel>
-                                        <InputText value={nomValue} onChange={(e) => nomSetValue(e.target.value)} />
+                                        <InputText value={nomValue} onChange={(e) => setNomValue(e.target.value)} />
                                         <label htmlFor="nom">{t('nameBook')}</label>
                                     </FloatLabel>
                                 </div>
@@ -93,9 +123,10 @@ const AddDriver = () => {
                                 </div>
                             </div>
                         </section >
-
+                        {errorMessage && <p className="text-red-600 text-center mt-4">{errorMessage}</p>}
+                        {successMessage && <p className="text-green-600 text-center mt-4">{successMessage}</p>}
                         <Button label={t('validate')} className="py-2 px-48 text-black bg-amber-400 hover:bg-amber-500 border border-none outline outline-none flex justify-center items-center mx-auto mt-16 font-poppins shadow"
-                            icon="pi pi-check" loading={loading} onClick={load} />
+                            icon="pi pi-check" loading={loading} />
                     </form>
 
                 </main >
