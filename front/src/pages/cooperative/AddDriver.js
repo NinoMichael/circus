@@ -68,10 +68,7 @@ const AddDriver = () => {
         formData.append('nom_chauffeur', nomValue)
         formData.append('age', ageValue)
         formData.append('contact', phoneValue)
-        formData.append('cin', '123456')
-        formData.append('permis', 'B')
-        formData.append('contact', '123456')
-        formData.append('disponibilite', true)
+
         if (imgDriver) {
             formData.append('img', imgDriver);
         }
