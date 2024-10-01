@@ -15,6 +15,8 @@ import UseConditions from './pages/user/UseConditions'
 import DriverCoop from './pages/cooperative/Driver'
 import AddBus from './pages/cooperative/AddBus'
 import AddDriver from './pages/cooperative/AddDriver'
+import ListTrip from './pages/user/listTrip';
+import DetailTrip from './pages/user/DetailTrip';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -50,6 +52,8 @@ function App() {
               <Route path="/bus-coop" element={<BusCoop />} />
               <Route path="/driver-coop" element={<DriverCoop />} />
               <Route path="/add-bus" element={<AddBus />} />
+              <Route path="/trip" element={<ListTrip />} />
+              <Route path="/detail-trip" element={<DetailTrip />} />
               <Route path="/add-driver" element={<AddDriver />} />
             </Routes>
           </BrowserRouter>
