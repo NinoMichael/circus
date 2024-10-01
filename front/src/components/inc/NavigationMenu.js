@@ -7,7 +7,7 @@ import logo from '../../images/logo/logo.png'
 import { Button } from "primereact/button"
 import { Link } from "react-router-dom"
 
-const NavigationMenu = () => {
+const NavigationMenu = ({ className }) => {
     const { language, switchLanguage, t } = useLanguage();
     const navigate = useNavigate();
 
@@ -100,7 +100,7 @@ const NavigationMenu = () => {
     );
 
     return (
-        <>
+        <div className={className}>
             <div className='max-xmd:hidden flex justify-between'>
                 <Menubar model={menuItems} className='text-white font-poppins custom-menubar' start={logoContainer} end={authBtn} />
                 {languageDropdown}
@@ -127,7 +127,7 @@ const NavigationMenu = () => {
 
                 <div> {languageDropdown} </div>
             </div>
-        </>
+        </div>
     )
 }
 
