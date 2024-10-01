@@ -32,7 +32,6 @@ const AddDriver = () => {
             setLoading(false)
         }, 3000)
     }
-
     const onUpload = (e) => {
         const file = e.files[0]
         const reader = new FileReader()
@@ -43,6 +42,15 @@ const AddDriver = () => {
 
         reader.readAsDataURL(file)
     }
+    // const onUpload = (e) => {
+    //     const file = e.files[0]
+    //     setImgDriver(file)
+
+    //     const imageURL = URL.createObjectURL(file)
+    //     setImgDriver(imageURL)
+    // }
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -50,24 +58,32 @@ const AddDriver = () => {
         setErrorMessage("")
         setSuccessMessage("")
 
-        if (!nomValue || !ageValue || !phoneValue || !imgDriver) {
+        if (!nomValue || !ageValue || !phoneValue) {
             setErrorMessage(t('pleaseFillAllFields'))
             setLoading(false)
             return
         }
 
         const formData = new FormData()
-        formData.append('nom', nomValue)
+        formData.append('nom_chauffeur', nomValue)
         formData.append('age', ageValue)
-        formData.append('phone', phoneValue)
-        formData.append('image', imgDriver)
+        formData.append('contact', phoneValue)
+        formData.append('cin', '123456')
+        formData.append('permis', 'B')
+        formData.append('contact', '123456')
+        formData.append('disponibilite', true)
+        if (imgDriver) {
+            formData.append('img', imgDriver);
+        }
+
+
 
         try {
             const response = await createChauffeur(formData)
-            setSuccessMessage(t('driverAddedSuccessfully'))
+            setSuccessMessage(t('Chauffeur ajouter'))
             setLoading(false)
         } catch (error) {
-            setErrorMessage(t('errorWhileAddingDriver'))
+            setErrorMessage(t("Erreur de l'ajout du chauffeur"))
             setLoading(false)
         }
     }
