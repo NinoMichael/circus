@@ -38,6 +38,11 @@ body {
   @apply font-poppins;
 }
 
+.custom-p-dropdown-trip .p-dropdown-label {
+  @apply text-sm;
+  @apply font-poppins;
+}
+
 .custom-menubar {
   background-color: transparent !important;
   border : none !important;

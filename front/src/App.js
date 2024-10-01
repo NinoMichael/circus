@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css'
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
@@ -15,21 +15,25 @@ import UseConditions from './pages/user/UseConditions'
 import DriverCoop from './pages/cooperative/Driver'
 import AddBus from './pages/cooperative/AddBus'
 import AddDriver from './pages/cooperative/AddDriver'
+import ListTrip from './pages/user/ListTrip'
+import LoginAdmin from './pages/admin/Login'
+import DashboardAdmin from './pages/admin/Dashboard'
+import DetailTrip from './pages/user/DetailTrip'
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const handleStart = () => setLoading(true);
-    const handleComplete = () => setLoading(false);
+    const handleStart = () => setLoading(true)
+    const handleComplete = () => setLoading(false)
 
-    window.addEventListener('beforeunload', handleStart);
-    window.addEventListener('load', handleComplete);
+    window.addEventListener('beforeunload', handleStart)
+    window.addEventListener('load', handleComplete)
 
     return () => {
-      window.removeEventListener('beforeunload', handleStart);
-      window.removeEventListener('load', handleComplete);
-    };
+      window.removeEventListener('beforeunload', handleStart)
+      window.removeEventListener('load', handleComplete)
+    }
   }, [])
 
   return (
@@ -40,23 +44,27 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route exact path="/" element={<Homepage />} />
+              <Route path="/trip" element={<ListTrip />} />
               <Route path="/login" element={<LoginUser />} />
               <Route path="/register-email" element={<RegisterEmailUser />} />
               <Route path="/register-password" element={<RegisterPassword />} />
               <Route path="/admin-coop-login" element={<LoginCoop />} />
               <Route path="/about" element={<About />} />
+              <Route path="/detail-trip" element={<DetailTrip />} />
               <Route path="/conditions-of-use" element={<UseConditions />} />
               <Route path="/dashboard-coop" element={<DashboardCoop />} />
               <Route path="/bus-coop" element={<BusCoop />} />
               <Route path="/driver-coop" element={<DriverCoop />} />
               <Route path="/add-bus" element={<AddBus />} />
               <Route path="/add-driver" element={<AddDriver />} />
+              <Route path="/login-admin" element={<LoginAdmin />} />
+              <Route path="/dashboard-admin" element={<DashboardAdmin />} />
             </Routes>
           </BrowserRouter>
         </body>
       </AnimatePresence>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

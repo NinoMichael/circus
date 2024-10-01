@@ -56,7 +56,7 @@ class SuperAdmin(models.Model):
     date_maj = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Admin Cooperative"
+        verbose_name = "Super admin"
 
     def __str__(self):
         return self.nom_admin
