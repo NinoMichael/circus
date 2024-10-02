@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Chauffeur
+from .models import Chauffeur, Transport, Cooperative
 
 class ChauffeurSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,9 +11,24 @@ class ChauffeurSerializer(serializers.ModelSerializer):
             'age',
             'permis',
             'contact',
-            'date_creation',
-            'date_maj',
             'img',
             'disponibilite'
         )
-        read_only_fields = ('date_creation', 'date_maj')  
+        read_only_fields = ('date_creation', 'date_maj')
+
+class TransportSerializer(serializers.ModelSerializer):
+    cooperative = serializers.PrimaryKeyRelatedField(queryset=Cooperative.objects.all())  
+    chauffeur = serializers.PrimaryKeyRelatedField(queryset=Chauffeur.objects.all())  
+
+    class Meta:
+        model = Transport
+        fields = (
+            'id_transport',
+            'matricule',
+            'cooperative',  
+            'capacite',
+            'chauffeur',    
+            'img',
+            'date_creation', 
+        )
+        read_only_fields = ('date_creation',)  
