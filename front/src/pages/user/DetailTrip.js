@@ -20,14 +20,38 @@ const DetailTrip = () => {
     const { t } = useLanguage()
     const [visibleDialog, setVisibleDialog] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loading2, setLoading2] = useState(false)
     const [nbreReservant, setNbreReservant] = useState()
+    const [champsReservant, setChampsReservant] = useState(false)
+    const [paymentMethod, setPaymentMethod] = useState(false)
+    const [nomReservant, setNomReservant] = useState([])
 
-    const load = () => {
+    const load = (e) => {
         setLoading(true)
-
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
+            e.preventDefault()
+            const nbre = parseInt(nbreReservant)
+            if (nbre > 0) {
+                setNomReservant(Array(nbre).fill(''))
+                setChampsReservant(true)
+            }
+        }, 1500)
+    }
+
+    const load2 = (e) => {
+        setLoading2(true)
+        setTimeout(() => {
+            setLoading(false)
+            e.preventDefault()
+            setPaymentMethod(true)
+        }, 1500)
+    }
+
+    const handleChangeNom = (index, value) => {
+        const updatedNoms = [...nomReservant]
+        updatedNoms[index] = value
+        setNomReservant(updatedNoms)
     }
 
     const tripDatas = [
@@ -64,11 +88,6 @@ const DetailTrip = () => {
             <img src={logo} alt="Logo" className="w-16 h-12" />
         </div>
     )
-
-    const footerForm = () => {
-
-    }
-
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -179,20 +198,49 @@ const DetailTrip = () => {
                     </div>
 
                     <Button label="Effectuer une réservation" className='mt-8 border border-none outline outline-none font-poppins flex justify-center items-center mx-auto text-sm px-24' onClick={() => setVisibleDialog(true)} />
-                    <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "45vh" }}
+                    <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "28rem" }}
                         onHide={() => { if (!visibleDialog) return; setVisibleDialog(false) }}>
-                        <form>
-                            <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
-                            <div className="p-inputgroup flex-1 w-96 mt-5 mx-auto items-center">
-                                <span className="p-inputgroup-addon">
-                                    <i className="pi pi-users"></i>
-                                </span>
-                                <FloatLabel>
-                                    <InputText value={nbreReservant} onChange={(e) => setNbreReservant(e.target.value)} className="h-9" />
-                                    <label htmlFor="nbreReservant" className=" font-poppins text-sm">Nombre de réservants</label>
-                                </FloatLabel>
-                            </div>
-                            <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
+                        <form className="pb-6">
+                            {!champsReservant && !paymentMethod ? (
+                                <>
+                                    <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
+                                    <div className="p-inputgroup flex-1 w-96 mt-8 mx-auto items-center">
+                                        <span className="p-inputgroup-addon">
+                                            <i className="pi pi-users"></i>
+                                        </span>
+                                        <FloatLabel>
+                                            <InputText value={nbreReservant} onChange={(e) => setNbreReservant(e.target.value)} className="h-9" />
+                                            <label htmlFor="nbreReservant" className=" font-poppins text-sm">Nombre de réservants</label>
+                                        </FloatLabel>
+                                    </div>
+                                    <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
+                                </>
+
+                            ) : !paymentMethod ? (
+                                <>
+                                    <h2 className="text-center text-lg font-kanit">Veuillez entrer le nom des réservants</h2>
+                                    <div className="overflow-x-hidden mb-8">
+                                        {nomReservant.map((nom, index) => (
+                                            <div key={index} className="p-inputgroup flex-1 w-96 mt-6 mx-auto items-center">
+                                                <span className="p-inputgroup-addon">
+                                                    <i className="pi pi-user"></i>
+                                                </span>
+                                                <FloatLabel>
+                                                    <InputText value={nom} onChange={(e) => handleChangeNom(index, e.target.value)} className="h-9 text-sm" />
+                                                    <label htmlFor={`reservant-${index}`} className="font-poppins text-xs">Nom du réservant {index + 1}</label>
+                                                </FloatLabel>
+                                            </div>
+                                        ))}</div>
+
+                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
+                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
+                                        <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load2} loading={loading2} />
+                                    </div>
+                                </>
+                            ) : (
+                                <h2 className="text-center text-lg font-kanit">Veuillez sélectionner le mode de paiement</h2>
+                            )}
+
                         </form>
                     </Dialog>
                 </div>
