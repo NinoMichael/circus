@@ -7,6 +7,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { FloatLabel } from 'primereact/floatlabel'
 import { InputText } from 'primereact/inputtext'
+import { Checkbox } from 'primereact/checkbox'
 
 import sprinter from "../../images/assets/sprinter.png"
 import besady from '../../images/assets/besady.jpg'
@@ -25,6 +26,7 @@ const DetailTrip = () => {
     const [champsReservant, setChampsReservant] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState(false)
     const [nomReservant, setNomReservant] = useState([])
+    const [checked, setChecked] = useState(false)
 
     const load = (e) => {
         setLoading(true)
@@ -52,6 +54,16 @@ const DetailTrip = () => {
         const updatedNoms = [...nomReservant]
         updatedNoms[index] = value
         setNomReservant(updatedNoms)
+    }
+
+    const hideDialog = () => {
+        setChampsReservant(false)
+        setNbreReservant()
+        setNomReservant([])
+        setLoading(false)
+        setLoading(false)
+        setPaymentMethod(false)
+        setVisibleDialog(false)
     }
 
     const tripDatas = [
@@ -199,7 +211,7 @@ const DetailTrip = () => {
 
                     <Button label="Effectuer une réservation" className='mt-8 border border-none outline outline-none font-poppins flex justify-center items-center mx-auto text-sm px-24' onClick={() => setVisibleDialog(true)} />
                     <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "28rem" }}
-                        onHide={() => { if (!visibleDialog) return; setVisibleDialog(false) }}>
+                        onHide={() => { if (!visibleDialog) return; hideDialog() }}>
                         <form className="pb-6">
                             {!champsReservant && !paymentMethod ? (
                                 <>
@@ -231,6 +243,10 @@ const DetailTrip = () => {
                                                 </FloatLabel>
                                             </div>
                                         ))}</div>
+                                    <div className="ms-32">
+                                        <Checkbox inputId="includeuser" onChange={e => setChecked(e.checked)} checked={checked} />
+                                        <label htmlFor="includeuser" className="ml-2 font-poppins text-xs cursor-pointer">Vous inclure dans la liste</label>
+                                    </div>
 
                                     <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
                                         <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
