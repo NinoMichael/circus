@@ -2,7 +2,6 @@ import React from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import { motion } from 'framer-motion'
 import NavigationMenu from '../../components/inc/NavigationMenu'
-<<<<<<< HEAD
 import { Avatar } from 'primereact/avatar'
 
 import sprinter from "../../images/assets/sprinter.png"
@@ -12,13 +11,11 @@ import line2 from '../../images/icons/line2.png'
 import busBlack from '../../images/icons/bus-black.png'
 import bus from '../../images/icons/bus.png'
 import { Button } from 'primereact/button'
-=======
->>>>>>> origin/main
+
 
 const DetailTrip = () => {
     const { t } = useLanguage()
 
-<<<<<<< HEAD
     const tripDatas = [
         {
             id: 1,
@@ -164,18 +161,6 @@ const DetailTrip = () => {
                 </div>
             </main >
         </motion.div >
-=======
-    return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <header>
-                <NavigationMenu className="custom-bg-main pb-[5vh]" />
-            </header>
-
-            <main>
-
-            </main>
-        </motion.div>
->>>>>>> origin/main
     )
 
 }
