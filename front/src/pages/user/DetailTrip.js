@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import { motion } from 'framer-motion'
 import NavigationMenu from '../../components/inc/NavigationMenu'
 import { Avatar } from 'primereact/avatar'
+import { Button } from 'primereact/button'
+import { Dialog } from 'primereact/dialog'
+import { FloatLabel } from 'primereact/floatlabel'
+import { InputText } from 'primereact/inputtext'
 
 import sprinter from "../../images/assets/sprinter.png"
 import besady from '../../images/assets/besady.jpg'
@@ -10,11 +14,21 @@ import MapWithRoute from '../../components/Map'
 import line2 from '../../images/icons/line2.png'
 import busBlack from '../../images/icons/bus-black.png'
 import bus from '../../images/icons/bus.png'
-import { Button } from 'primereact/button'
-
+import logo from '../../images/logo/logo-black.png'
 
 const DetailTrip = () => {
     const { t } = useLanguage()
+    const [visibleDialog, setVisibleDialog] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [nbreReservant, setNbreReservant] = useState()
+
+    const load = () => {
+        setLoading(true)
+
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000)
+    }
 
     const tripDatas = [
         {
@@ -44,6 +58,17 @@ const DetailTrip = () => {
             imgTransport: besady
         }
     ]
+
+    const headerForm = () => (
+        <div className="flex flex-row">
+            <img src={logo} alt="Logo" className="w-16 h-12" />
+        </div>
+    )
+
+    const footerForm = () => {
+
+    }
+
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -153,7 +178,23 @@ const DetailTrip = () => {
                         </p>
                     </div>
 
-                    <Button label="Effectuer une réservation" className='mt-8 border border-none outline outline-none font-poppins flex justify-center items-center mx-auto text-sm px-24' />
+                    <Button label="Effectuer une réservation" className='mt-8 border border-none outline outline-none font-poppins flex justify-center items-center mx-auto text-sm px-24' onClick={() => setVisibleDialog(true)} />
+                    <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "45vh" }}
+                        onHide={() => { if (!visibleDialog) return; setVisibleDialog(false) }}>
+                        <form>
+                            <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
+                            <div className="p-inputgroup flex-1 w-96 mt-5 mx-auto items-center">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-users"></i>
+                                </span>
+                                <FloatLabel>
+                                    <InputText value={nbreReservant} onChange={(e) => setNbreReservant(e.target.value)} className="h-9" />
+                                    <label htmlFor="nbreReservant" className=" font-poppins text-sm">Nombre de réservants</label>
+                                </FloatLabel>
+                            </div>
+                            <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
+                        </form>
+                    </Dialog>
                 </div>
 
                 <div className="bg-white p-2 rounded w-[23%] shadow">
