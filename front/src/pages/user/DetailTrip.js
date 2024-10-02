@@ -6,64 +6,160 @@ import { Avatar } from 'primereact/avatar'
 
 import sprinter from "../../images/assets/sprinter.png"
 import besady from '../../images/assets/besady.jpg'
+import MapWithRoute from '../../components/Map'
+import line2 from '../../images/icons/line2.png'
+import busBlack from '../../images/icons/bus-black.png'
+import bus from '../../images/icons/bus.png'
+import { Button } from 'primereact/button'
 
 const DetailTrip = () => {
     const { t } = useLanguage()
 
+    const tripDatas = [
+        {
+            id: 1,
+            cooperative: "Besady",
+            place: 4,
+            jourDepart: "Dim 29",
+            jourArrivee: "Lun 30",
+            villeDepart: "Ant",
+            villeArrivee: "Maha",
+            heureDepart: "17:00",
+            heureArrivee: "07:00",
+            matricule: "TAF 3456",
+            imgTransport: besady
+        },
+        {
+            id: 1,
+            cooperative: "Besady",
+            place: 4,
+            jourDepart: "Dim 29",
+            jourArrivee: "Lun 30",
+            villeDepart: "Ant",
+            villeArrivee: "Maha",
+            heureDepart: "17:00",
+            heureArrivee: "07:00",
+            matricule: "TAF 3456",
+            imgTransport: besady
+        }
+    ]
+
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <header>
-                <NavigationMenu className="custom-bg-main pb-[5vh]" />
+                <NavigationMenu className="custom-bg-main pb-[3vh]" />
             </header>
 
-            <main className="flex flex-row mt-8">
-                <div className="w-[25%]">
-
-                </div>
-
-                <div className="flex flex-row space-x-6 w-[50%]">
-                    <div>
-                        <img src={sprinter} alt="Transport" className="w-72 h-64 rounded" />
+            <main className="flex flex-row mt-8 mx-12">
+                <div className="w-[22%] bg-white shadow-lg rounded h-[68vh] overflow-scroll">
+                    <div className="bg-slate-900 rounded-t-lg h-12 p-3">
+                        <h3 className="text-sm text-white text-center">Suggestions pour vous</h3>
                     </div>
 
-                    <div>
-                        <div className="flex flex-row">
-                            <Avatar image={besady} shape="circle" />
-                            <p className="text-sm mt-2 ms-3">Besady</p>
+                    <section className="flex flex-col">
+                        {tripDatas.map((tripData) => (
+                            <div className="bg-white border rounded p-4 mx-3 mt-4 cursor-pointer">
+                                <div className="flex flex-row">
+                                    <Avatar image={tripData.imgTransport} alt="Transport" className='w-8 h-8' shape='circle' />
+                                    <h3 className="text-[0.7em] ms-2 font-kanit">{tripData.cooperative} <span className="font-poppins"> - {tripData.place} places restants</span></h3>
+                                </div>
+
+                                <div className="flex flex-row mt-3">
+                                    <div>
+                                        <p className="text-[0.7em]">{tripData.jourDepart}</p>
+                                        <p className="text-[0.8em] font-semibold -mt-2">{tripData.villeDepart}</p>
+                                        <p className="text-[0.7em] -mt-2">{tripData.heureDepart}</p>
+                                    </div>
+
+                                    <div className="ms-3 flex flex-row mt-1">
+                                        <img src={bus} alt="Bus" className="w-4 h-4 mt-4" />
+                                        <img src={line2} alt="Ligne" />
+                                        <img src={busBlack} alt="Bus" className="w-4 h-4 mt-4 ms-2" />
+                                    </div>
+
+                                    <div className="ms-3">
+                                        <p className="text-[0.7em] text-end">{tripData.jourArrivee}</p>
+                                        <p className="text-[0.8em] font-semibold -mt-2 text-end">{tripData.villeArrivee}</p>
+                                        <p className="text-[0.7em] -mt-2 text-end">{tripData.heureArrivee}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-row justify-between mt-4">
+                                    <p className="text-xs"><i className="pi pi-car text-xs me-2"></i>TAF 3456</p>
+                                    <Button icon="pi pi-map-marker" className="bg-amber-400 border border-none outline-none text-xs py-1 px-3 -mt-1" title="Voir carte" />
+                                </div>
+                            </div>
+                        ))}
+
+                    </section>
+                </div>
+
+                <div className="w-[50%] mx-8">
+                    <h2 className="text-2xl font-kanit">Informations détaillées</h2>
+                    <div className="flex flex-row space-x-8 mt-4">
+                        <div>
+                            <img src={sprinter} alt="Transport" className="w-80 h-64 rounded" />
                         </div>
 
-                        <section className="mt-6">
-                            <div className="flex flex-row justify-between space-x-24">
-                                <div>
-                                    <p className="text-xs text-slate-400">Départ</p>
-                                    <p className="text-sm">Antananarivo</p>
-                                    <p className="text-sm -mt-1">Gare Maki Andohatapenaka</p>
-                                    <p className="text-sm -mt-1">Ven 29 Sept, 17:00</p>
-                                </div>
-                                <div>
-                                    <p className="text-xs text-slate-400">Places disponibles</p>
-                                    <p className="text-sm">24</p>
-                                </div>
+                        <div>
+                            <div className="flex flex-row">
+                                <Avatar image={besady} shape="circle" />
+                                <p className="mt-2 ms-3 font-kanit">Besady</p>
                             </div>
-                            <div className="flex flex-row justify-between space-x-24 mt-4">
-                                <div>
-                                    <p className="text-xs text-slate-400">Transport</p>
-                                    <p className="text-sm">TAF 3456</p>
+
+                            <section className="mt-4">
+                                <div className="grid grid-cols-2">
+                                    <div>
+                                        <p className="text-xs text-slate-400">Départ</p>
+                                        <p className="text-sm">Antananarivo</p>
+                                        <p className="text-sm -mt-1">Gare Maki Andohatapenaka</p>
+                                        <p className="text-sm -mt-1">Ven 29 Sept, 17:00</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400">Arrivée</p>
+                                        <p className="text-sm">Mahajanga</p>
+                                        <p className="text-sm -mt-1">Gare Aranta Marovato</p>
+                                        <p className="text-sm -mt-1">Sam 30 Sept, 07:00</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-slate-400">Places disponibles</p>
-                                    <p className="text-sm">24</p>
+                                <div className="grid grid-cols-2 mt-6">
+                                    <div>
+                                        <p className="text-xs text-slate-400">Transport</p>
+                                        <p className="text-sm">TAF 3456</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400">Places disponibles</p>
+                                        <p className="text-sm">24</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                                <div className="grid grid-cols-2 mt-6">
+                                    <div>
+                                        <p className="text-xs text-slate-400">Chauffeur</p>
+                                        <p className="text-sm">Tantely Ny Aina</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400">Tarif</p>
+                                        <p className="text-sm">60 000 MGA</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
+
+                    <div className="mt-8">
+                        <p className='text-xs'><i className="pi pi-info-circle me-2"></i>
+                            Tout passager est invité à arriver au terminal au moins une heure avant le départ pour donner le temps de déposition des bagages et au procédure de validation de l'enregistrement
+                        </p>
+                    </div>
+
+                    <Button label="Effectuer une réservation" className='mt-8 border border-none outline outline-none font-poppins flex justify-center items-center mx-auto text-sm px-24' />
                 </div>
 
-                <div className="bg-white p-4 rounded w-[25%]">
-
+                <div className="bg-white p-2 rounded w-[23%] shadow">
+                    <MapWithRoute />
                 </div>
-            </main>
-        </motion.div>
+            </main >
+        </motion.div >
     )
 
 }

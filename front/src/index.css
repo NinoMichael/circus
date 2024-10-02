@@ -33,6 +33,11 @@ body {
   background-attachment : fixed;
 }
 
+.leaflet-routing-container {
+  display: none !important;
+}
+
+
 .custom-p-dropdown .p-dropdown-label {
   @apply text-sm;
   @apply font-poppins;
