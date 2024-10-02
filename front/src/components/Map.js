@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { MapContainer, TileLayer, useMap } from "react-leaflet"
 import L from "leaflet"
 import "leaflet-routing-machine"
@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css"
 
 const RoutingMachine = ({ start, end }) => {
     const map = useMap()
+    const [errorOccurred, setErrorOccurred] = useState(false)
 
     useEffect(() => {
         if (!map) return
@@ -21,12 +22,24 @@ const RoutingMachine = ({ start, end }) => {
             show: false,
             addWaypoints: false,
             draggableWaypoints: false,
-        }).addTo(map) // 
+        })
+
+        try {
+            routingControl.addTo(map)
+            setErrorOccurred(false)
+        } catch (error) {
+            setErrorOccurred(true)
+            console.error(error)
+        }
 
         return () => {
             map.removeControl(routingControl)
         }
     }, [map, start, end])
+
+    if (errorOccurred) {
+        return null
+    }
 
     return null
 }

@@ -13,13 +13,11 @@ import bus from "../../images/icons/bus.png"
 import line from "../../images/icons/line.png"
 import sprinter from "../../images/assets/sprinter.png"
 import besady from "../../images/assets/besady.jpg"
-import { Dialog } from 'primereact/dialog'
 
 const ListTrip = () => {
     const { t } = useLanguage()
     const [first, setFirst] = useState(0)
     const [rows, setRows] = useState(10)
-    const [visibleDialog, setVisibleDialog] = useState(false)
 
     const navigate = useNavigate()
 
