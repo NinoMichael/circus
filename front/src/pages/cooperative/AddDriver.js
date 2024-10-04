@@ -18,6 +18,7 @@ const AddDriver = () => {
     const [ageValue, setAgeValue] = useState("")
     const [phoneValue, setPhoneValue] = useState("")
     const [imgDriver, setImgDriver] = useState(null)
+    const [imgFile, setImgFile] = useState(null)
 
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
@@ -32,25 +33,19 @@ const AddDriver = () => {
             setLoading(false)
         }, 3000)
     }
+
     const onUpload = (e) => {
-        const file = e.files[0]
-        const reader = new FileReader()
+        const file = e.files[0];
 
-        reader.onload = (e) => {
-            setImgDriver(e.target.result)
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setImgDriver(event.target.result);
+            };
+            reader.readAsDataURL(file);
+            setImgFile(file);
         }
-
-        reader.readAsDataURL(file)
-    }
-    // const onUpload = (e) => {
-    //     const file = e.files[0]
-    //     setImgDriver(file)
-
-    //     const imageURL = URL.createObjectURL(file)
-    //     setImgDriver(imageURL)
-    // }
-
-
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -69,8 +64,8 @@ const AddDriver = () => {
         formData.append('age', ageValue)
         formData.append('contact', phoneValue)
 
-        if (imgDriver) {
-            formData.append('img', imgDriver);
+        if (imgFile) {
+            formData.append('img', imgFile);
         }
 
 
