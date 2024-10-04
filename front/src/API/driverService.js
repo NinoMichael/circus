@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL_CHAUFFEUR = 'http://localhost:8000/api/chauffeur/'
+const API_URL_CHAUFFEUR = 'http://localhost:8000/api/cooperative/chauffeur/'
 
 export const getChauffeurs = async () => {
     try {

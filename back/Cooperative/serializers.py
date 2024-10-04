@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Chauffeur, Transport, Cooperative
+from .models import Chauffeur, Transport, Cooperative, ContactCoop
 
 class ChauffeurSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,7 +28,24 @@ class TransportSerializer(serializers.ModelSerializer):
             'cooperative',  
             'capacite',
             'chauffeur',    
-            'img',
-            'date_creation', 
+            'img' 
         )
-        read_only_fields = ('date_creation',)  
+        read_only_fields = ('date_creation',) 
+
+class CooperativeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cooperative
+        fields = (
+            'id_cooperative',
+            'nom_cooperative',
+            'img'
+        )
+        read_only_fields = ('date_creation',)
+
+class ContactCoopSerializer(serializers.ModelSerializer):
+    cooperative = serializers.PrimaryKeyRelatedField(queryset=Cooperative.objects.all())
+    class Meta:
+        model = ContactCoop
+        fields = '__all__'
+
+
