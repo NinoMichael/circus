@@ -57,4 +57,5 @@ class Transport(models.Model):
     def __str__(self):
         return self.matricule
 
+
 # Create your models here.

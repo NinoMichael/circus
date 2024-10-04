@@ -7,7 +7,7 @@ class AxeAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 class VilleAdmin(admin.ModelAdmin):
-    list_display = ('id_ville', 'nom_ville', 'axe')
+    list_display = ('id_ville', 'nom_ville', 'axe', 'latitude', 'longitude')
     search_fields = ('ville',)
     list_filter = ('axe',)
     list_per_page = 15

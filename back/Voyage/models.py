@@ -16,6 +16,8 @@ class Ville(models.Model):
     id_ville = models.AutoField(primary_key=True)
     nom_ville = models.CharField(max_length=100)
     axe = models.ForeignKey(Axe, on_delete=models.CASCADE)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     class Meta:
         verbose_name = "Ville"
