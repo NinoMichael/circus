@@ -11,5 +11,8 @@ urlpatterns = [
     path('cooperative/', CooperativeListCreateView.as_view(), name='cooperative-list-create'),
     path('cooperative/<int:pk>/', CooperativeDetailView.as_view(), name='cooperative-detail'),
     path('contactCooperative/', ContactCoopListCreateView.as_view(), name='contactCooperative-list-create'),
-    path('contactCooperative/<int:pk>/', CooperativeDetailView.as_view(), name='contactCooperative-detail'),
+    path('contactCooperative/<int:pk>/', ContactCoopDetailView.as_view(), name='contactCooperative-detail'),
+    path('typeTransport/', TypeTransportListCreateView.as_view(), name='typeTransport-list-create'),
+    path('typeTransport/<int:pk>/', TypeTransportDetailView.as_view(), name='typeTransport-detail'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

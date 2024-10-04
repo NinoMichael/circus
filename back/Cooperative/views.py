@@ -34,4 +34,11 @@ class ContactCoopDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ContactCoop.objects.all()
     serializer_class = ContactCoopSerializer
 
-# Create your views here.
+class TypeTransportListCreateView(generics.ListCreateAPIView):
+    queryset = TypeTransport.objects.all()
+    serializer_class = TypeTransportSerializer
+
+class TypeTransportDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TypeTransport.objects.all()
+    serializer_class = TypeTransportSerializer
+

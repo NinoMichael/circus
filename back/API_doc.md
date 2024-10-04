@@ -8,7 +8,9 @@ URL : [text](http://127.0.0.1:8000/api/cooperative/transport/)
 ## API Coooperative
 URL : [text](http://127.0.0.1:8000/api/cooperative/cooperative/)
 ## API ContactCooperative
-URL : [text](http://127.0.0.1:8000/api/cooperative/contactCooperative/)      
+URL : [text](http://127.0.0.1:8000/api/cooperative/contactCooperative/)
+## API TypeTransport
+URL : [text](http://127.0.0.1:8000/api/cooperative/typeTransport/)      
            
 <!-- ====================Voyage==================== -->
 
