@@ -80,7 +80,5 @@ admin.site.register(Chauffeur, ChauffeurAdmin)
 admin.site.register(Cooperative, CooperativeAdmin)
 admin.site.register(ContactCoop, ContactCoopAdmin)
 admin.site.register(Transport, TransportAdmin)
-<<<<<<< HEAD
-=======
 admin.site.register(TypeTransport, TypeTransportAdmin)
->>>>>>> origin/main
+

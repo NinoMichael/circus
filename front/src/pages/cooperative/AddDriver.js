@@ -45,20 +45,7 @@ const AddDriver = () => {
             reader.readAsDataURL(file);
             setImgFile(file);
         }
-<<<<<<< HEAD
-
-        reader.readAsDataURL(file)
     }
-    // const onUpload = (e) => {
-    //     const file = e.files[0]
-    //     setImgDriver(file)
-
-    //     const imageURL = URL.createObjectURL(file)
-    //     setImgDriver(imageURL)
-    // }
-=======
-    };
->>>>>>> origin/main
 
     const handleSubmit = async (e) => {
         e.preventDefault()

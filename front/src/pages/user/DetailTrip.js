@@ -8,6 +8,7 @@ import { Dialog } from 'primereact/dialog'
 import { FloatLabel } from 'primereact/floatlabel'
 import { InputText } from 'primereact/inputtext'
 import { Checkbox } from 'primereact/checkbox'
+import { Divider } from 'primereact/divider'
 
 import sprinter from "../../images/assets/sprinter.png"
 import besady from '../../images/assets/besady.jpg'
@@ -16,15 +17,22 @@ import line2 from '../../images/icons/line2.png'
 import busBlack from '../../images/icons/bus-black.png'
 import bus from '../../images/icons/bus.png'
 import logo from '../../images/logo/logo-black.png'
+import airtel from "../../images/assets/airtel.png"
+import mvola from "../../images/assets/mvola.png"
+import orange from "../../images/assets/orange.png"
+import especes from "../../images/assets/wallet.png"
 
 const DetailTrip = () => {
     const { t } = useLanguage()
     const [visibleDialog, setVisibleDialog] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loading2, setLoading2] = useState(false)
+    const [loading3, setLoading3] = useState(false)
+    const [loading4, setLoading4] = useState(false)
     const [nbreReservant, setNbreReservant] = useState()
     const [champsReservant, setChampsReservant] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState(false)
+    const [summary, setSummary] = useState(false)
     const [nomReservant, setNomReservant] = useState([])
     const [checked, setChecked] = useState(false)
 
@@ -41,12 +49,53 @@ const DetailTrip = () => {
         }, 1500)
     }
 
+    const paymentDatas = [
+        {
+            id: 1,
+            intitule: "Mvola",
+            img: mvola
+        },
+        {
+            id: 2,
+            intitule: "Orange Money",
+            img: orange
+        },
+        {
+            id: 3,
+            intitule: "Airtel Money",
+            img: airtel
+        },
+        {
+            id: 4,
+            intitule: "Espèces",
+            img: especes
+        },
+    ]
+
     const load2 = (e) => {
         setLoading2(true)
         setTimeout(() => {
-            setLoading(false)
+            setLoading2(false)
             e.preventDefault()
             setPaymentMethod(true)
+        }, 1500)
+    }
+
+    const load3 = (e) => {
+        setLoading3(true)
+        setTimeout(() => {
+            setLoading3(false)
+            e.preventDefault()
+            setSummary(true)
+        }, 1500)
+    }
+
+    const load4 = (e) => {
+        setLoading4(true)
+        setTimeout(() => {
+            setLoading4(false)
+            e.preventDefault()
+            setSummary(true)
         }, 1500)
     }
 
@@ -213,7 +262,7 @@ const DetailTrip = () => {
                     <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "28rem" }}
                         onHide={() => { if (!visibleDialog) return; hideDialog() }}>
                         <form className="pb-6">
-                            {!champsReservant && !paymentMethod ? (
+                            {!champsReservant && !paymentMethod && !summary ? (
                                 <>
                                     <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
                                     <div className="p-inputgroup flex-1 w-96 mt-8 mx-auto items-center">
@@ -228,7 +277,7 @@ const DetailTrip = () => {
                                     <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
                                 </>
 
-                            ) : !paymentMethod ? (
+                            ) : !paymentMethod && !summary ? (
                                 <>
                                     <h2 className="text-center text-lg font-kanit">Veuillez entrer le nom des réservants</h2>
                                     <div className="overflow-x-hidden mb-8">
@@ -253,8 +302,70 @@ const DetailTrip = () => {
                                         <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load2} loading={loading2} />
                                     </div>
                                 </>
+                            ) : !summary ? (
+                                <>
+                                    <h2 className="text-center text-lg font-kanit">Veuillez sélectionner le mode de paiement</h2>
+                                    <div className="grid grid-cols-4 mt-6 space-x-4">
+                                        {paymentDatas.map((data) => (
+                                            <div key={data.id} className="bg-white shadow rounded p-3 h-44 cursor-pointer">
+                                                <img src={data.img} alt="PaymentMethod" className="w-32 h-28" />
+                                                <p className="text-center text-sm mt-4 font-poppins">{data.intitule}</p>
+                                            </div>
+                                        ))}
+                                    </div >
+
+                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
+                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
+                                        <Button icon="pi pi-check" label="Suivant" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load3} loading={loading3} />
+                                    </div>
+                                </>
                             ) : (
-                                <h2 className="text-center text-lg font-kanit">Veuillez sélectionner le mode de paiement</h2>
+                                <>
+                                    <h2 className="text-center text-lg font-kanit -mt-2">Détail de la réservation</h2>
+                                    <p className="text-xs font-poppins text-center mt-1">Veuillez vérifier les informations que vous avez entré pour la réservation</p>
+
+                                    <section className="mt-10 flex flex-row justify-center space-x-12 mx-6 overflow-hidden">
+                                        <div>
+                                            <h4 className="font-semibold text-sm font-poppins">Détails personnels</h4>
+                                            <div className="border rounded p-3 mt-3">
+                                                <p className="font-poppins text-xs text-slate-500 -mt-1"><i className="pi pi-users me-3 mt-2"></i>Réservants</p>
+                                                <p className="font-poppins text-sm ms-8 font-semibold">3</p>
+                                            </div>
+                                            <div className="border rounded p-3 mt-2">
+                                                <p className="font-poppins text-xs text-slate-500 -mt-1"><i className="pi pi-users me-3 mt-2"></i>Places</p>
+                                                <p className="font-poppins text-sm ms-8 font-semibold">A2, A3, B2</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-white shadow rounded w-64 overflow-hidden">
+                                            <div className="bg-slate-900 rounded-t p-2">
+                                                <h4 className="font-poppins font-semibold text-sm text-white">Paiement</h4>
+                                            </div>
+                                            <div className="px-6 py-4">
+                                                <div className="flex flex-row justify-between">
+                                                    <p className="text-slate-500 text-xs font-poppins">Moyen</p>
+                                                    <p className="font-semibold text-sm font-poppins">Mvola</p>
+                                                </div>
+                                                <div className="flex flex-row justify-between">
+                                                    <p className="text-slate-500 text-xs font-poppins">Tarif</p>
+                                                    <p className="font-semibold text-sm font-poppins">45 000 MGA</p>
+                                                </div>
+                                                <div className="flex flex-row justify-between">
+                                                    <p className="text-slate-500 text-xs font-poppins">No. tickets</p>
+                                                    <p className="font-semibold text-sm font-poppins">3</p>
+                                                </div>
+
+                                                <Divider />
+                                                <div className="flex flex-row justify-between">
+                                                    <p className="text-slate-500 text-xs font-poppins">Total à payer</p>
+                                                    <p className="font-semibold text-sm font-poppins">105 000 MGA</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <Button icon="pi pi-check" label="Payer et réserver" className="border border-none outline outline-none font-poppins text-sm flex items-center justify-center mx-auto px-20 mt-6" onClick={load4} loading={loading4} />
+                                </>
                             )}
 
                         </form>
