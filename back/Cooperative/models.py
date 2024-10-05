@@ -41,12 +41,23 @@ class Chauffeur(models.Model):
 
     def __str__(self):
         return self.nom_chauffeur
+    
+class TypeTransport(models.Model):
+    id_type = models.AutoField(primary_key=True)
+    intitule = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name = "Type Transport"
+
+    def __str__(self):
+        return self.intitule
 
 class Transport(models.Model):
     id_transport = models.AutoField(primary_key=True)
     matricule = models.CharField(max_length=10)
     cooperative = models.ForeignKey(Cooperative, on_delete=models.CASCADE)
     capacite = models.IntegerField()
+    typeTransport = models.ForeignKey(TypeTransport, on_delete=models.CASCADE)
     chauffeur = models.ForeignKey(Chauffeur, on_delete=models.CASCADE)
     img = models.ImageField(upload_to='transports/', null=True, blank=True) 
     date_creation = models.DateTimeField(default=timezone.now)
@@ -57,4 +68,4 @@ class Transport(models.Model):
     def __str__(self):
         return self.matricule
 
-# Create your models here.
+

@@ -55,7 +55,32 @@ class ChauffeurAdmin(admin.ModelAdmin):
     list_per_page = 15
     ordering = ('-date_creation',)
 
+class TransportAdmin(admin.ModelAdmin):
+    list_display = ('matricule', 'cooperative', 'capacite', 'typeTransport', 'chauffeur', 'date_creation')
+    search_fields = ('matricule', 'cooperative__nom_cooperative', 'typeTransport__intitule', 'chauffeur__nom_chauffeur')
+    list_filter = ('cooperative', 'typeTransport', 'date_creation')  
+    readonly_fields = ('date_creation',)
+    fieldsets = (
+        ('Informations du Transport', {
+            'fields': ('matricule', 'cooperative', 'capacite', 'typeTransport', 'chauffeur', 'img')  
+        }),
+        ('Dates', {
+            'fields': ('date_creation',),
+        }),
+    )
+    list_per_page = 15
+    ordering = ('-date_creation',)
+
+class TypeTransportAdmin(admin.ModelAdmin):
+    list_display = ('id_type', 'intitule')  
+    search_fields = ('intitule',)
+    list_per_page = 15
+
 admin.site.register(Chauffeur, ChauffeurAdmin)
 admin.site.register(Cooperative, CooperativeAdmin)
 admin.site.register(ContactCoop, ContactCoopAdmin)
 admin.site.register(Transport, TransportAdmin)
+<<<<<<< HEAD
+=======
+admin.site.register(TypeTransport, TypeTransportAdmin)
+>>>>>>> origin/main
