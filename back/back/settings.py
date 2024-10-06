@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import os
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -110,15 +113,10 @@ WSGI_APPLICATION = 'back.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'circus',      
-        'USER': 'jerry',        
-        'PASSWORD': 'jerry',        
-        'HOST': 'localhost',            
-        'PORT': '5432',               
-    }
+     'default': env.db('DATABASE_URL'),             
 }
+
+DEBUG = env('DEBUG', default=False)
 
 
 # Password validation

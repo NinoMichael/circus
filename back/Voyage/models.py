@@ -18,6 +18,7 @@ class Ville(models.Model):
     axe = models.ForeignKey(Axe, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    img_ville = models.ImageField(upload_to='Villes/', blank=True)
 
     class Meta:
         verbose_name = "Ville"
