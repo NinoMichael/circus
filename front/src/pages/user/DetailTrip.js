@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import { motion } from 'framer-motion'
 import NavigationMenu from '../../components/inc/NavigationMenu'
+import InputNombreReservants from '../../components/InputNbreReservants'
+import InputNomReservants from '../../components/InputNomReservants'
+import SelectionPlace from '../../components/SelectionPlace'
 import { Avatar } from 'primereact/avatar'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
-import { FloatLabel } from 'primereact/floatlabel'
-import { InputText } from 'primereact/inputtext'
-import { Checkbox } from 'primereact/checkbox'
-import { Divider } from 'primereact/divider'
 
 import sprinter from "../../images/assets/sprinter.png"
 import besady from '../../images/assets/besady.jpg'
@@ -21,6 +20,8 @@ import airtel from "../../images/assets/airtel.png"
 import mvola from "../../images/assets/mvola.png"
 import orange from "../../images/assets/orange.png"
 import especes from "../../images/assets/wallet.png"
+import SelectionPayment from '../../components/SelectionPayment'
+import SummaryDialog from '../../components/inc/SummaryDialog'
 
 const DetailTrip = () => {
     const { t } = useLanguage()
@@ -125,6 +126,9 @@ const DetailTrip = () => {
         setLoading(false)
         setLoading(false)
         setPaymentMethod(false)
+        setSummary(false)
+        setSelectedSeats(false)
+        setPlace(false)
         setVisibleDialog(false)
     }
 
@@ -157,10 +161,8 @@ const DetailTrip = () => {
         e.preventDefault()
         if (!reservedSeats.includes(seat)) {
             if (selectedSeats.includes(seat)) {
-                // Si le siège est déjà sélectionné, le retirer
                 setSelectedSeats(selectedSeats.filter((s) => s !== seat))
             } else {
-                // Ajouter le siège sélectionné
                 setSelectedSeats([...selectedSeats, seat])
             }
         }
@@ -314,155 +316,15 @@ const DetailTrip = () => {
                         onHide={() => { if (!visibleDialog) return; hideDialog() }}>
                         <form className="pb-6">
                             {!champsReservant && !place && !paymentMethod && !summary ? (
-                                <>
-                                    <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
-                                    <div className="p-inputgroup flex-1 w-96 mt-8 mx-auto items-center">
-                                        <span className="p-inputgroup-addon">
-                                            <i className="pi pi-users"></i>
-                                        </span>
-                                        <FloatLabel>
-                                            <InputText value={nbreReservant} onChange={(e) => setNbreReservant(e.target.value)} className="h-9" />
-                                            <label htmlFor="nbreReservant" className=" font-poppins text-sm">Nombre de réservants</label>
-                                        </FloatLabel>
-                                    </div>
-                                    <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
-                                </>
-
+                                <InputNombreReservants nbreReservant={nbreReservant} setNbreReservant={setNbreReservant} load={load} loading={loading} />
                             ) : !place && !paymentMethod && !summary ? (
-                                <>
-                                    <h2 className="text-center text-lg font-kanit">Veuillez entrer le nom des réservants</h2>
-                                    <div className="overflow-x-hidden mb-8">
-                                        {nomReservant.map((nom, index) => (
-                                            <div key={index} className="p-inputgroup flex-1 w-96 mt-6 mx-auto items-center">
-                                                <span className="p-inputgroup-addon">
-                                                    <i className="pi pi-user"></i>
-                                                </span>
-                                                <FloatLabel>
-                                                    <InputText value={nom} onChange={(e) => handleChangeNom(index, e.target.value)} className="h-9 text-sm" />
-                                                    <label htmlFor={`reservant-${index}`} className="font-poppins text-xs">Nom du réservant {index + 1}</label>
-                                                </FloatLabel>
-                                            </div>
-                                        ))}</div>
-                                    <div className="ms-32">
-                                        <Checkbox inputId="includeuser" onChange={e => setChecked(e.checked)} checked={checked} />
-                                        <label htmlFor="includeuser" className="ml-2 font-poppins text-xs cursor-pointer">Vous inclure dans la liste</label>
-                                    </div>
-
-                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
-                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
-                                        <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load1} loading={loading1} />
-                                    </div>
-                                </>
+                                <InputNomReservants nomReservant={nomReservant} handleChangeNom={handleChangeNom} checked={checked} setChecked={setChecked} load1={load1} loading1={loading1} />
                             ) : !paymentMethod && !summary ? (
-                                <>
-                                    <h2 className="text-center text-lg font-kanit">Veuillez choisir votre place dans le bus</h2>
-
-                                    <section className="mx-8 mt-2">
-                                        <div className="flex flex-row justify-center items-center mx-auto space-x-5">
-                                            <div className="flex flex-row space-x-2 mt-4">
-                                                <button className="p-2 h-4 w-4 bg-white border rounded"></button>
-                                                <p className="font-poppins text-xs">Disponible</p>
-                                            </div>
-                                            <div className="flex flex-row space-x-2 mt-4 rounded">
-                                                <button className="p-2 h-4 w-4 bg-slate-500"></button>
-                                                <p className="font-poppins text-xs">Occupé</p>
-                                            </div>
-                                            <div className="flex flex-row space-x-2 mt-4 rounded">
-                                                <button className="p-2 h-4 w-4 bg-amber-400"></button>
-                                                <p className="font-poppins text-xs">Selectionné</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-4 gap-x-6 gap-y-2 mt-6 mb-3 mx-12">
-                                            {seatRows.map((row) => (
-                                                row.map((seat) => (
-                                                    <Button
-                                                        key={seat}
-                                                        label={seat}
-                                                        className={`font-poppins text-sm outline-none p-2 
-                                        ${reservedSeats.includes(seat) ? 'bg-slate-400 cursor-not-allowed'
-                                                                : selectedSeats.includes(seat) ? 'bg-amber-400'
-                                                                    : 'bg-white border border-slate-300'}`}
-                                                        disabled={reservedSeats.includes(seat)}
-                                                        onClick={(e) => handleSeatClick(seat, e)}
-                                                    />
-                                                ))
-                                            ))}
-                                        </div>
-
-                                    </section>
-
-
-
-                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
-                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
-                                        <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load2} loading={loading2} />
-                                    </div>
-                                </>
+                                <SelectionPlace seatRows={seatRows} reservedSeats={reservedSeats} selectedSeats={selectedSeats} handleSeatClick={handleSeatClick} load2={load2} loading2={loading2} />
                             ) : !summary ? (
-                                <>
-                                    <h2 className="text-center text-lg font-kanit">Veuillez sélectionner le mode de paiement</h2>
-                                    <div className="grid grid-cols-4 mt-6 space-x-4">
-                                        {paymentDatas.map((data) => (
-                                            <div key={data.id} className="bg-white shadow rounded p-3 h-44 cursor-pointer">
-                                                <img src={data.img} alt="PaymentMethod" className="w-32 h-28" />
-                                                <p className="text-center text-sm mt-4 font-poppins">{data.intitule}</p>
-                                            </div>
-                                        ))}
-                                    </div >
-
-                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
-                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
-                                        <Button icon="pi pi-check" label="Suivant" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load3} loading={loading3} />
-                                    </div>
-                                </>
+                                <SelectionPayment paymentDatas={paymentDatas} load3={load3} loading3={loading3} />
                             ) : (
-                                <>
-                                    <h2 className="text-center text-lg font-kanit -mt-2">Détail de la réservation</h2>
-                                    <p className="text-xs font-poppins text-center mt-1">Veuillez vérifier les informations que vous avez entré pour la réservation</p>
-
-                                    <section className="mt-10 flex flex-row justify-center space-x-12 mx-6 overflow-hidden">
-                                        <div>
-                                            <h4 className="font-semibold text-sm font-poppins">Détails personnels</h4>
-                                            <div className="border rounded p-3 mt-3">
-                                                <p className="font-poppins text-xs text-slate-500 -mt-1"><i className="pi pi-users me-3 mt-2"></i>Réservants</p>
-                                                <p className="font-poppins text-sm ms-8 font-semibold">3</p>
-                                            </div>
-                                            <div className="border rounded p-3 mt-2">
-                                                <p className="font-poppins text-xs text-slate-500 -mt-1"><i className="pi pi-users me-3 mt-2"></i>Places</p>
-                                                <p className="font-poppins text-sm ms-8 font-semibold">A2, A3, B2</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="bg-white shadow rounded w-64 overflow-hidden">
-                                            <div className="bg-slate-900 rounded-t p-2">
-                                                <h4 className="font-poppins font-semibold text-sm text-white">Paiement</h4>
-                                            </div>
-                                            <div className="px-6 py-4">
-                                                <div className="flex flex-row justify-between">
-                                                    <p className="text-slate-500 text-xs font-poppins">Moyen</p>
-                                                    <p className="font-semibold text-sm font-poppins">Mvola</p>
-                                                </div>
-                                                <div className="flex flex-row justify-between">
-                                                    <p className="text-slate-500 text-xs font-poppins">Tarif</p>
-                                                    <p className="font-semibold text-sm font-poppins">45 000 MGA</p>
-                                                </div>
-                                                <div className="flex flex-row justify-between">
-                                                    <p className="text-slate-500 text-xs font-poppins">No. tickets</p>
-                                                    <p className="font-semibold text-sm font-poppins">3</p>
-                                                </div>
-
-                                                <Divider />
-                                                <div className="flex flex-row justify-between">
-                                                    <p className="text-slate-500 text-xs font-poppins">Total à payer</p>
-                                                    <p className="font-semibold text-sm font-poppins">105 000 MGA</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <Button icon="pi pi-check" label="Payer et réserver" className="border border-none outline outline-none font-poppins text-sm flex items-center justify-center mx-auto px-20 mt-6" onClick={load4} loading={loading4} />
-                                </>
+                                <SummaryDialog load4={load4} loading4={loading4} />
                             )}
 
                         </form>
