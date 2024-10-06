@@ -6,12 +6,12 @@ import "leaflet/dist/leaflet.css"
 
 const RoutingMachine = ({ start, end }) => {
     const map = useMap()
-    const [errorOccurred, setErrorOccurred] = useState(false)
+    const [routingControl, setRoutingControl] = useState(null)
 
     useEffect(() => {
-        if (!map) return
+        if (!map || routingControl) return
 
-        const routingControl = L.Routing.control({
+        const newRoutingControl = L.Routing.control({
             waypoints: [
                 L.latLng(start[0], start[1]),
                 L.latLng(end[0], end[1]),
@@ -22,27 +22,20 @@ const RoutingMachine = ({ start, end }) => {
             show: false,
             addWaypoints: false,
             draggableWaypoints: false,
-        })
+        });
 
-        try {
-            routingControl.addTo(map)
-            setErrorOccurred(false)
-        } catch (error) {
-            setErrorOccurred(true)
-            console.error(error)
-        }
+        newRoutingControl.addTo(map);
+        setRoutingControl(newRoutingControl)
 
         return () => {
-            map.removeControl(routingControl)
-        }
-    }, [map, start, end])
-
-    if (errorOccurred) {
-        return null
-    }
+            if (routingControl) {
+                map.removeControl(routingControl)
+            }
+        };
+    }, [map, start, end, routingControl])
 
     return null
-}
+};
 
 const MapWithRoute = () => {
     const startCity = [48.8566, 2.3522]
@@ -56,7 +49,7 @@ const MapWithRoute = () => {
             />
             <RoutingMachine start={startCity} end={endCity} />
         </MapContainer>
-    )
-}
+    );
+};
 
 export default MapWithRoute

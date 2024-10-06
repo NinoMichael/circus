@@ -29,12 +29,16 @@ const DetailTrip = () => {
     const [loading2, setLoading2] = useState(false)
     const [loading3, setLoading3] = useState(false)
     const [loading4, setLoading4] = useState(false)
+    const [loading1, setLoading1] = useState(false)
     const [nbreReservant, setNbreReservant] = useState()
     const [champsReservant, setChampsReservant] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState(false)
     const [summary, setSummary] = useState(false)
     const [nomReservant, setNomReservant] = useState([])
     const [checked, setChecked] = useState(false)
+    const [place, setPlace] = useState(false)
+    const [selectedSeats, setSelectedSeats] = useState([])
+    const [vehicleCapacity, setVehicleCapacity] = useState(20)
 
     const load = (e) => {
         setLoading(true)
@@ -46,6 +50,15 @@ const DetailTrip = () => {
                 setNomReservant(Array(nbre).fill(''))
                 setChampsReservant(true)
             }
+        }, 1500)
+    }
+
+    const load1 = (e) => {
+        setLoading1(true)
+        setTimeout(() => {
+            setLoading1(false)
+            e.preventDefault()
+            setPlace(true)
         }, 1500)
     }
 
@@ -113,6 +126,44 @@ const DetailTrip = () => {
         setLoading(false)
         setPaymentMethod(false)
         setVisibleDialog(false)
+    }
+
+    const generateSeats = (capacity) => {
+        const rows = []
+        const seatsPerRow = 4
+        const totalRows = Math.ceil(capacity / seatsPerRow)
+        let seatNumber = 1
+
+        for (let row = 0; row < totalRows; row++) {
+            const rowSeats = [];
+            for (let col = 0; col < seatsPerRow; col++) {
+                if (seatNumber <= capacity) {
+                    const seatLabel = `${Math.ceil(seatNumber / seatsPerRow)}${String.fromCharCode(64 + col + 1)}`
+                    rowSeats.push(seatLabel)
+                    seatNumber++;
+                }
+            }
+            rows.push(rowSeats)
+        }
+        return rows
+    };
+
+    const seatRows = generateSeats(vehicleCapacity);
+
+    const availableSeats = []
+    const reservedSeats = []
+
+    const handleSeatClick = (seat, e) => {
+        e.preventDefault()
+        if (!reservedSeats.includes(seat)) {
+            if (selectedSeats.includes(seat)) {
+                // Si le siège est déjà sélectionné, le retirer
+                setSelectedSeats(selectedSeats.filter((s) => s !== seat))
+            } else {
+                // Ajouter le siège sélectionné
+                setSelectedSeats([...selectedSeats, seat])
+            }
+        }
     }
 
     const tripDatas = [
@@ -262,7 +313,7 @@ const DetailTrip = () => {
                     <Dialog visible={visibleDialog} modal header={headerForm} style={{ width: "50vw", height: "28rem" }}
                         onHide={() => { if (!visibleDialog) return; hideDialog() }}>
                         <form className="pb-6">
-                            {!champsReservant && !paymentMethod && !summary ? (
+                            {!champsReservant && !place && !paymentMethod && !summary ? (
                                 <>
                                     <h2 className="text-center text-lg font-kanit">Veuillez entrer le nombre de réservants</h2>
                                     <div className="p-inputgroup flex-1 w-96 mt-8 mx-auto items-center">
@@ -277,7 +328,7 @@ const DetailTrip = () => {
                                     <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-8 flex justify-center items-center mx-auto mt-8" onClick={load} loading={loading} />
                                 </>
 
-                            ) : !paymentMethod && !summary ? (
+                            ) : !place && !paymentMethod && !summary ? (
                                 <>
                                     <h2 className="text-center text-lg font-kanit">Veuillez entrer le nom des réservants</h2>
                                     <div className="overflow-x-hidden mb-8">
@@ -296,6 +347,52 @@ const DetailTrip = () => {
                                         <Checkbox inputId="includeuser" onChange={e => setChecked(e.checked)} checked={checked} />
                                         <label htmlFor="includeuser" className="ml-2 font-poppins text-xs cursor-pointer">Vous inclure dans la liste</label>
                                     </div>
+
+                                    <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
+                                        <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
+                                        <Button icon="pi pi-check" label="Valider" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8" onClick={load1} loading={loading1} />
+                                    </div>
+                                </>
+                            ) : !paymentMethod && !summary ? (
+                                <>
+                                    <h2 className="text-center text-lg font-kanit">Veuillez choisir votre place dans le bus</h2>
+
+                                    <section className="mx-8 mt-2">
+                                        <div className="flex flex-row justify-center items-center mx-auto space-x-5">
+                                            <div className="flex flex-row space-x-2 mt-4">
+                                                <button className="p-2 h-4 w-4 bg-white border rounded"></button>
+                                                <p className="font-poppins text-xs">Disponible</p>
+                                            </div>
+                                            <div className="flex flex-row space-x-2 mt-4 rounded">
+                                                <button className="p-2 h-4 w-4 bg-slate-500"></button>
+                                                <p className="font-poppins text-xs">Occupé</p>
+                                            </div>
+                                            <div className="flex flex-row space-x-2 mt-4 rounded">
+                                                <button className="p-2 h-4 w-4 bg-amber-400"></button>
+                                                <p className="font-poppins text-xs">Selectionné</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-4 gap-x-6 gap-y-2 mt-6 mb-3 mx-12">
+                                            {seatRows.map((row) => (
+                                                row.map((seat) => (
+                                                    <Button
+                                                        key={seat}
+                                                        label={seat}
+                                                        className={`font-poppins text-sm outline-none p-2 
+                                        ${reservedSeats.includes(seat) ? 'bg-slate-400 cursor-not-allowed'
+                                                                : selectedSeats.includes(seat) ? 'bg-amber-400'
+                                                                    : 'bg-white border border-slate-300'}`}
+                                                        disabled={reservedSeats.includes(seat)}
+                                                        onClick={(e) => handleSeatClick(seat, e)}
+                                                    />
+                                                ))
+                                            ))}
+                                        </div>
+
+                                    </section>
+
+
 
                                     <div className="flex flex-row justify-center space-x-4 w-full -ms-1">
                                         <Button label="Annuler" className="border border-none outline outline-none font-poppins text-sm px-20 mt-8 bg-slate-300" />
