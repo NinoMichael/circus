@@ -19,6 +19,7 @@ import DetailTrip from './pages/user/DetailTrip'
 import ListTrip from './pages/user/ListTrip'
 import LoginAdmin from './pages/admin/Login'
 import DashboardAdmin from './pages/admin/Dashboard'
+import InfoCoop from './pages/cooperative/InfoCoop'
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
               <Route path="/add-driver" element={<AddDriver />} />
               <Route path="/login-admin" element={<LoginAdmin />} />
               <Route path="/dashboard-admin" element={<DashboardAdmin />} />
+              <Route path="/info-coop" element={<InfoCoop />} />
             </Routes>
           </BrowserRouter>
         </body>
