@@ -7,6 +7,7 @@ import { useLanguage } from "../../context/LanguageContext"
 import { Button } from "primereact/button"
 import { Tag } from "primereact/tag"
 import { Link } from "react-router-dom"
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
 import imgBus1 from '../../images/assets/sprinter.png'
 
@@ -63,6 +64,18 @@ const BusCoop = () => {
         }
     }
 
+    const deleteBus = (e) => {
+        e.preventDefault()
+        confirmDialog({
+            message: 'Etes-vous sûr de vouloir retirer ce bus?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            className: 'font-poppins text-sm',
+            acceptLabel: 'Oui',
+            rejectLabel: 'Non',
+        })
+    }
+
     const renderGridBus = (bus, index) => {
         return (
             <div className="col-12 bg-white border shadow-sm rounded" key={index}>
@@ -77,8 +90,8 @@ const BusCoop = () => {
                 </div>
 
                 <div className="flex justify-between">
-                    <Link to=""><Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" /></Link>
-                    <Link to=""><Button className="bg-white border border-none outline outline-none text-sm text-gray-600 hover:text-red-500 mx-2" icon="pi pi-trash" /></Link>
+                    <Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" />
+                    <Button onClick={deleteBus} className="bg-white border border-none outline outline-none text-sm text-gray-600 hover:text-red-500 mx-2" icon="pi pi-trash" />
                 </div>
             </div>
         )
@@ -113,6 +126,7 @@ const BusCoop = () => {
                     </div>
 
                     <DataView value={datas} listTemplate={listTemplate} />
+                    <ConfirmDialog />
                 </main>
 
             </motion.div>
