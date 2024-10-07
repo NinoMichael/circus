@@ -7,6 +7,7 @@ import { Checkbox } from "primereact/checkbox"
 import { Link } from "react-router-dom"
 import { Divider } from "primereact/divider"
 import { Carousel } from "primereact/carousel"
+import { auth, provider, signInWithPopup } from "../../utils/firebaseConfig"
 
 import NavigationMenu2 from "../../components/inc/NavigationMenu2"
 import { useLanguage } from "../../context/LanguageContext"
@@ -19,6 +20,19 @@ const LoginUser = () => {
     const [emailvalue, emailSetValue] = useState('')
     const [pwdValue, pwdSetValue] = useState('')
     const [checked, setChecked] = useState(false)
+
+    const handleGoogleSignIn = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await signInWithPopup(auth, provider)
+            console.log("MISOKATRA")
+            const user = result.user
+            console.log("Utilisateur connecté :", user)
+        } catch (error) {
+            console.error("Erreur lors de la connexion :", error)
+        }
+    }
+
 
     const textIntros = [
         { id: 1, text: t('textIntro1') },
@@ -83,7 +97,8 @@ const LoginUser = () => {
                     </div>
 
                     <div className="relative mt-4">
-                        <Button label={t('googleLogin')} className="font-poppins text-sm rounded border border-none outline outline-none px-24 max-sm:px-20 max-[530px]:text-xs max-[530px]:px-16 max-[530px]:py-3 max-[380px]:px-6" icon="pi pi-google" />
+                        <Button label={t('googleLogin')} className="font-poppins text-sm rounded border border-none outline outline-none px-24 max-sm:px-20 max-[530px]:text-xs max-[530px]:px-16 max-[530px]:py-3 max-[380px]:px-6"
+                            icon="pi pi-google" onClick={handleGoogleSignIn} />
                     </div>
 
                     <p className="text-xs mt-10 max-xs:text-[0.7em]">{t('accountYet')} <Link to="/register-email" className="font-semibold">{t('register')}</Link></p>
