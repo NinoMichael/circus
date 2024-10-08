@@ -2,3 +2,5 @@
 .history/
 
 back/.env
+
+front/src/utils/firebaseConfig.js

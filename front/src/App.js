@@ -20,6 +20,7 @@ import ListTrip from './pages/user/ListTrip'
 import LoginAdmin from './pages/admin/Login'
 import DashboardAdmin from './pages/admin/Dashboard'
 import InfoCoop from './pages/cooperative/InfoCoop'
+import TripCoop from './pages/cooperative/Trip'
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
               <Route path="/login-admin" element={<LoginAdmin />} />
               <Route path="/dashboard-admin" element={<DashboardAdmin />} />
               <Route path="/info-coop" element={<InfoCoop />} />
+              <Route path="/trip-coop" element={<TripCoop />} />
             </Routes>
           </BrowserRouter>
         </body>

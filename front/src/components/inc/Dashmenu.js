@@ -47,7 +47,8 @@ const Dashmenu = () => {
                 {
                     label: t('trip'),
                     icon: 'pi pi-compass',
-                    template: itemRenderer
+                    template: itemRenderer,
+                    url: '/trip-coop'
                 },
                 {
                     label: 'Bus',
