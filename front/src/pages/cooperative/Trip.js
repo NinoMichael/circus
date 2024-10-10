@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { useLanguage } from "../../context/LanguageContext"
 import Dashmenu from "../../components/inc/Dashmenu"
@@ -6,7 +6,6 @@ import DashHeader from "../../components/inc/DashHeader"
 import { Link } from "react-router-dom"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
-import { Dialog } from 'primereact/dialog'
 
 import sprinter from "../../images/assets/sprinter.png"
 import busBlack from "../../images/icons/bus-black.png"
@@ -14,12 +13,7 @@ import bus from "../../images/icons/bus.png"
 import line from "../../images/icons/line.png"
 
 const TripCoop = () => {
-    const [visible, setVisible] = useState(false)
     const { t } = useLanguage()
-
-    const showTemplate = (event) => {
-
-    }
 
     const plannings = [
         {
@@ -72,7 +66,8 @@ const TripCoop = () => {
                         <h1 className="text-xl font-semibold">Liste des voyages</h1>
 
                         <div className="flex justify-start">
-                            <Link to="/add-driver"><Button label="Ajouter un planning" className="font-poppins text-sm" icon="pi pi-plus" /></Link>
+                            <Link to="/list-book"><Button label="Liste des réservations" className="font-poppins text-sm border border-none outline outline-none bg-slate-900 text-white" icon="pi pi-list" /></Link>
+                            <Link to="/add-driver"><Button label="Ajouter un planning" className="font-poppins text-sm ms-3" icon="pi pi-plus" /></Link>
                             <i className="pi pi-info-circle ms-4 mt-3 cursor-pointer" title="Voir information"></i>
                         </div>
                     </div>
@@ -81,7 +76,7 @@ const TripCoop = () => {
                         <div className="ms-6 space-x-6 flex flex-row justify-start">
                             <i className="pi pi-sort-amount-up cursor-pointer"></i>
                             <i className="pi pi-sort-amount-down cursor-pointer"></i>
-                            <h4 className="text-lg font-kanit ms-10 -mt-2">20 planning</h4>
+                            <h4 className="text-lg font-kanit ms-10 -mt-2">03 planning</h4>
                         </div>
 
                         <i className="pi pi-filter cursor-pointer"></i>
@@ -103,8 +98,7 @@ const TripCoop = () => {
                                         <Button label="Carte" className="bg-slate-900 text-[0.7em] text-white rounded border-none outline-none font-poppins h-6 cursor-pointer" icon="pi pi-map-marker" />
                                         <p className="text-xs mt-1 ms-3"> - <span className="ms-2">{planning.restPlaces} places restants</span></p>
 
-                                        <ConfirmPopup group="templating" />
-                                        <Button icon="pi pi-ellipsis-v" onClick={showTemplate} className="bg-transparent border border-none outline outline-none ms-12 cursor-pointer" />
+                                        <Button icon="pi pi-ellipsis-v" className="bg-transparent border border-none outline outline-none ms-12 cursor-pointer" />
                                     </div>
 
                                     <div className="mt-8 flex flex-row w-[22rem]">
@@ -132,7 +126,6 @@ const TripCoop = () => {
                                     </div>
                                 </div>
                             </div>
-
                         ))}
                     </section>
                 </main>

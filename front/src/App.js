@@ -21,7 +21,7 @@ import LoginAdmin from './pages/admin/Login'
 import DashboardAdmin from './pages/admin/Dashboard'
 import InfoCoop from './pages/cooperative/InfoCoop'
 import TripCoop from './pages/cooperative/Trip'
-
+import ListBook from './pages/cooperative/ListBook'
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -64,6 +64,7 @@ function App() {
               <Route path="/dashboard-admin" element={<DashboardAdmin />} />
               <Route path="/info-coop" element={<InfoCoop />} />
               <Route path="/trip-coop" element={<TripCoop />} />
+              <Route path="/list-book" element={<ListBook />} />
             </Routes>
           </BrowserRouter>
         </body>

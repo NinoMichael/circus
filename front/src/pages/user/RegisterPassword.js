@@ -8,6 +8,7 @@ import { Password } from "primereact/password"
 import { Link } from "react-router-dom"
 import { Carousel } from "primereact/carousel"
 import { Dialog } from 'primereact/dialog'
+import { useNavigate } from "react-router-dom"
 
 import gare from '../../images/assets/gare.webp'
 
@@ -19,6 +20,7 @@ const RegisterPassword = () => {
     const { t } = useLanguage()
     const [loading, setLoading] = useState(false)
     const [visible, setVisible] = useState(false)
+    const navigate = useNavigate()
 
     const [userNameValue, userNameSetValue] = useState('')
     const [pwdValue, pwdSetValue] = useState('')
@@ -43,7 +45,6 @@ const RegisterPassword = () => {
         </div>
     )
 
-
     const registerAccount = (e) => {
         e.preventDefault()
         setLoading(true)
@@ -52,6 +53,10 @@ const RegisterPassword = () => {
             setLoading(false)
             setVisible(true)
         }, 5000)
+    }
+
+    const loadLogin = () => {
+        navigate('/login')
     }
 
     return (
@@ -106,8 +111,8 @@ const RegisterPassword = () => {
                     <Button icon="pi pi-check" label={t('submit')} className="bg-slate-900 text-white mt-10 font-poppins border border-none outline outline-none rounded py-2 px-36 mb-4 max-[530px]:px-24 max-[530px]:text-sm max-[410px]:px-16" onClick={registerAccount} loading={loading} />
 
                     <Dialog visible={visible} modal header={headerElement} className="w-96 h-80 p-4" onHide={() => { if (!visible) return; setVisible(false) }}>
-                        <h3 className="font-kanit text-center mt-4 text-lg">Inscription réussie</h3>
-                        <Button label="Retourner à la page de connexion" className="bg-amber-400 font-poppins text-sm px-4 py-2 border border-none outline outline-none shadow mt-6 flex justify-center items-center mx-auto" />
+                        <h3 className="font-kanit text-center mt-4 text-lg">Inscription réussie !</h3>
+                        <Button label="Retourner à la page de connexion" onClick={loadLogin} className="bg-amber-400 font-poppins text-sm px-4 py-2 border border-none outline outline-none shadow mt-6 flex justify-center items-center mx-auto" />
                     </Dialog>
                 </form>
             </main>
