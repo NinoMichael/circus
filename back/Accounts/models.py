@@ -21,7 +21,8 @@ class Client(models.Model):
         return self.email
     
     def save(self, *args, **kwargs):
-        self.mdp = make_password(self.mdp)
+        if self.mdp and not self.mdp.startswith('pbkdf2_sha256'):
+            self.mdp = make_password(self.mdp)
         super(Client, self).save(*args, **kwargs)
 
 class AdminCoop(models.Model):

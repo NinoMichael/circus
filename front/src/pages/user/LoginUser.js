@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import { Divider } from "primereact/divider"
 import { Carousel } from "primereact/carousel"
 import { auth, provider, signInWithPopup } from "../../utils/firebaseConfig"
+import login from "../../API/authService"
 
 import NavigationMenu2 from "../../components/inc/NavigationMenu2"
 import { useLanguage } from "../../context/LanguageContext"
@@ -47,6 +48,17 @@ const LoginUser = () => {
         </div>
     )
 
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const tokens = await login(emailvalue, pwdValue);
+            console.log(tokens);
+        } catch (error) {
+            setError('Email ou mot de passe incorrect');
+        }
+    };
+
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <NavigationMenu2 />
@@ -57,7 +69,7 @@ const LoginUser = () => {
                     <Carousel value={textIntros} numVisible={1} numScroll={1} itemTemplate={textIntroTemplate} circular autoplayInterval={5000} showNavigators={false} className="custom-carousel" />
                 </section>
 
-                <form className="py-3 px-5 flex flex-col justify-center items-center mx-auto max-sm:px-10 max-[530px]:px-auto max-xs:-ms-12 max-[400px]:-ms-16 max-[380px]:-ms-[4rem] max-[360px]:-ms-[5rem]">
+                <form onSubmit={handleLogin} className="py-3 px-5 flex flex-col justify-center items-center mx-auto max-sm:px-10 max-[530px]:px-auto max-xs:-ms-12 max-[400px]:-ms-16 max-[380px]:-ms-[4rem] max-[360px]:-ms-[5rem]">
                     <h1 className="text-xl font-semi text-center max-xs:text-lg">{t('loginTitle')}</h1>
                     <p className="mt-3 max-xs:text-xs max-[360px]:w-64 max-[360px]:text-center">{t('introLogin')}</p>
 

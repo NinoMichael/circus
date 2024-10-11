@@ -10,4 +10,5 @@ urlpatterns = [
     path('adminCoop/<int:pk>/', AdminCoopDetailView.as_view(), name='adminCoop-detail'),
     path('superAdmin/', SuperAdminListCreateView.as_view(), name='superAdmin-list-create'),
     path('superAdmin/<int:pk>/', SuperAdminDetailView.as_view(), name='superAdmin-detail'),
+    path('login/', ClientLoginView.as_view(), name='client-login'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
