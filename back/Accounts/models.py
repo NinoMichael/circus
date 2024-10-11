@@ -1,9 +1,8 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 
-class Client(AbstractUser):
+class Client(models.Model):
     id_client = models.AutoField(primary_key=True)
     nom_client = models.CharField(max_length=200, null=True)
     cin = models.CharField(max_length=20, unique=True, null=True)
