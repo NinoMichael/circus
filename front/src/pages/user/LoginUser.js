@@ -20,6 +20,8 @@ const LoginUser = () => {
     const [emailvalue, emailSetValue] = useState('')
     const [pwdValue, pwdSetValue] = useState('')
     const [checked, setChecked] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const handleGoogleSignIn = async (e) => {
         e.preventDefault()
@@ -32,7 +34,6 @@ const LoginUser = () => {
             console.error("Erreur lors de la connexion :", error)
         }
     }
-
 
     const textIntros = [
         { id: 1, text: t('textIntro1') },
@@ -89,7 +90,7 @@ const LoginUser = () => {
                         <Link to="/forgotten-password" className="mt-1">{t('pwdForgot')}</Link>
                     </div>
 
-                    <Button label={t('login')} className="bg-slate-900 text-white mt-10 font-poppins border border-none outline outline-none rounded py-2 px-36 max-sm:px-32 max-[530px]:text-sm max-[530px]:px-24 max-[380px]:px-16" />
+                    <Button label={t('login')} type="submit" loading={loading} className="bg-slate-900 text-white mt-10 font-poppins border border-none outline outline-none rounded py-2 px-36 max-sm:px-32 max-[530px]:text-sm max-[530px]:px-24 max-[380px]:px-16" />
 
                     <div className="relative mt-6">
                         <Divider className="w-[24rem]" />
