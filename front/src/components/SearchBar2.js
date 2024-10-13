@@ -98,55 +98,27 @@ const SearchBar2 = ({ className }) => {
                     </FloatLabel>
 
                     <FloatLabel>
-                        <Dropdown value={selectedCitiesA} onChange={(e) => setSelectedCityA(e.value)} options={cities} optionLabel="name"
+                        <Dropdown value={selectedCitiesD} onChange={(e) => setSelectedCityD(e.value)} options={cities} optionLabel="name"
                             filter valueTemplate={selectedCityTemplate} panelClassName="font-poppins text-sm" className="w-36 max-[1140px]:w-44 max-[860px]:w-36 h-10 font-poppins text-sm bg-white border border-slate-400" />
                         <label htmlFor="dd-city" className=" text-sm -mt-3"><i className="pi pi-map-marker  text-sm me-1"></i>{t('arrival')}</label>
                     </FloatLabel>
 
                     <FloatLabel>
                         <Calendar inputId="dd-date" value={date} onChange={(e) => setDate(e.value)} locale={currentLanguage}
-                            className="font-poppins text-sm w-40 max-[1140px]:w-48 max-[860px]:w-40 h-10 bg-white border-slate-400 border custom-home-calendar" />
+                            className="font-poppins text-sm w-40 max-[1140px]:w-48 max-[860px]:w-40 h-10 bg-transparent border custom-home-calendar border-slate-400" />
                         <label htmlFor="dd-date" className=" text-sm -mt-3"><i className="pi pi-calendar  text-sm me-1"></i>Date</label>
                     </FloatLabel>
 
                     <FloatLabel>
                         <Dropdown value={selectedCooperatives} onChange={(e) => setSelectedCooperative(e.value)} options={cooperatives} optionLabel="name"
-                            filter valueTemplate={selectedCooperativeTemplate} panelClassName="font-poppins text-sm" className="w-40 max-[1140px]:w-48 max-[860px]:w-40 h-10 font-poppins text-sm bg-white border border-slate-400" />
+
+                            filter valueTemplate={selectedCooperativeTemplate} panelClassName="font-poppins text-sm" className="w-40 max-[1140px]:w-48 max-[860px]:w-40 h-10 font-poppins text-sm  custom-home-dropdown bg-transparent border border-slate-400" />
+
                         <label htmlFor="dd-cooperative" className=" text-sm -mt-3"><i className="pi pi-users  text-sm me-1"></i>{t('cooperative')}</label>
                     </FloatLabel>
                 </div>
 
                 <Button icon="pi pi-search" className="h-10" />
-            </form>
-
-            <form className="xsm:hidden">
-                <div className="grid max-xsm:grid-cols-2 max-xxs:grid-cols-1 items-center justify-center mx-auto gap-y-6">
-                    <FloatLabel className="max-[520px]:ms-8 max-xxs:mx-auto">
-                        <Dropdown value={selectedCitiesD} onChange={(e) => setSelectedCityD(e.value)} options={cities} optionLabel="name"
-                            filter valueTemplate={selectedCityTemplate} panelClassName="font-poppins text-sm" className="w-52 max-[520px]:w-40 max-xxs:w-64 h-10 font-poppins text-sm  custom-home-dropdown bg-transparent border border-white" />
-                        <label htmlFor="dd-city" className=" text-sm -mt-3"><i className="pi pi-map-marker  text-sm me-1"></i> {t('departure')}</label>
-                    </FloatLabel>
-
-                    <FloatLabel className="max-xxs:mx-auto">
-                        <Dropdown value={selectedCitiesA} onChange={(e) => setSelectedCityA(e.value)} options={cities} optionLabel="name"
-                            filter valueTemplate={selectedCityTemplate} panelClassName="font-poppins text-sm" className="w-52 max-[520px]:w-40 max-xxs:w-64 h-10 font-poppins text-sm  custom-home-dropdown bg-transparent border border-white" />
-                        <label htmlFor="dd-city" className=" text-sm -mt-3"><i className="pi pi-map-marker  text-sm me-1"></i>{t('arrival')}</label>
-                    </FloatLabel>
-
-                    <FloatLabel className="max-[520px]:ms-8 max-xxs:mx-auto">
-                        <Calendar inputId="dd-date" value={date} onChange={(e) => setDate(e.value)} locale={currentLanguage}
-                            className="font-poppins text-sm w-52 max-[520px]:w-40 max-xxs:w-64 h-10 bg-transparent border border-white custom-home-calendar" />
-                        <label htmlFor="dd-date" className=" text-sm -mt-3"><i className="pi pi-calendar  text-sm me-1"></i>Date</label>
-                    </FloatLabel>
-
-                    <FloatLabel className="max-xxs:mx-auto">
-                        <Dropdown value={selectedCooperatives} onChange={(e) => setSelectedCooperative(e.value)} options={cooperatives} optionLabel="name"
-                            filter valueTemplate={selectedCooperativeTemplate} panelClassName="font-poppins text-sm" className="w-52 max-[520px]:w-40 max-xxs:w-64 h-10 font-poppins text-sm  custom-home-dropdown bg-transparent border border-white" />
-                        <label htmlFor="dd-cooperative" className=" text-sm -mt-3"><i className="pi pi-users  text-sm me-1"></i>{t('cooperative')}</label>
-                    </FloatLabel>
-                </div>
-
-                <Button label={t('searchText')} icon="pi pi-search" className="h-10 flex justify-center items-center mt-4 font-poppins mx-auto text-sm shadow rounded px-40 py-2 max-[520px]:px-24" />
             </form>
         </div>
     )

@@ -45,7 +45,7 @@ const AddDriver = () => {
             reader.readAsDataURL(file);
             setImgFile(file);
         }
-    };
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()

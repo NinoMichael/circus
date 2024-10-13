@@ -7,7 +7,7 @@ import { Avatar } from "primereact/avatar"
 import { Link } from "react-router-dom"
 
 const DashHeader = () => {
-    const {t} = useLanguage()
+    const { t } = useLanguage()
 
     return (
         <header className="flex justify-between bg-white fixed shadow-sm w-[82vw] h-[10vh] -mt-3 pt-2 pb-12 ps-6 pe-10 z-50">
@@ -17,7 +17,7 @@ const DashHeader = () => {
             </div>
 
             <form className="p-inputgroup ms-64 mt-4">
-                <InputText placeholder={t('searchText')} className="font-poppins text-xs h-8 w-48"/>
+                <InputText placeholder={t('searchText')} className="font-poppins text-xs h-8 w-48" />
                 <Button icon="pi pi-search" className="p-button-warning h-8" />
             </form>
 
@@ -26,15 +26,15 @@ const DashHeader = () => {
                     <Badge value="2" className="font-poppins"></Badge>
                 </i>
 
-                <Link className="flex space-x-3 ms-8 mt-1">
-                    <Avatar label = "M" size="large" shape="circle" className="bg-slate-900 text-white"/>
+                <Link className="flex space-x-3 ms-8 mt-1" to="/info-coop">
+                    <Avatar label="M" size="large" shape="circle" className="bg-slate-900 text-white" />
                     <div className="mt-1">
                         <h4 className="text-xs">Mirindra</h4>
                         <p className="text-sm font-kanit">Sonatra</p>
                     </div>
-                </Link>         
+                </Link>
             </div>
-            
+
         </header>
     )
 }

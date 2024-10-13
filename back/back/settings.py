@@ -13,9 +13,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import os
+import environ
+from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,6 +58,7 @@ INSTALLED_APPS = [
     'Cooperative',
     'Voyage',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +72,23 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id_client', 
+    'USER_ID_CLAIM': 'user_id',  
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'Access-Control-Allow-Origin',
@@ -110,15 +132,10 @@ WSGI_APPLICATION = 'back.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'circus',      
-        'USER': 'jerry',        
-        'PASSWORD': 'jerry',        
-        'HOST': 'localhost',            
-        'PORT': '5432',               
-    }
+     'default': env.db('DATABASE_URL'),             
 }
+
+DEBUG = env('DEBUG', default=False)
 
 
 # Password validation

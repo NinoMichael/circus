@@ -9,6 +9,7 @@ import { DataView } from "primereact/dataview"
 import { Tag } from "primereact/tag"
 import { Avatar } from "primereact/avatar"
 import { Link } from "react-router-dom"
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
 const DriverCoop = () => {
     const { t } = useLanguage()
@@ -47,6 +48,18 @@ const DriverCoop = () => {
         }
     }
 
+    const deleteDriver = (e) => {
+        e.preventDefault()
+        confirmDialog({
+            message: 'Etes-vous sûr de vouloir retirer ce chauffeur?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            className: 'font-poppins text-sm',
+            acceptLabel: 'Oui',
+            rejectLabel: 'Non',
+        })
+    }
+
     const renderGridDriver = (driver, index) => {
         return (
             <div className="col-12 bg-white border shadow-sm rounded" key={index}>
@@ -65,8 +78,8 @@ const DriverCoop = () => {
                 </div>
 
                 <div className="flex justify-between mt-6">
-                    <Link to=""><Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" /></Link>
-                    <Link to=""><Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2 hover:text-red-500" icon="pi pi-trash" /></Link>
+                    <Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" />
+                    <Button onClick={deleteDriver} className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2 hover:text-red-500" icon="pi pi-trash" />
                 </div>
             </div>
         )
@@ -99,6 +112,7 @@ const DriverCoop = () => {
                     </div>
 
                     <DataView value={dataDriver} listTemplate={listTemplate} />
+                    <ConfirmDialog />
                 </main>
             </motion.div>
         </>
