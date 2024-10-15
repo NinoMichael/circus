@@ -74,6 +74,10 @@ const AddDriver = () => {
             const response = await createChauffeur(formData)
             setSuccessMessage(t('Chauffeur ajouter'))
             setLoading(false)
+            setNomValue("")
+            setAgeValue("")
+            setPhoneValue("")
+            setImgDriver(null)
         } catch (error) {
             setErrorMessage(t("Erreur de l'ajout du chauffeur"))
             setLoading(false)

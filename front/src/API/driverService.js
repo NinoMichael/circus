@@ -21,3 +21,27 @@ export const createChauffeur = async (chauffeurData) => {
         throw error
     }
 }
+
+export const deleteChauffeur = async (id) => {
+    try {
+        const response = await axios.delete(`${API_URL_CHAUFFEUR}${id}/`)
+        return response.data
+    } catch (error) {
+        console.error("Erreur de suppression de chauffeur:", error)
+        throw error
+    }
+}
+
+
+
+export const updateDisponibiliteChauffeur = async (driverId, disponibiliteData) => {
+    try {
+        const response = await axios.patch(`${API_URL_CHAUFFEUR}${driverId}/`, disponibiliteData);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour de la disponibilité du chauffeur:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
+

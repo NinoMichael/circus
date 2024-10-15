@@ -11,13 +11,13 @@ import { FileUpload } from "primereact/fileupload";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { getTypeTransports } from "../../API/typeTransportService";
-import { getChauffeurs } from "../../API/driverService";
+import { getChauffeurs, updateDisponibiliteChauffeur } from "../../API/driverService";
 import "../../styles/user/menu.css";
 import { createTransport } from "../../API/transportService";
 
 const AddBus = () => {
-    const [nomValue, nomSetValue] = useState("");
-    const [capacityValue, capacitySetValue] = useState("");
+    const [nomValue, setNomValue] = useState("");
+    const [capacityValue, setCapacityValue] = useState("");
     const [selectedType, setSelectedType] = useState(null);
     const [selectedDriver, setSelectedDriver] = useState(null);
     const [types, setTypes] = useState([]);
@@ -86,7 +86,7 @@ const AddBus = () => {
         formData.append("capacite", capacityValue)
         formData.append("chauffeur", selectedDriver?.id)
         formData.append("cooperative", 1);
-
+        formData.append("statut", "vacant");
 
         if (imgFile) {
             formData.append("img", imgFile);
@@ -94,10 +94,24 @@ const AddBus = () => {
 
         try {
             const response = await createTransport(formData);
+            const driverData = { disponibilite: false };
+            if (selectedDriver) {
+                await updateDisponibiliteChauffeur(selectedDriver.id, driverData);
+                setSuccessMessage("Bus ajouté et disponibilité du chauffeur mise à jour");
+            } else {
+                setErrorMessage("Veuillez sélectionner un chauffeur.");
+            }
             setSuccessMessage("Bus ajouté");
-            setLoading(false);
+
+            setNomValue("")
+            setSelectedDriver("")
+            setSelectedType("")
+            setCapacityValue("")
+            setImgTransport(null)
         } catch (error) {
             setErrorMessage("Erreur lors de l'ajout du bus");
+            setLoading(false);
+        } finally {
             setLoading(false);
         }
     };
@@ -175,7 +189,7 @@ const AddBus = () => {
                                         <i className="pi pi-id-card"></i>
                                     </span>
                                     <FloatLabel>
-                                        <InputText value={nomValue} onChange={(e) => nomSetValue(e.target.value)} />
+                                        <InputText value={nomValue} onChange={(e) => setNomValue(e.target.value)} />
                                         <label htmlFor="Matricule">{t("matricule")}</label>
                                     </FloatLabel>
                                 </div>
@@ -194,7 +208,7 @@ const AddBus = () => {
                                         <i className="pi pi-users"></i>
                                     </span>
                                     <FloatLabel>
-                                        <InputText value={capacityValue} onChange={(e) => capacitySetValue(e.target.value)} />
+                                        <InputText value={capacityValue} onChange={(e) => setCapacityValue(e.target.value)} />
                                         <label htmlFor="capacite">{t("capacite")}</label>
                                     </FloatLabel>
                                 </div>

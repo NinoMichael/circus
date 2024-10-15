@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useLanguage } from '../../context/LanguageContext'
-import { getChauffeurs } from "../../API/driverService"
+import { getChauffeurs, deleteChauffeur } from "../../API/driverService"
 import { motion } from "framer-motion"
 import { Button } from "primereact/button"
 import Dashmenu from "../../components/inc/Dashmenu"
@@ -27,7 +27,6 @@ const DriverCoop = () => {
                 permis: chauffeur.permis,
                 disponibilite: chauffeur.disponibilite,
                 img: chauffeur.img,
-
             }))
             setDataDriver(datas)
         }
@@ -48,7 +47,16 @@ const DriverCoop = () => {
         }
     }
 
-    const deleteDriver = (e) => {
+    const handleDelete = async (id) => {
+        try {
+            await deleteChauffeur(id)
+            setDataDriver(dataDriver.filter(chauffeur => chauffeur.id !== id))
+        } catch (error) {
+            console.error("Erreur lors de la suppression du chauffeur:", error)
+        }
+    }
+
+    const deleteDriver = (e, id) => {
         e.preventDefault()
         confirmDialog({
             message: 'Etes-vous sûr de vouloir retirer ce chauffeur?',
@@ -57,6 +65,7 @@ const DriverCoop = () => {
             className: 'font-poppins text-sm',
             acceptLabel: 'Oui',
             rejectLabel: 'Non',
+            accept: () => handleDelete(id)
         })
     }
 
@@ -79,7 +88,7 @@ const DriverCoop = () => {
 
                 <div className="flex justify-between mt-6">
                     <Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" />
-                    <Button onClick={deleteDriver} className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2 hover:text-red-500" icon="pi pi-trash" />
+                    <Button onClick={(e) => deleteDriver(e, driver.id)} className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2 hover:text-red-500" icon="pi pi-trash" />
                 </div>
             </div>
         )

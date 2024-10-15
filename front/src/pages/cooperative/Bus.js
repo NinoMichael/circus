@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import DashHeader from "../../components/inc/DashHeader"
 import Dashmenu from "../../components/inc/Dashmenu"
 import { motion } from "framer-motion"
@@ -10,43 +10,29 @@ import { Link } from "react-router-dom"
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
 import imgBus1 from '../../images/assets/sprinter.png'
+import { getTransports } from "../../API/transportService"
 
 const BusCoop = () => {
     const { t } = useLanguage()
+    const [dataBus, setDataBus] = useState([])
 
-    const datas = [
-        {
-            id: 1,
-            matricule: 'TAF 1234',
-            chauffeur: 'Tantely',
-            statut: t('available'),
-            voyage: 'Antananarivo - Mahajanga',
-            img: imgBus1,
-        },
-        {
-            id: 1,
-            matricule: 'TAF 1234',
-            chauffeur: 'Tantely',
-            statut: 'Vacant',
-            img: imgBus1,
-
-        },
-        {
-            id: 1,
-            matricule: 'TAF 1234',
-            chauffeur: 'Tantely',
-            statut: t('repair'),
-            img: imgBus1,
-
-        },
-        {
-            id: 1,
-            matricule: 'TAF 1234',
-            chauffeur: 'Tantely',
-            statut: 'Vacant',
-            img: imgBus1,
+    useEffect(() => {
+        const fetchTransports = async () => {
+            const response = await getTransports()
+            console.log(response);
+            const datas = response.map(transport => ({
+                id: transport.id_transport,
+                matricule: transport.matricule,
+                transport: transport.chauffeur.nom_chauffeur,
+                statut: t(transport.statut.intitule_statut_bus),
+                img: transport.img,
+            }))
+            setDataBus(datas)
         }
-    ]
+
+        fetchTransports()
+    }, [])
+
 
     const getSeverity = (data) => {
         switch (data.statut) {
@@ -63,6 +49,7 @@ const BusCoop = () => {
                 return null
         }
     }
+
 
     const deleteBus = (e) => {
         e.preventDefault()
@@ -86,7 +73,7 @@ const BusCoop = () => {
 
                 <div className="p-4">
                     <h4 className="font-poppins text-black text-xs"><i className="pi pi-car me-2"></i>{bus.matricule}</h4>
-                    <p className="font-poppins text-black text-xs font-thin"><i className="pi pi-user me-2"></i>{bus.chauffeur}</p>
+                    <p className="font-poppins text-black text-xs font-thin"><i className="pi pi-user me-2"></i>{bus.transport}</p>
                 </div>
 
                 <div className="flex justify-between">
@@ -125,7 +112,7 @@ const BusCoop = () => {
                         </div>
                     </div>
 
-                    <DataView value={datas} listTemplate={listTemplate} />
+                    <DataView value={dataBus} listTemplate={listTemplate} />
                     <ConfirmDialog />
                 </main>
 

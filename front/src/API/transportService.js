@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const API_URL_TRANSPORT = 'http://localhost:8000/api/cooperative/transport/'
 
-export const getTransport = async () => {
+export const getTransports = async () => {
     try {
         const response = await axios.get(API_URL_TRANSPORT)
         return response.data

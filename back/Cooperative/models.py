@@ -51,6 +51,16 @@ class TypeTransport(models.Model):
 
     def __str__(self):
         return self.intitule
+    
+class StatutTransport(models.Model):
+    id_statut_bus = models.AutoField(primary_key=True)
+    intitule_statut_bus = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = "Statut Transport"
+
+    def __str__(self):
+        return self.intitule_statut_bus
 
 class Transport(models.Model):
     id_transport = models.AutoField(primary_key=True)
@@ -59,6 +69,7 @@ class Transport(models.Model):
     capacite = models.IntegerField()
     typeTransport = models.ForeignKey(TypeTransport, on_delete=models.CASCADE)
     chauffeur = models.ForeignKey(Chauffeur, on_delete=models.CASCADE)
+    statut = models.ForeignKey(StatutTransport, on_delete=models.CASCADE)
     img = models.ImageField(upload_to='transports/', null=True, blank=True) 
     date_creation = models.DateTimeField(default=timezone.now)
 

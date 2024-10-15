@@ -42,3 +42,13 @@ class TypeTransportDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TypeTransport.objects.all()
     serializer_class = TypeTransportSerializer
 
+class StatutTransportListCreateView(generics.ListCreateAPIView):
+    queryset = StatutTransport.objects.all()
+    serializer_class = StatutTransportSerializer
+
+class StatutTransportDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = StatutTransport.objects.all()
+    serializer_class = StatutTransportSerializer
+
+
+
