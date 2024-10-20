@@ -50,8 +50,10 @@ class StatutTransportSerializer(serializers.ModelSerializer):
 
 class TransportSerializer(serializers.ModelSerializer):
     cooperative = serializers.PrimaryKeyRelatedField(queryset=Cooperative.objects.all())
-    chauffeur = ChauffeurSerializer()
-    statut = StatutTransportSerializer()
+    chauffeur = serializers.PrimaryKeyRelatedField(queryset=Chauffeur.objects.all())
+    nom_chauffeur = serializers.SerializerMethodField()
+    statut = serializers.PrimaryKeyRelatedField(queryset=StatutTransport.objects.all())
+    intitule_statut_bus = serializers.SerializerMethodField()
     typeTransport = serializers.PrimaryKeyRelatedField(queryset=TypeTransport.objects.all())
 
     class Meta:
@@ -62,8 +64,15 @@ class TransportSerializer(serializers.ModelSerializer):
             'cooperative',
             'capacite',
             'typeTransport',
-            'chauffeur',  
+            'chauffeur',
+            'nom_chauffeur',  
             'img',
-            'statut'
+            'statut',
+            'intitule_statut_bus'
         )
         read_only_fields = ('date_creation',)
+
+    def get_nom_chauffeur(self, obj):
+        return obj.chauffeur.nom_chauffeur if obj.chauffeur else None
+    def get_intitule_statut_bus(self, obj):
+        return obj.statut.intitule_statut_bus if obj.statut else None

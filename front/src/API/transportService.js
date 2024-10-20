@@ -21,3 +21,13 @@ export const createTransport = async (transportData) => {
         throw error
     }
 }
+
+export const deleteTransport = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8000/api/cooperative/transport/${id}/`);
+        return response;
+    } catch (error) {
+        console.error("Erreur de suppression de bus:", error);
+        throw error;
+    }
+};

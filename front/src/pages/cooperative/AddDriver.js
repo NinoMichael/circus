@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import Dashmenu from "../../components/inc/Dashmenu"
 import DashHeader from "../../components/inc/DashHeader"
 import { motion } from "framer-motion"
@@ -12,6 +12,7 @@ import "../../styles/user/menu.css"
 import imgUser from '../../images/icons/user.png'
 import { Avatar } from "primereact/avatar"
 import { Button } from "primereact/button"
+import { Messages } from 'primereact/messages';
 
 const AddDriver = () => {
     const [nomValue, setNomValue] = useState("")
@@ -23,6 +24,8 @@ const AddDriver = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
+
+    const msgs = useRef(null);
 
     const { t } = useLanguage()
 
@@ -54,7 +57,9 @@ const AddDriver = () => {
         setSuccessMessage("")
 
         if (!nomValue || !ageValue || !phoneValue) {
-            setErrorMessage(t('pleaseFillAllFields'))
+            msgs.current.show([
+                { sticky: true, life: 4000, severity: 'error', detail: "Veuillez remplir tout les champs", closable: false }
+            ]);
             setLoading(false)
             return
         }
@@ -72,14 +77,18 @@ const AddDriver = () => {
 
         try {
             const response = await createChauffeur(formData)
-            setSuccessMessage(t('Chauffeur ajouter'))
+            msgs.current.show([
+                { sticky: true, severity: 'success', detail: 'Chauffeur ajouter !' },
+            ]);
             setLoading(false)
             setNomValue("")
             setAgeValue("")
             setPhoneValue("")
             setImgDriver(null)
         } catch (error) {
-            setErrorMessage(t("Erreur de l'ajout du chauffeur"))
+            msgs.current.show([
+                { sticky: true, life: 4000, severity: 'error', detail: "Erreur de l'ajout du chauffeur", closable: false }
+            ]);
             setLoading(false)
         }
     }
@@ -135,10 +144,11 @@ const AddDriver = () => {
                                 </div>
                             </div>
                         </section >
-                        {errorMessage && <p className="text-red-600 text-center mt-4">{errorMessage}</p>}
-                        {successMessage && <p className="text-green-600 text-center mt-4">{successMessage}</p>}
                         <Button label={t('validate')} className="py-2 px-48 text-black bg-amber-400 hover:bg-amber-500 border border-none outline outline-none flex justify-center items-center mx-auto mt-16 font-poppins shadow"
                             icon="pi pi-check" loading={loading} />
+                        <div className="fixed bottom-0 right-0 m-4">
+                            <Messages ref={msgs} />
+                        </div>
                     </form>
 
                 </main >

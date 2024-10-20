@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Dashmenu from "../../components/inc/Dashmenu";
 import DashHeader from "../../components/inc/DashHeader";
 import { motion } from "framer-motion";
@@ -14,6 +14,7 @@ import { getTypeTransports } from "../../API/typeTransportService";
 import { getChauffeurs, updateDisponibiliteChauffeur } from "../../API/driverService";
 import "../../styles/user/menu.css";
 import { createTransport } from "../../API/transportService";
+import { Messages } from 'primereact/messages';
 
 const AddBus = () => {
     const [nomValue, setNomValue] = useState("");
@@ -27,6 +28,8 @@ const AddBus = () => {
     const [imgFile, setImgFile] = useState(null);
     const [imgTransport, setImgTransport] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const msgs = useRef(null);
 
     const { t } = useLanguage();
 
@@ -71,11 +74,13 @@ const AddBus = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        setErrorMessage("")
-        setSuccessMessage("")
+        msgs.current.clear();
+
 
         if (!nomValue || !selectedType || !capacityValue || !selectedDriver) {
-            setErrorMessage("Veuillez remplir tout les champs");
+            msgs.current.show([
+                { sticky: true, life: 4000, severity: 'error', detail: "Veuillez remplir tout les champs", closable: false }
+            ]);
             setLoading(false);
             return;
         }
@@ -86,7 +91,7 @@ const AddBus = () => {
         formData.append("capacite", capacityValue)
         formData.append("chauffeur", selectedDriver?.id)
         formData.append("cooperative", 1);
-        formData.append("statut", "vacant");
+        formData.append("statut", 3);
 
         if (imgFile) {
             formData.append("img", imgFile);
@@ -97,11 +102,14 @@ const AddBus = () => {
             const driverData = { disponibilite: false };
             if (selectedDriver) {
                 await updateDisponibiliteChauffeur(selectedDriver.id, driverData);
-                setSuccessMessage("Bus ajouté et disponibilité du chauffeur mise à jour");
             } else {
-                setErrorMessage("Veuillez sélectionner un chauffeur.");
+                msgs.current.show([
+                    { sticky: true, life: 4000, severity: 'error', detail: "Veuillez sélectionner un chauffeur ", closable: false }
+                ]);
             }
-            setSuccessMessage("Bus ajouté");
+            msgs.current.show([
+                { sticky: true, severity: 'success', detail: 'Bus ajouter !' },
+            ]);
 
             setNomValue("")
             setSelectedDriver("")
@@ -109,7 +117,9 @@ const AddBus = () => {
             setCapacityValue("")
             setImgTransport(null)
         } catch (error) {
-            setErrorMessage("Erreur lors de l'ajout du bus");
+            msgs.current.show([
+                { sticky: true, life: 4000, severity: 'error', detail: "Erreur de l'ajout du bus", closable: false }
+            ]);
             setLoading(false);
         } finally {
             setLoading(false);
@@ -223,12 +233,12 @@ const AddBus = () => {
                                 </div>
                             </div>
                         </section>
-
-                        {errorMessage && <p className="text-red-600 text-center mt-4">{errorMessage}</p>}
-                        {successMessage && <p className="text-green-600 text-center mt-4">{successMessage}</p>}
-
-                        <Button type="submit" label={t("validate")} className="py-2 px-48 text-black bg-amber-400 hover:bg-amber-500 border border-none outline outline-none flex justify-center items-center mx-auto mt-16 font-poppins shadow" icon="pi pi-check" loading={loading}
+                        <Button type="submit" label={t("validate")} className="py-2 px-48 text-black bg-amber-400 hover:bg-amber-500 border border-none outline outline-none flex justify-center items-center mx-auto mt-10 font-poppins shadow" icon="pi pi-check" loading={loading}
                         />
+                        <div className="fixed bottom-0 right-0 m-4">
+                            <Messages ref={msgs} />
+                        </div>
+
                     </form>
                 </main>
             </motion.div>

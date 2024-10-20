@@ -8,9 +8,7 @@ import { Button } from "primereact/button"
 import { Tag } from "primereact/tag"
 import { Link } from "react-router-dom"
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
-
-import imgBus1 from '../../images/assets/sprinter.png'
-import { getTransports } from "../../API/transportService"
+import { getTransports, deleteTransport } from "../../API/transportService"
 
 const BusCoop = () => {
     const { t } = useLanguage()
@@ -23,8 +21,8 @@ const BusCoop = () => {
             const datas = response.map(transport => ({
                 id: transport.id_transport,
                 matricule: transport.matricule,
-                transport: transport.chauffeur.nom_chauffeur,
-                statut: t(transport.statut.intitule_statut_bus),
+                transport: transport.nom_chauffeur,
+                statut: t(transport.intitule_statut_bus),
                 img: transport.img,
             }))
             setDataBus(datas)
@@ -50,8 +48,15 @@ const BusCoop = () => {
         }
     }
 
-
-    const deleteBus = (e) => {
+    const handleDeleteBus = async (id) => {
+        try {
+            await deleteTransport(id)
+            setDataBus(dataBus.filter(transport => transport.id !== id))
+        } catch (error) {
+            console.error("Erreur lors de la suppression du bus", error)
+        }
+    }
+    const deleteBus = (e, id) => {
         e.preventDefault()
         confirmDialog({
             message: 'Etes-vous sûr de vouloir retirer ce bus?',
@@ -60,6 +65,7 @@ const BusCoop = () => {
             className: 'font-poppins text-sm',
             acceptLabel: 'Oui',
             rejectLabel: 'Non',
+            accept: () => handleDeleteBus(id)
         })
     }
 
@@ -78,7 +84,11 @@ const BusCoop = () => {
 
                 <div className="flex justify-between">
                     <Button className="bg-white border border-none outline outline-none text-sm text-gray-600 mx-2" icon="pi pi-pen-to-square" />
-                    <Button onClick={deleteBus} className="bg-white border border-none outline outline-none text-sm text-gray-600 hover:text-red-500 mx-2" icon="pi pi-trash" />
+                    <Button
+                        onClick={(e) => deleteBus(e, bus.id)}
+                        className="bg-white border border-none outline outline-none text-sm text-gray-600 hover:text-red-500 mx-2"
+                        icon="pi pi-trash"
+                    />
                 </div>
             </div>
         )
