@@ -1,2 +1,2 @@
-# circus
-Circus is a web application for regional travel booking in Madagascar
+# Circus
+Web application for regional bus travel booking in Madagascar
