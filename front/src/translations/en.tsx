@@ -11,6 +11,16 @@ const en = {
     forgottenPassword: 'Forgotten password ?',
     dontHave: 'Don\'t have an account yet ?',
     googleLogin: 'Continue with Google',
+
+    registration: 'Registration',
+    pleaseFill: 'Please fill in the information below to create an account',
+    phoneNumber: 'Phone number',
+    confirmPassword: 'Confirm password',
+    iAgree: 'I agree to the',
+    terms: 'terms',
+    and: 'and',
+    conditions: 'conditions',
+    alreadyHave: 'Already have an account ?',
 }
 
 export default en

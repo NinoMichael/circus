@@ -13,7 +13,7 @@ const Login = () => {
     const [ remembered, setRemembered ] = useState(false)
 
     return (
-        <form className="md:-mt-4 flex flex-col justify-center mx-auto items-center">
+        <form className="md:-mt-8 flex flex-col justify-center mx-auto items-center">
             <h2 className="font-semibold text-2xl font-rubik">
                 { t('welcomeBack') }
             </h2>
