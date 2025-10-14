@@ -7,5 +7,13 @@
 }
 
 body {
-   @apply font-nunito text-sm;
+   @apply font-nunito !text-gray-800 text-sm md:text-base;
+}
+
+.p-button {
+  @apply !font-nunito !text-sm md:!text-base !bg-transparent !border-none;
+}
+
+.p-inputtext {
+  @apply !font-nunito !text-sm md:!text-base !bg-transparent !rounded-md;
 }
