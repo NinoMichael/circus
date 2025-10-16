@@ -7,13 +7,25 @@ import { Checkbox } from 'primereact/checkbox'
 import { Button } from 'primereact/button'
 import { Link } from 'react-router-dom'
 import { useLanguage } from "../../context/LanguageContext"
+import useApi from '../../hooks/useApi'
+import { AuthService } from '../../services/authService'
+import type { LoginData } from '../../lib/types'
 
 const Login = () => {
     const { t } = useLanguage()
+    const [ email, setEmail ] = useState("")
+    const [ password, setPassword ] = useState("")
     const [ remembered, setRemembered ] = useState(false)
 
+    const { mutate: execute, data, loading, error } = useApi<Partial<LoginData>, LoginData>(AuthService.login, {
+        manual: true,
+    });
+
     return (
-        <form className="md:-mt-8 flex flex-col justify-center mx-auto items-center">
+        <form 
+            className="md:-mt-8 flex flex-col justify-center mx-auto items-center"
+            onSubmit={}
+        >
             <h2 className="font-semibold text-2xl font-rubik">
                 { t('welcomeBack') }
             </h2>
@@ -23,7 +35,9 @@ const Login = () => {
 
             <IconField iconPosition="left" className='!mt-8'>
                 <InputIcon className="pi pi-envelope !ml-2"> </InputIcon>
-                <InputText 
+                <InputText
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
                     placeholder={t('emailAddress')}
                     className='!w-72 lg:!w-96 !pl-11' 
                 />
@@ -31,7 +45,9 @@ const Login = () => {
 
             <IconField iconPosition="left" className='!mt-6'>
                 <InputIcon className="pi pi-lock !ml-2"> </InputIcon>
-                <InputText 
+                <InputText
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
                     placeholder={t('password')}
                     type="password"
                     className='!w-72 lg:!w-96 !pl-11' 
@@ -57,6 +73,7 @@ const Login = () => {
 
             <Button 
                 label={t('login')}
+                type="submit"
                 className='!bg-amber-400 hover:!bg-amber-300 !font-bold !mt-10 !w-72 lg:!w-96 !rounded-md'
             />
 
