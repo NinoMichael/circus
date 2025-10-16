@@ -1,18 +1,59 @@
 import { IconField } from 'primereact/iconfield'
 import { InputIcon } from 'primereact/inputicon'
 import { InputText } from 'primereact/inputtext'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { Toast } from 'primereact/toast'
 import { Checkbox } from 'primereact/checkbox'
 import { Button } from 'primereact/button'
 import { Link } from 'react-router-dom'
 import { useLanguage } from "../../context/LanguageContext"
+import useAuth from '../../hooks/useAuth'
 
 const Register = () => {
     const { t } = useLanguage()
     const [ checked, setChecked ] = useState(false)
+    const [ email, setEmail ] = useState('')
+    const [ contact, setContact ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ confirm_password, setConfirmPassword ] = useState('')
+    const { register, loading, error } = useAuth()
+    const toast = useRef<Toast>(null)
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const data = await register({ 
+            email,
+            password,
+            contact,
+            confirm_password,
+            role: 'passenger', 
+        })
+
+        if (data) {
+            toast.current?.show({
+                severity: 'success',
+                summary: 'Succès',
+                detail: data.message,
+                life: 3000,
+            })
+        }
+
+        if (error) {
+            toast.current?.show({
+                severity: 'error',
+                summary: 'Erreur',
+                detail: error,
+                life: 3000,
+            })
+        }
+    }
 
     return (
-        <form className="md:-mt-4 flex flex-col justify-center mx-auto items-center">
+        <form 
+            className="md:-mt-4 flex flex-col justify-center mx-auto items-center"
+            onSubmit={handleSubmit}
+        >
             <h2 className="font-semibold text-2xl font-rubik">
                 { t('registration') }
             </h2>
@@ -22,7 +63,9 @@ const Register = () => {
 
             <IconField iconPosition="left" className='!mt-6'>
                 <InputIcon className="pi pi-envelope !ml-2"> </InputIcon>
-                <InputText 
+                <InputText
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder={t('emailAddress')}
                     className='!w-72 lg:!w-96 !pl-11' 
                 />
@@ -31,6 +74,8 @@ const Register = () => {
             <IconField iconPosition="left" className='!mt-6'>
                 <InputIcon className="pi pi-phone !ml-2"> </InputIcon>
                 <InputText 
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
                     placeholder={t('phoneNumber')}
                     className='!w-72 lg:!w-96 !pl-11' 
                 />
@@ -38,7 +83,9 @@ const Register = () => {
 
             <IconField iconPosition="left" className='!mt-6'>
                 <InputIcon className="pi pi-lock !ml-2"> </InputIcon>
-                <InputText 
+                <InputText
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
                     placeholder={t('password')}
                     type="password"
                     className='!w-72 lg:!w-96 !pl-11' 
@@ -47,7 +94,9 @@ const Register = () => {
 
             <IconField iconPosition="left" className='!mt-6'>
                 <InputIcon className="pi pi-lock !ml-2"> </InputIcon>
-                <InputText 
+                <InputText
+                    value={confirm_password}
+                    onChange={(e) => setConfirmPassword(e.target.value)} 
                     placeholder={t('confirmPassword')}
                     type="password"
                     className='!w-72 lg:!w-96 !pl-11' 
@@ -83,6 +132,8 @@ const Register = () => {
 
             <Button 
                 label={t('register')}
+                type='submit'
+                loading={loading}
                 className='!bg-amber-400 hover:!bg-amber-300 !font-bold !mt-10 !w-72 lg:!w-96 !rounded-md'
             />
 

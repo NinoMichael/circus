@@ -2,29 +2,45 @@
 import { IconField } from 'primereact/iconfield'
 import { InputIcon } from 'primereact/inputicon'
 import { InputText } from 'primereact/inputtext'
-import { useState } from 'react'
+import { Toast } from 'primereact/toast'
+import { useState, useRef } from 'react'
 import { Checkbox } from 'primereact/checkbox'
 import { Button } from 'primereact/button'
 import { Link } from 'react-router-dom'
 import { useLanguage } from "../../context/LanguageContext"
-import useApi from '../../hooks/useApi'
-import { AuthService } from '../../services/authService'
-import type { LoginData } from '../../lib/types'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
     const { t } = useLanguage()
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
     const [ remembered, setRemembered ] = useState(false)
+    const { login, loading, error } = useAuth()
+    const toast = useRef<Toast>(null)
 
-    const { mutate: execute, data, loading, error } = useApi<Partial<LoginData>, LoginData>(AuthService.login, {
-        manual: true,
-    });
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const data = await login({ email, password })
+
+        if (data) {
+            console.log("Login successful:", data)
+        }
+
+        if (error) {
+            toast.current?.show({
+                severity: 'error',
+                summary: 'Erreur',
+                detail: error,
+                life: 3000,
+            })
+        }
+    }
 
     return (
         <form 
             className="md:-mt-8 flex flex-col justify-center mx-auto items-center"
-            onSubmit={}
+            onSubmit={handleSubmit}
         >
             <h2 className="font-semibold text-2xl font-rubik">
                 { t('welcomeBack') }
@@ -74,6 +90,7 @@ const Login = () => {
             <Button 
                 label={t('login')}
                 type="submit"
+                loading={loading}
                 className='!bg-amber-400 hover:!bg-amber-300 !font-bold !mt-10 !w-72 lg:!w-96 !rounded-md'
             />
 
@@ -99,6 +116,11 @@ const Login = () => {
                     { t('register') }
                 </Link>
             </p>
+
+            <Toast 
+                ref={toast} 
+                className='!bg-white !shadow'
+            />
         </form>
     )
 }

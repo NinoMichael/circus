@@ -1,12 +1,8 @@
-export interface LoginData {
-    email: string;
-    password: string;
-}
-
-export interface RegisterData {
+export interface user {
+    id: number;
     email: string;
     role: string;
     contact: string;
-    password: string;
-    password_confirmation: string;
+    created_at: string;
+    updated_at: string;
 }

@@ -1,14 +1,19 @@
-import apiClient from "./apiClient"
-import type { LoginData, RegisterData } from "../lib/types"
+import api from "./api"
+import type { 
+    LoginForm, 
+    LoginResponse,
+    RegisterResponse, 
+    RegisterForm 
+} from "../lib/types/auth"
 
 export const AuthService = {
-    login: async(loginData: Partial<LoginData>): Promise<LoginData> => {
-        const { data } = await apiClient.post("/login", loginData)
-        return data 
+    async login(data: LoginForm): Promise<LoginResponse> {
+        const response = await api.post<LoginResponse>('/login', data)
+        return response.data
     },
 
-    register: async(registerData: Partial<RegisterData>): Promise<RegisterData> => {
-        const { data } = await apiClient.post("/register", registerData)
-        return data
-    }
+    async register(data: RegisterForm): Promise<RegisterResponse> {
+        const response = await api.post<RegisterResponse>('/register', data)
+        return response.data
+    },
 }
