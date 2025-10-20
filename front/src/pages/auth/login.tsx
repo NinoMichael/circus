@@ -24,7 +24,8 @@ const Login = () => {
         const data = await login({ email, password })
 
         if (data) {
-            console.log("Login successful:", data)
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("user", JSON.stringify(data.user))
         }
 
         if (error) {
@@ -74,7 +75,7 @@ const Login = () => {
                 <div className="flex gap-2 items-center">
                     <Checkbox 
                         checked={remembered}
-                        onChange={(e) => setRemembered(e.target.value)}
+                        onChange={(e) => setRemembered(e.checked!)}
                     />
                     <label>{ t('rememberMe') }</label>
                 </div>
@@ -110,7 +111,7 @@ const Login = () => {
             <p className='mt-8 text-xs md:text-sm text-center'>
                 { t('dontHave') }
                 <Link 
-                    to="/register"
+                    to="/auth/register"
                     className='font-bold underline underline-offset-2 ml-2'
                 >
                     { t('register') }
@@ -119,7 +120,14 @@ const Login = () => {
 
             <Toast 
                 ref={toast} 
-                className='!bg-white !shadow'
+                className='!text-sm !font-nunito'
+                position='bottom-right'
+                pt={{
+                    message: { className: '!bg-white !shadow !rounded-md' },
+                    content: { className: '!bg-white !shadow !rounded-md' },
+                    summary: { className: '!font-extrabold' },
+                    icon: { className: '!text-sm !w-6' }
+                }}
             />
         </form>
     )

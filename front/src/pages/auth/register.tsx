@@ -22,6 +22,16 @@ const Register = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
+        if (!checked) {
+            toast.current?.show({
+                severity: 'warn',
+                summary: 'Attention',
+                detail: 'Vous devez accepter les conditions pour continuer',
+                life: 3000,
+            })
+            return
+        }
+
         const data = await register({ 
             email,
             password,
@@ -107,7 +117,7 @@ const Register = () => {
                 <div className="flex gap-2 items-center">
                     <Checkbox 
                         checked={checked}
-                        onChange={(e) => setChecked(e.target.value)}
+                        onChange={(e) => setChecked(e.checked!)}
                     />
                     <label>
                         <span>{ t('iAgree') }</span>
@@ -153,12 +163,24 @@ const Register = () => {
             <p className='mt-8 text-xs md:text-sm text-center'>
                 { t('alreadyHave') }
                 <Link 
-                    to="/login"
+                    to="/auth/login"
                     className='font-bold underline underline-offset-2 ml-2'
                 >
                     { t('login') }
                 </Link>
             </p>
+
+            <Toast 
+                ref={toast} 
+                className='!text-sm !font-nunito'
+                position='bottom-right'
+                pt={{
+                    message: { className: '!bg-white !shadow !rounded-md' },
+                    content: { className: '!bg-white !shadow !rounded-md' },
+                    summary: { className: '!font-extrabold' },
+                    icon: { className: '!text-sm !w-6' }
+                }}
+            />
         </form>
     )
 }

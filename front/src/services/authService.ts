@@ -8,12 +8,12 @@ import type {
 
 export const AuthService = {
     async login(data: LoginForm): Promise<LoginResponse> {
-        const response = await api.post<LoginResponse>('/login', data)
+        const response = await api.post<LoginResponse>('/auth/login', data)
         return response.data
     },
 
     async register(data: RegisterForm): Promise<RegisterResponse> {
-        const response = await api.post<RegisterResponse>('/register', data)
+        const response = await api.post<RegisterResponse>('/auth/register', data)
         return response.data
     },
 }
