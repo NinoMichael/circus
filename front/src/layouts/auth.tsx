@@ -10,7 +10,7 @@ const AuthLayout = () => {
 
     return (
         <div className='overflow-x-hidden md:grid grid-cols-2 min-h-screen'>
-            <div className='md:hidden bg-amber-400 h-24' />
+            <div className='md:hidden bg-amber-400 h-16' />
             
             <div className="p-4 md:p-8">
                 <Button 

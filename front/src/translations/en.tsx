@@ -25,6 +25,16 @@ const en = {
     acceptTerms: 'You must accept the terms to proceed',
     success: 'Success',
     error: 'Error',
+
+    pleaseFillProfile: 'Please complete your profile',
+    lastname: 'Lastname',
+    firstname: 'Firstname',
+    birthDate: 'Birth date',
+    gender: 'Gender',
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
+    finish: 'Finish',
 }
 
 export default en

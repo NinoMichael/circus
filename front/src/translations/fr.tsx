@@ -25,6 +25,16 @@ const fr = {
     acceptTerms: 'Vous devez accepter les conditions pour continuer',
     success: 'Succès',
     error: 'Erreur',
+
+    pleaseFillProfile: 'Veuillez compléter votre profil',
+    lastname: 'Nom',
+    firstname: 'Prénom',
+    birthDate: 'Date de naissance',
+    gender: 'Genre',
+    male: 'Homme',
+    female: 'Femme',
+    other: 'Autre', 
+    finish: 'Terminer',
 }
 
 export default fr

@@ -10,6 +10,7 @@ import AuthLayout from './layouts/auth'
 import Home from './pages/home'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
+import ProfileRegister from './pages/auth/profile'
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                     >
                         <Route path="login" element={<Login />} />
                         <Route path="register" element={<Register />} />
+                        <Route path="register/profile" element={<ProfileRegister />} />
                     </Route>
                 </Routes>
             </div>
