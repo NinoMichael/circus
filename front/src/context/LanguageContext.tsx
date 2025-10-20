@@ -45,3 +45,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useLanguage = () => {
     return useContext(LanguageContext)
 }
+
+const currentLanguage: 'FR' | 'EN' = 'FR'
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const getCurrentLanguage = () => currentLanguage

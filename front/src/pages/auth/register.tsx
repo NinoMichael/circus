@@ -16,7 +16,7 @@ const Register = () => {
     const [ contact, setContact ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ confirm_password, setConfirmPassword ] = useState('')
-    const { register, loading, error } = useAuth()
+    const { register, loading } = useAuth()
     const toast = useRef<Toast>(null)
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -25,14 +25,14 @@ const Register = () => {
         if (!checked) {
             toast.current?.show({
                 severity: 'warn',
-                summary: 'Attention',
-                detail: 'Vous devez accepter les conditions pour continuer',
+                summary: t('warning'),
+                detail: t('acceptTerms'),
                 life: 3000,
             })
             return
         }
 
-        const data = await register({ 
+        const result = await register({ 
             email,
             password,
             contact,
@@ -40,20 +40,18 @@ const Register = () => {
             role: 'passenger', 
         })
 
-        if (data) {
-            toast.current?.show({
-                severity: 'success',
-                summary: 'Succès',
-                detail: data.message,
-                life: 3000,
-            })
-        }
-
-        if (error) {
+        if (result.error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Erreur',
-                detail: error,
+                summary: t('error'),
+                detail: result.error,
+                life: 3000,
+            })
+        } else if (result.data) {
+            toast.current?.show({
+                severity: 'success',
+                summary: t('success'),
+                detail: result.data.message,
                 life: 3000,
             })
         }

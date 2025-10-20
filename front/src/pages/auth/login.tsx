@@ -15,26 +15,24 @@ const Login = () => {
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
     const [ remembered, setRemembered ] = useState(false)
-    const { login, loading, error } = useAuth()
+    const { login, loading } = useAuth()
     const toast = useRef<Toast>(null)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const data = await login({ email, password })
+        const result = await login({ email, password })
 
-        if (data) {
-            localStorage.setItem("token", data.token)
-            localStorage.setItem("user", JSON.stringify(data.user))
-        }
-
-        if (error) {
+        if (result.error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Erreur',
-                detail: error,
+                summary: t('error'),
+                detail: result.error,
                 life: 3000,
             })
+        } else if (result.data) {
+            localStorage.setItem("token", result.data.token)
+            localStorage.setItem("user", JSON.stringify(result.data.user))
         }
     }
 

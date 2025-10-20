@@ -21,6 +21,10 @@ const en = {
     and: 'and',
     conditions: 'conditions',
     alreadyHave: 'Already have an account ?',
+    warning: 'Warning',
+    acceptTerms: 'You must accept the terms to proceed',
+    success: 'Success',
+    error: 'Error',
 }
 
 export default en

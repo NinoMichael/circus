@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getCurrentLanguage } from "../context/LanguageContext"
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
@@ -14,6 +15,11 @@ api.interceptors.request.use(
 
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
+        }
+
+        const lang = getCurrentLanguage()
+        if (lang) {
+            config.headers["Accept-Language"] = lang.toLowerCase()
         }
 
         return config

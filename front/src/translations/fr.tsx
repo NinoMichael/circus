@@ -21,6 +21,10 @@ const fr = {
     and: 'et',
     conditions: 'conditions d\'utilisation',
     alreadyHave: 'Vous avez déjà un compte ?',
+    warning: 'Attention',
+    acceptTerms: 'Vous devez accepter les conditions pour continuer',
+    success: 'Succès',
+    error: 'Erreur',
 }
 
 export default fr

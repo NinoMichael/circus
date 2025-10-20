@@ -12,31 +12,33 @@ export default function useAuth() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    async function login(credentials: LoginForm): Promise<LoginResponse | null> {
+    async function login(credentials: LoginForm): Promise<{ data?: LoginResponse, error?: string }> {
         setLoading(true)
         setError(null)
 
         try {
             const data = await AuthService.login(credentials)
-            return data
+            return { data }
         } catch (err: any) {
-            setError(err.response?.data?.message)
-            return null
+            const message = err.response?.data?.message || err.message
+            setError(message)
+            return { error: message }
         } finally {
             setLoading(false)
         }
     }
 
-    async function register(form: RegisterForm): Promise<RegisterResponse | null> {
+    async function register(form: RegisterForm): Promise<{ data?: RegisterResponse, error?: string }> {
         setLoading(true)
         setError(null)
 
         try {
             const data = await AuthService.register(form)
-            return data
+            return { data }
         } catch (err: any) {
-            setError(err.response?.data?.message)
-            return null
+            const message = err.response?.data?.message || err.message
+            setError(message)
+            return { error: message }
         } finally {
             setLoading(false)
         }
