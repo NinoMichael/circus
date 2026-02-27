@@ -40,28 +40,4 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
-
-    
-    /**
-     * Register a new user
-     * 
-     * @param RegisterRequest $request
-     * 
-     * @return JsonResponse
-     */
-    public function register(RegisterRequest $request): JsonResponse
-    {
-        $data = $request->validated();
-        unset($data['confirm_password']);
-        $data['password'] = Hash::make($data['password']);
-
-        $user = User::create($data);
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => __('message.auth.registered'),
-            'token' => $token,
-            'user' => $user,
-        ], 201);
-    }
 }

@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
         $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
-        $middleware->append(\App\Http\Middleware\SetLocale::class);
+        // $middleware->append(\App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
