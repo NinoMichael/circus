@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-rubik: 'Rubik';
-  --font-raleway: 'Raleway';
+  --font-jakarta: 'Plus Jakarta Sans';
+
+  --color-background: #F5F5F5;
+  --color-text: #0F172A;
+
+  --color-primary: #FFCC00;
+  --color-secondary: #393E46;
+  --color-accent: #EEEEEE;
 }
 
 body {
-   @apply font-raleway !text-gray-800 text-sm md:text-base;
-}
-
-.p-button {
-  @apply !font-raleway !text-sm md:!text-base !bg-transparent !border-none;
-}
-
-.p-inputtext {
-  @apply !font-raleway !text-sm md:!text-base !bg-transparent !rounded-md;
+   @apply bg-background! font-jakarta text-text! text-base;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
-import api from '../services/api'
+import { api } from '../services/api'
 
 export function useApi<T = any>() {
   const [loading, setLoading] = useState(false)

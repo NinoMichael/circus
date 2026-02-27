@@ -1,40 +1,11 @@
 const fr = {
-    login: 'Se connecter',
-    register: 'S\'inscrire',
-
-    back: 'Retour',
-    welcomeBack: 'Bienvenue à vous !',
-    pleaseEnter: 'Veuillez vous connecter à votre compte',
-    emailAddress: 'Adresse e-mail',
-    password: 'Mot de passe',
-    rememberMe: 'Se souvenir de moi',
-    forgottenPassword: 'Mot de passe oublié ?',
-    dontHave: 'Vous n\'avez pas encore de compte ?',
-    googleLogin: 'Continuer avec Google',
-
-    registration: 'Inscription',
-    pleaseFill: 'Veuillez remplir le formulaire ci-dessous',
-    phoneNumber: 'Numéro de téléphone',
-    confirmPassword: 'Confirmer le mot de passe',
-    iAgree: 'J\'accepte les',
-    terms: 'termes',
-    and: 'et',
-    conditions: 'conditions d\'utilisation',
-    alreadyHave: 'Vous avez déjà un compte ?',
-    warning: 'Attention',
-    acceptTerms: 'Vous devez accepter les conditions pour continuer',
-    success: 'Succès',
-    error: 'Erreur',
-
-    pleaseFillProfile: 'Veuillez compléter votre profil',
-    lastname: 'Nom',
-    firstname: 'Prénom',
-    birthDate: 'Date de naissance',
-    gender: 'Genre',
-    male: 'Homme',
-    female: 'Femme',
-    other: 'Autre', 
-    finish: 'Terminer',
+    /*
+    * Language format
+    *
+    login: 'Login',
+    register: 'Register',
+    *
+    */
 }
 
 export default fr
