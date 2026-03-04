@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
@@ -42,5 +45,55 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function cooperative(): HasOne
+    {
+        return $this->hasOne(Cooperative::class);
+    }
+
+    public function driver(): HasOne
+    {
+        return $this->hasOne(Driver::class);
+    }
+
+    public function managedStation(): HasOne
+    {
+        return $this->hasOne(Station::class, 'manager_user_id');
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function logs(): HasMany
+    {
+        return $this->hasMany(Log::class);
+    }
+
+    public function promoCodes(): HasMany
+    {
+        return $this->hasMany(PromoCode::class, 'created_by');
+    }
+
+    public function promoCodeUsages(): HasMany
+    {
+        return $this->hasMany(PromoCodeUsage::class);
+    }
+
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }
