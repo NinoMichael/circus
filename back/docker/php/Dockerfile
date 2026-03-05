@@ -29,6 +29,9 @@ COPY . /var/www
 # Installer dépendances Laravel
 RUN composer install --no-dev --optimize-autoloader
 
+RUN mkdir -p storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
 # Copier Nginx template et script de démarrage
 COPY docker/nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY docker/start.sh /start.sh

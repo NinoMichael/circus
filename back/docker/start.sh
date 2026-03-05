@@ -2,16 +2,20 @@
 
 PORT=${PORT:-80}
 
+# Générer la config nginx
 envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
-chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-chmod -R 777 /var/www/storage /var/www/bootstrap/cache
+# Corriger les permissions Laravel
+mkdir -p /var/www/storage/logs
+chmod -R 777 /var/www/storage
+chmod -R 777 /var/www/bootstrap/cache
 
-php-fpm &
-
+# Nettoyer les caches
 php artisan config:clear
 php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
 
+# Lancer PHP-FPM
+php-fpm &
+
+# Lancer nginx
 nginx -g "daemon off;"
