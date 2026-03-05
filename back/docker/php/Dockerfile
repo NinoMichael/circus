@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-# Install system dependencies
+# Installer dépendances
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -8,14 +8,34 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libpq-dev \
     libonig-dev \
-    libxml2-dev
+    libxml2-dev \
+    nginx \
+    procps \
+    supervisor \
+    && apt-get clean
 
-# Install PostgreSQL extension
+# Installer extensions PHP
 RUN docker-php-ext-install pdo pdo_pgsql
 
-# Install Composer
+# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-CMD ["php-fpm"]
+# Copier le projet
+COPY . /var/www
+
+# Installer les dépendances Laravel
+RUN composer install --no-dev --optimize-autoloader \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
+
+# Copier Nginx template et script de démarrage
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
+EXPOSE 80
+
+CMD ["/start.sh"]
