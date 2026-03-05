@@ -10,3 +10,6 @@ Route::name('users.')->group(function () {
     require __DIR__ . '/modules/users.php';
 });
 
+Route::name('contact.')->group(function () {
+    require __DIR__ . '/modules/contact.php';
+});
