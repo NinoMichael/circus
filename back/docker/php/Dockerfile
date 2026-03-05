@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     nginx \
     procps \
     supervisor \
+    gettext-base \
     && apt-get clean
 
 # Installer extensions PHP nécessaires
