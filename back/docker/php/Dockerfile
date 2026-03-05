@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Installer extensions PHP
-RUN docker-php-ext-install pdo pdo_pgsql
+RUN docker-php-ext-install pdo pdo_pgsql bcmath
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
