@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-# Installer dépendances
+# Installer dépendances système et nginx
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -25,13 +25,13 @@ WORKDIR /var/www
 # Copier le projet
 COPY . /var/www
 
-# Installer les dépendances Laravel
+# Installer dépendances Laravel
 RUN composer install --no-dev --optimize-autoloader \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
 
-# Copier Nginx template et script de démarrage
+# Copier Nginx et start script
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
