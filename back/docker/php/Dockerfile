@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-# Installer dépendances système
+# Install dependencies system
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -15,24 +15,24 @@ RUN apt-get update && apt-get install -y \
     gettext-base \
     && apt-get clean
 
-# Installer extensions PHP nécessaires
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql bcmath
 
-# Installer Composer
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-# Copier le projet
+# Copy project
 COPY . /var/www
 
-# Installer dépendances Laravel
+# Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
 RUN mkdir -p storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
-# Copier Nginx template et script de démarrage
+# Copy Nginx template and startup script
 COPY docker/nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
