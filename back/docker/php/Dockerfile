@@ -26,11 +26,8 @@ WORKDIR /var/www
 # Copier le projet
 COPY . /var/www
 
-# Installer dépendances Laravel et cacher config/cache/routes/views
-RUN composer install --no-dev --optimize-autoloader \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# Installer dépendances Laravel
+RUN composer install --no-dev --optimize-autoloader
 
 # Copier Nginx template et script de démarrage
 COPY docker/nginx/default.conf.template /etc/nginx/conf.d/default.conf.template

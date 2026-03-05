@@ -5,8 +5,13 @@ PORT=${PORT:-80}
 envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
 php-fpm &
+
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
 
 nginx -g "daemon off;"
