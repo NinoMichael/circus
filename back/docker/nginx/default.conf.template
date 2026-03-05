@@ -1,0 +1,29 @@
+# Define a server block 
+server {
+    # Listen on the port provided by the environment variable PORT
+    listen ${PORT};
+
+    # Default server name
+    server_name _;
+
+    # Define the root directory where the Laravel public files are located
+    root /var/www/public;
+    index index.php index.html;
+
+    # Handle all standard requests
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Handle PHP files
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_pass 127.0.0.1:9000;
+    }
+
+    # Deny access to hidden .ht* files
+    location ~ /\.ht {
+        deny all;
+    }
+}
