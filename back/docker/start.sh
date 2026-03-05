@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Remplacer le port dans la config Nginx
-envsubst '$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
+# Remplacer la ligne "listen" par $PORT
+sed -i "s/listen .*/listen ${PORT};/" /etc/nginx/conf.d/default.conf
 
 # Permissions Laravel
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-chmod -R 777 /var/www/storage /var/www/bootstrap/cache
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Démarrer PHP-FPM en arrière-plan
+# Lancer PHP-FPM en arrière-plan
 php-fpm &
 
-# Démarrer Nginx au premier plan
+# Lancer Nginx au premier plan
 nginx -g "daemon off;"
