@@ -9,29 +9,22 @@ import Contact from "./pages/Contact";
 
 import OverviewDriver from "./pages/driver/Overview";
 
-import { PrimeReactProvider } from 'primereact/api';
-
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "primereact/resources/primereact.min.css";
-
 function App() {
 	return (
-		<PrimeReactProvider>
-			<AnimatePresence mode="wait">
-				<div>
-					<Routes>
-						<Route path="/" element={<DefaultLayout />}>
-							<Route index element={<Home />} />
-							<Route path="contact" element={<Contact />} />
-						</Route>
+		<AnimatePresence mode="wait">
+			<div>
+				<Routes>
+					<Route path="/" element={<DefaultLayout />}>
+						<Route index element={<Home />} />
+						<Route path="contact" element={<Contact />} />
+					</Route>
 
-						<Route path="/driver" element={<DriverLayout />}>
-							<Route path="overview" element={<OverviewDriver />} />
-						</Route>
-					</Routes>
-				</div>
-			</AnimatePresence>
-		</PrimeReactProvider>
+					<Route path="/driver" element={<DriverLayout />}>
+						<Route path="overview" element={<OverviewDriver />} />
+					</Route>
+				</Routes>
+			</div>
+		</AnimatePresence>
 	);
 }
 

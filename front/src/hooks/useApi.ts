@@ -4,7 +4,7 @@ import { api } from '../services/api'
 
 export function useApi<T = any>() {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState<string[] | null>(null);
 
     async function request(
         method: 'get' | 'post' | 'put' | 'delete',
@@ -21,9 +21,9 @@ export function useApi<T = any>() {
             if (err.response?.status === 422) {
                 const errors = err.response.data.errors;
                 const allErrors = Object.values(errors).flat() as string[];
-                setError(allErrors.join(' '));
+                setError(allErrors);
             } else {
-                setError(err.response?.data?.message || err.message);
+                setError([err.response?.data?.message || err.message]);
             }
             return null;
         } finally {

@@ -1,17 +1,40 @@
 import { LuPhone, LuMail } from "react-icons/lu";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { useContact } from '../hooks/useContact';
-import { Toast } from 'primereact/toast';
-import { useRef } from 'react';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { useState } from "react";
 
 
 const Contact = () => {
-    const toast = useRef<Toast>(null!);
-    const { loading, name, email, subject, message, setName, setEmail, setSubject, setMessage, handleSubmit } = useContact(toast);
+    const [open, setOpen] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [severity, setSeverity] = useState<"success" | "error" | "info" | "warning">("success");
+
+    const showToast = (type: any, message: string) => {
+        setSeverity(type);
+        setToastMessage(message);
+        setOpen(true);
+    };
+    const { loading, name, email, subject, message, setName, setEmail, setSubject, setMessage, handleSubmit } = useContact(showToast);
+
 
     return (
         <div className="min-h-screen bg-[#F5F5F5] flex items-center justify-center p-4 md:p-8">
-            <Toast ref={toast} position="bottom-right" />
+            <Snackbar
+                open={open}
+                autoHideDuration={2000}
+                onClose={() => setOpen(false)}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+                <Alert
+                    onClose={() => setOpen(false)}
+                    severity={severity}
+                    variant="filled"
+                >
+                    {toastMessage}
+                </Alert>
+            </Snackbar>
             <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-black mb-2">
