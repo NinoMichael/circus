@@ -6,6 +6,7 @@ import DriverLayout from "./layouts/Driver";
 
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import Login from "./pages/auth/Login";
 
 import OverviewDriver from "./pages/driver/Overview";
 
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/" element={<DefaultLayout />}>
 						<Route index element={<Home />} />
 						<Route path="contact" element={<Contact />} />
+						<Route path="login" element={<Login />} />
 					</Route>
 
 					<Route path="/driver" element={<DriverLayout />}>

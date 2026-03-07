@@ -72,7 +72,7 @@
                 </li>
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="endpoints-POSTapi-auth-login">
-                                <a href="#endpoints-POSTapi-auth-login">Login user and create token</a>
+                                <a href="#endpoints-POSTapi-auth-login">POST api/auth/login</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-contact">
                                 <a href="#endpoints-POSTapi-contact">POST api/contact</a>
@@ -88,7 +88,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 5, 2026</li>
+        <li>Last updated: March 7, 2026</li>
     </ul>
 </div>
 
@@ -111,7 +111,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     
 
-                                <h2 id="endpoints-POSTapi-auth-login">Login user and create token</h2>
+                                <h2 id="endpoints-POSTapi-auth-login">POST api/auth/login</h2>
 
 <p>
 </p>
@@ -277,7 +277,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"b\",
     \"email\": \"zbailey@example.net\",
     \"subject\": \"i\",
-    \"message\": \"yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj\"
+    \"message\": \"y\"
 }"
 </code></pre></div>
 
@@ -296,7 +296,7 @@ let body = {
     "name": "b",
     "email": "zbailey@example.net",
     "subject": "i",
-    "message": "yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj"
+    "message": "y"
 };
 
 fetch(url, {
@@ -424,10 +424,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="message"                data-endpoint="POSTapi-contact"
-               value="yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj"
+               value="y"
                data-component="body">
     <br>
-<p>Must be at least 10 characters. Example: <code>yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj</code></p>
+<p>Must not be greater than 255 characters. Example: <code>y</code></p>
         </div>
         </form>
 

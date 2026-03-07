@@ -12,7 +12,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Login user and create token'
+      title: ''
       description: ''
       authenticated: false
       deprecated: false
@@ -115,9 +115,9 @@ endpoints:
       message:
         custom: []
         name: message
-        description: 'Must be at least 10 characters.'
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj
+        example: 'y'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -127,7 +127,7 @@ endpoints:
       name: b
       email: zbailey@example.net
       subject: i
-      message: yvdljnikhwaykcmyuwpwlvqwrsitcpscqldzsnrwtuj
+      message: 'y'
     fileParameters: []
     responses: []
     responseFields: []
