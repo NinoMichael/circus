@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('firstname');
+            $table->string('lastname');
             $table->string('email')->unique();
-            $table->enum('role', ['passenger', 'cooperative', 'manager', 'admin'])->default('passenger');
-            $table->string('contact')->nullable();
+            $table->enum('role', ['passenger', 'driver', 'cooperative', 'manager', 'admin'])->default('passenger');
+            $table->string('phone')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_login_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
