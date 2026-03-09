@@ -9,9 +9,15 @@ import Divider from "@mui/material/Divider";
 
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
 	const [open, setOpen] = useState(false);
+	const navigate = useNavigate();
+
+	const handleLogin = () => {
+		navigate("/login");
+	}
 
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
@@ -106,6 +112,7 @@ const Header = () => {
 					<Button
 						className="bg-primary! text-sm! hover:bg-primary/80! px-6! py-2.5! rounded-xl! font-bold! transition-all! shadow-sm!"
 						startIcon={<PersonIcon />}
+						onClick={handleLogin}
 					>
 						Connexion
 					</Button>
