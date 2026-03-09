@@ -1,105 +1,220 @@
-import { useState } from "react"
-import { LuLock, LuEye, LuEyeOff, LuLogIn } from "react-icons/lu"
-import { CiAt } from "react-icons/ci"
-import { Link } from "react-router-dom"
-import { useAuth } from "../../hooks/useAuth"
+import { useState } from "react";
+import { motion, type Variants } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import LoginIcon from "@mui/icons-material/Login";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import LockIcon from "@mui/icons-material/Lock";
 
 const Login = () => {
-    const [showPassword, setShowPassword] = useState(false)
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const { loading, error } = useAuth()
-    // const navigate = useNavigate()
+	const navigateTo = useNavigate();
 
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault()
-        // const user = await login({ email, password })
-        // if (user) {
-        //     navigate("/")
-        // }
-    }
+	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
-    return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
-                <div className="rounded-lg shadow-lg bg-white overflow-hidden">
-                    <div className="bg-gradient-to-b from-[#FFD633]/50 to-[#FFD633]/20 px-8 py-8 text-center">
-                        <h1 className="text-xl font-bold text-gray-800">Heureux de vous revoir !</h1>
-                    </div>
+	const [toastOpen, setToastOpen] = useState(false);
+	const [toastMessage, setToastMessage] = useState("");
+	const [toastSeverity, setToastSeverity] = useState<"success" | "error">(
+		"success"
+	);
 
-                    <div className="px-8 py-8">
-                        <h2 className="text-lg font-bold mb-1 text-gray-800">Se connecter</h2>
-                        <p className="text-sm mb-6 text-gray-500 font-semibold">Veuillez entrer vos identifiants</p>
+	const { login, loading, error, setUser } = useAuth();
 
-                        <form className="space-y-5" onSubmit={handleSubmit}>
-                            <div>
-                                <label className="block text-sm font-medium mb-1.5">
-                                    E-mail ou Téléphone
-                                </label>
-                                <div className="relative">
-                                    <CiAt className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
-                                    <input
-                                        type="text"
-                                        placeholder="votre@email.com"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full rounded-sm border border-gray-400 bg-white pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD633] focus:border-none duration-200 transition-all"
-                                    />
-                                </div>
-                            </div>
+	async function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
 
-                            <div>
-                                <div className="flex items-center justify-between mb-1.5">
-                                    <label className="text-sm font-medium">Mot de passe</label>
-                                    <Link to="#" className="text-sm font-semibold text-[#FFD633] hover:underline">
-                                        Oublié ?
-                                    </Link>
-                                </div>
-                                <div className="relative">
-                                    <LuLock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="••••••••"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full rounded-md border border-gray-400 bg-white pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD633] focus:border-none duration-200 transition-all"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2"
-                                    >
-                                        {showPassword ? <LuEyeOff className="w-4 h-4" /> : <LuEye className="w-4 h-4" />}
-                                    </button>
-                                </div>
-                            </div>
+		const data = await login({ email, password });
 
-                            {error && (
-                                <ul className="text-sm text-red-500 space-y-1">
-                                    {error.map((e, i) => <li key={i}>{e}</li>)}
-                                </ul>
-                            )}
+		if (data) {
+			document.cookie = `token=${data.token}; path=/; max-age=${
+				60 * 60 * 24 * 7
+			}; secure; samesite=strict`;
+			document.cookie = `user=${encodeURIComponent(
+				JSON.stringify(data.user)
+			)}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
 
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full bg-[#FFD633] font-semibold py-3 rounded-md hover:opacity-90 text-sm flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
-                            >
-                                {loading ? "Connexion..." : (<>Se connecter <LuLogIn className="w-4 h-4" /></>)}
-                            </button>
-                        </form>
+			setUser(data.user);
 
-                        <p className="text-center text-sm mt-6">
-                            Pas encore de compte ?{" "}
-                            <Link to="#" className="font-medium text-[#FFD633] hover:underline">
-                                Créer un compte
-                            </Link>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+			navigateTo(`/`);
+		}
 
-export default Login
+		if (error) {
+			setToastMessage(error || "Une erreur est survenue");
+			setToastSeverity("error");
+			setToastOpen(true);
+		}
+	}
+
+	const container: Variants = {
+		hidden: { opacity: 0 },
+		show: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.15,
+			},
+		},
+	};
+
+	const item: Variants = {
+		hidden: { opacity: 0, y: 20 },
+		show: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.4, ease: "easeOut" },
+		},
+	};
+
+	const card: Variants = {
+		hidden: { opacity: 0, y: 40, scale: 0.96 },
+		show: {
+			opacity: 1,
+			y: 0,
+			scale: 1,
+			transition: { duration: 0.5, ease: "easeOut" },
+		},
+	};
+
+	const pageTransition = {
+		initial: { opacity: 0, y: 20 },
+		animate: { opacity: 1, y: 0 },
+		exit: { opacity: 0, y: -20 },
+	};
+
+	return (
+		<motion.div
+			className="min-h-screen flex items-center justify-center p-4"
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			variants={pageTransition}
+			transition={{ duration: 0.35 }}
+		>
+			<div className="w-full max-w-md">
+				<motion.div
+					className="rounded-lg shadow-lg bg-white overflow-hidden"
+					variants={card}
+					initial="hidden"
+					animate="show"
+				>
+					<div className="bg-gradient-to-b from-[#FFD633]/50 to-[#FFD633]/20 px-8 py-8 text-center">
+						<h2 className="text-xl font-bold text-gray-800">
+							Heureux de vous revoir !
+						</h2>
+					</div>
+
+					<div className="px-8 py-8">
+						<h1 className="text-lg font-bold mb-1 text-gray-800">
+							Se connecter
+						</h1>
+						<p className="text-text/50">Veuillez entrer vos identifiants</p>
+
+						<motion.form
+							className="space-y-5 mt-8"
+							onSubmit={handleSubmit}
+							variants={container}
+							initial="hidden"
+							animate="show"
+						>
+							<div>
+								<label className="block font-medium mb-1.5">
+									E-mail ou téléphone
+								</label>
+								<div className="relative">
+									<AlternateEmailIcon className="opacity-60 absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
+									<input
+										type="text"
+										placeholder="votre@email.com"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										className="w-full rounded-sm border border-gray-300 bg-white pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none duration-200 transition-all"
+									/>
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<div className="flex items-center justify-between">
+									<label className="font-medium">Mot de passe</label>
+									<Link
+										to="#"
+										className="text-sm font-semibold text-primary hover:underline"
+									>
+										Oublié ?
+									</Link>
+								</div>
+								<div className="relative">
+									<LockIcon className="opacity-60 absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
+									<input
+										type={showPassword ? "text" : "password"}
+										placeholder="••••••••"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										className="w-full rounded-sm border border-gray-300 bg-white pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none duration-200 transition-all"
+									/>
+									<button
+										type="button"
+										onClick={() => setShowPassword(!showPassword)}
+										className="absolute opacity-60 cursor-pointer right-3 top-1/2 -translate-y-1/2"
+									>
+										{showPassword ? (
+											<VisibilityOffIcon className="w-4 h-4" />
+										) : (
+											<VisibilityIcon className="w-4 h-4" />
+										)}
+									</button>
+								</div>
+							</div>
+
+							<motion.div
+								variants={item}
+								whileHover={{ scale: 1.03 }}
+								whileTap={{ scale: 0.97 }}
+							>
+								<Button
+									className="mt-8! w-full! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
+									disabled={loading}
+									type="submit"
+									endIcon={<LoginIcon />}
+								>
+									{loading ? "Connexion en cours..." : "Se connecter"}
+								</Button>
+							</motion.div>
+						</motion.form>
+
+						<p className="text-center text-sm mt-8">
+							Pas encore de compte ?{" "}
+							<Link to="#" className="font-medium text-primary hover:underline">
+								Créer un compte
+							</Link>
+						</p>
+					</div>
+				</motion.div>
+			</div>
+
+			<Snackbar
+				open={toastOpen}
+				autoHideDuration={3000}
+				onClose={() => setToastOpen(false)}
+				anchorOrigin={{ vertical: "top", horizontal: "right" }}
+			>
+				<Alert
+					onClose={() => setToastOpen(false)}
+					severity={toastSeverity}
+					variant="filled"
+					sx={{ width: "100%" }}
+				>
+					{toastMessage}
+				</Alert>
+			</Snackbar>
+		</motion.div>
+	);
+};
+
+export default Login;
