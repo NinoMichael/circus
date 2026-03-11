@@ -26,6 +26,16 @@ export function useAuth() {
 		}
 	}
 
+	/* Logout hooks */
+	async function logout(): Promise<void> {
+		await AuthService.logout();
+
+		document.cookie = "token=; path=/; max-age=0; secure; samesite=strict";
+		document.cookie = "user=; path=/; max-age=0; secure; samesite=strict";
+
+		setUser(null);
+	}
+
 	/* Fetch logged user hooks */
 	useEffect(() => {
 		const userCookie = document.cookie
@@ -44,6 +54,7 @@ export function useAuth() {
 
 	return {
 		login,
+		logout,
 		user,
 		setUser,
 		isLoggedIn,

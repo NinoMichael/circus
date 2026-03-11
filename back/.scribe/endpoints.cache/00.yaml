@@ -7,7 +7,7 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/auth/login
+    uri: api/login
     metadata:
       custom: []
       groupName: Endpoints
@@ -29,7 +29,7 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'Must be a valid email address.'
+        description: 'Le champ value doit être une adresse e-mail valide.'
         required: true
         example: gbailey@example.net
         type: string
@@ -40,7 +40,7 @@ endpoints:
       password:
         custom: []
         name: password
-        description: 'Must be at least 8 characters.'
+        description: 'Le texte de value doit contenir au moins 8 caractères.'
         required: true
         example: '+-0pBNvYgxwmi/#iw'
         type: string
@@ -51,6 +51,37 @@ endpoints:
     cleanBodyParameters:
       email: gbailey@example.net
       password: '+-0pBNvYgxwmi/#iw'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses: []
     responseFields: []
@@ -84,7 +115,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Must not be greater than 255 characters.'
+        description: 'Le texte de value ne peut pas contenir plus de 255 caractères.'
         required: true
         example: b
         type: string
@@ -95,7 +126,7 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        description: 'Le champ value doit être une adresse e-mail valide. Le texte de value ne peut pas contenir plus de 255 caractères.'
         required: true
         example: zbailey@example.net
         type: string
@@ -106,7 +137,7 @@ endpoints:
       subject:
         custom: []
         name: subject
-        description: 'Must not be greater than 255 characters.'
+        description: 'Le texte de value ne peut pas contenir plus de 255 caractères.'
         required: true
         example: i
         type: string
@@ -117,7 +148,7 @@ endpoints:
       message:
         custom: []
         name: message
-        description: 'Must not be greater than 255 characters.'
+        description: 'Le texte de value ne peut pas contenir plus de 255 caractères.'
         required: true
         example: 'y'
         type: string

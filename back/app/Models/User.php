@@ -47,6 +47,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getFullnameAttribute()
+    {
+        return $this->firstname . " " . $this->lastname;
+    }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
@@ -62,7 +67,7 @@ class User extends Authenticatable
         return $this->hasOne(Driver::class);
     }
 
-    public function managedStation(): HasOne
+    public function managerStation(): HasOne
     {
         return $this->hasOne(Station::class, 'manager_user_id');
     }

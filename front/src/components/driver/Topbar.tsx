@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../hooks/useAuth";
 
 import Logo from "../inc/Logo";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Dialog from "@mui/material/Dialog";
 
 import NotificationIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -17,17 +23,24 @@ import SettingIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const TopbarDriver = () => {
+	const navigateTo = useNavigate();
+	const { user, logout } = useAuth();
 	const [open, setOpen] = useState(false);
+	const [logoutDialog, setLogoutDialog] = useState(false);
 
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
+	};
+
+	const handleLogout = async () => {
+		await logout();
+		navigateTo("/");
 	};
 
 	const DrawerMenu = (
 		<Box
 			className="w-64! space-y-8! p-8! flex! flex-col! justify-between!"
 			role="presentation"
-			onClick={toggleDrawer(false)}
 		>
 			<Logo />
 
@@ -80,9 +93,38 @@ const TopbarDriver = () => {
 				<Button
 					className="bg-secondary! text-accent! mt-12! w-full! text-sm! py-3!"
 					startIcon={<LogoutIcon />}
+					onClick={() => setLogoutDialog(true)}
 				>
 					Déconnexion
 				</Button>
+
+				<Dialog
+					sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: "60%" } }}
+					maxWidth="xs"
+					open={logoutDialog}
+				>
+					<DialogTitle className="text-xl! text-secondary! font-bold!">
+						Déconnexion
+					</DialogTitle>
+					<DialogContent>
+						<p className="my-4">Etes-vous sur de vouloir vous déconnecter ?</p>
+					</DialogContent>
+					<DialogActions className="!mt-6">
+						<Button
+							className="bg-accent! w-full! text-sm! py-3!"
+							autoFocus
+							onClick={() => setLogoutDialog(false)}
+						>
+							Non
+						</Button>
+						<Button
+							className="bg-primary! w-full! text-sm! py-3!"
+							onClick={handleLogout}
+						>
+							Oui
+						</Button>
+					</DialogActions>
+				</Dialog>
 
 				<nav className="mt-16 flex flex-wrap items-center gap-4 text-xs!">
 					<Link
@@ -141,13 +183,23 @@ const TopbarDriver = () => {
 							<NotificationIcon className="opacity-80! text-lg!" />
 						</Button>
 					</div>
-					<div className="h-10 w-10 overflow-hidden rounded-full border-2 border-primary">
-						<img
-							alt="Driver profile"
-							className="h-full w-full object-cover"
-							src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXPUDt8CTAdNqS7nPIgriAAQ0tJyHNKBOPJLEOwcQgOGL_aN618T5Z9vBCE9K-QltWFsKjMhTOsghoiUir4XnXLbnJjcNozyFtCpQO12-RAK5arBkmsaATdx1Wki_TrJUwLTMVMVQOJDuAplMqCjucplePR2PT0jF9jMgoQlTWJnnhCBqvssQS_DaXjH9Tt9GCoo4qxRou2OslDGs3peDs4vdffR3a8pFlq25PV167Wb7DeSadHCBSeFjdFVJABlUVjfcwKEZjxCk"
-						/>
-					</div>
+					{!user?.profile.avatar ? (
+						<div className="bg-primary text-lg font-bold flex justify-center items-center h-12 w-12 rounded-full border border-gray-200">
+							{user?.firstname.charAt(0).toUpperCase()}
+						</div>
+					) : (
+						<Link
+							title="Voir profil"
+							to="/"
+							className="hover:scale-105 transition-all"
+						>
+							<img
+								src={user.profile.avatar}
+								className="h-12 w-12 rounded-full border border-gray-200"
+								alt="Avatar visitor"
+							/>
+						</Link>
+					)}
 				</div>
 			</header>
 		</header>
