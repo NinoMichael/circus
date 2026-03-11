@@ -43,7 +43,26 @@ const Login = () => {
 
 			setUser(data.user);
 
-			navigateTo(`/`);
+			switch (data.user.role) {
+				case "passenger":
+					navigateTo(`/`);
+					break;
+				case "driver":
+					navigateTo(`/driver/overview`);
+					break;
+				case "cooperative":
+					navigateTo(`/cooperative/overview`);
+					break;
+				case "manager":
+					navigateTo(`/`);
+					break;
+				case "admin":
+					navigateTo(`/admin/dashboard`);
+					break;
+				default:
+					navigateTo(`/`);
+					break;
+			}
 		}
 
 		if (error) {
@@ -90,7 +109,7 @@ const Login = () => {
 
 	return (
 		<motion.div
-			className="min-h-screen flex items-center justify-center p-4"
+			className="min-h-screen flex items-center justify-center py-4"
 			initial="initial"
 			animate="animate"
 			exit="exit"

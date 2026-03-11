@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "../lib/helpers";
 
 export const api = axios.create({
-	baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api",
+	baseURL: import.meta.env.VITE_API_URL + "api" || "http://localhost:8080/api",
 	headers: {
 		"Content-Type": "application/json",
 		Accept: "application/json",
@@ -11,7 +11,7 @@ export const api = axios.create({
 });
 
 export const apiFormData = axios.create({
-	baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api",
+	baseURL: import.meta.env.VITE_API_URL + "api" || "http://localhost:8080/api",
 	headers: {
 		"Content-Type": "multipart/form-data",
 	},

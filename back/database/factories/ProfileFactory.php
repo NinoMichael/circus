@@ -20,7 +20,7 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'avatar' => fake()->imageUrl(200, 200, 'people'),
+            'avatar' => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkAJEkJQ1WumU0hXNpXdgBt9NUKc0QDVIiaw&s",
             'birth_date' => fake()->date(),
             'national_id' => fake()->unique()->numerify('###########'),
             'is_male' => fake()->boolean(),

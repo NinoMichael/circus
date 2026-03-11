@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 import Logo from "./Logo";
 import Drawer from "@mui/material/Drawer";
@@ -9,15 +11,19 @@ import Divider from "@mui/material/Divider";
 
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import NotificationIcon from "@mui/icons-material/Notifications";
 
 const Header = () => {
+	// const apiUrl = import.meta.env.VITE_API_URL;
+
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 
+	const { user } = useAuth();
+
 	const handleLogin = () => {
 		navigate("/login");
-	}
+	};
 
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
@@ -109,13 +115,40 @@ const Header = () => {
 						</Link>
 					</nav>
 
-					<Button
-						className="bg-primary! text-sm! hover:bg-primary/80! px-6! py-2.5! rounded-xl! font-bold! transition-all! shadow-sm!"
-						startIcon={<PersonIcon />}
-						onClick={handleLogin}
-					>
-						Connexion
-					</Button>
+					{!user ? (
+						<Button
+							className="bg-primary! text-sm! hover:bg-primary/80! px-6! py-2.5! rounded-xl! font-bold! transition-all! shadow-sm!"
+							startIcon={<PersonIcon />}
+							onClick={handleLogin}
+						>
+							Connexion
+						</Button>
+					) : (
+						<div className="flex gap-4 items-center">
+							<Button
+								className="hover:text-primary! transition-all!"
+								startIcon={<NotificationIcon />}
+								title="Notifications"
+							/>
+							{!user.profile.avatar ? (
+								<div className="bg-primary text-lg font-bold flex justify-center items-center h-12 w-12 rounded-full border border-gray-200">
+									{user.firstname.charAt(0).toUpperCase()}
+								</div>
+							) : (
+								<Link
+									title="Voir profil"
+									to="/"
+									className="hover:scale-105 transition-all"
+								>
+									<img
+										src={user.profile.avatar}
+										className="h-12 w-12 rounded-full border border-gray-200"
+										alt="Avatar visitor"
+									/>
+								</Link>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 		</header>

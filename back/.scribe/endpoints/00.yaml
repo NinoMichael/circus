@@ -1,19 +1,18 @@
 name: Endpoints
-description: ''
+description: ""
 endpoints:
-  -
-    custom: []
+  - custom: []
     httpMethods:
       - POST
-    uri: api/auth/login
+    uri: api/login
     metadata:
       custom: []
       groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
+      groupDescription: ""
+      subgroup: ""
+      subgroupDescription: ""
+      title: ""
+      description: ""
       authenticated: false
       deprecated: false
     headers:
@@ -27,7 +26,7 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'Must be a valid email address.'
+        description: "Must be a valid email address."
         required: true
         example: gbailey@example.net
         type: string
@@ -38,9 +37,9 @@ endpoints:
       password:
         custom: []
         name: password
-        description: 'Must be at least 8 characters.'
+        description: "Must be at least 8 characters."
         required: true
-        example: '+-0pBNvYgxwmi/#iw'
+        example: "+-0pBNvYgxwmi/#iw"
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -48,7 +47,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       email: gbailey@example.net
-      password: '+-0pBNvYgxwmi/#iw'
+      password: "+-0pBNvYgxwmi/#iw"
     fileParameters: []
     responses: []
     responseFields: []
@@ -56,19 +55,18 @@ endpoints:
     controller: null
     method: null
     route: null
-  -
-    custom: []
+  - custom: []
     httpMethods:
       - POST
     uri: api/contact
     metadata:
       custom: []
       groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
+      groupDescription: ""
+      subgroup: ""
+      subgroupDescription: ""
+      title: ""
+      description: ""
       authenticated: false
       deprecated: false
     headers:
@@ -82,7 +80,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Must not be greater than 255 characters.'
+        description: "Must not be greater than 255 characters."
         required: true
         example: b
         type: string
@@ -93,7 +91,7 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        description: "Must be a valid email address. Must not be greater than 255 characters."
         required: true
         example: zbailey@example.net
         type: string
@@ -104,7 +102,7 @@ endpoints:
       subject:
         custom: []
         name: subject
-        description: 'Must not be greater than 255 characters.'
+        description: "Must not be greater than 255 characters."
         required: true
         example: i
         type: string
@@ -115,9 +113,9 @@ endpoints:
       message:
         custom: []
         name: message
-        description: 'Must not be greater than 255 characters.'
+        description: "Must not be greater than 255 characters."
         required: true
-        example: 'y'
+        example: "y"
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -127,7 +125,7 @@ endpoints:
       name: b
       email: zbailey@example.net
       subject: i
-      message: 'y'
+      message: "y"
     fileParameters: []
     responses: []
     responseFields: []
