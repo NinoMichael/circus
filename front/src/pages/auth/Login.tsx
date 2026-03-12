@@ -123,7 +123,7 @@ const Login = () => {
 					initial="hidden"
 					animate="show"
 				>
-					<div className="bg-gradient-to-b from-[#FFD633]/50 to-[#FFD633]/20 px-8 py-8 text-center">
+					<div className="bg-gradient-to-b from-tertiary/50 to-tertiary/20 px-8 py-8 text-center">
 						<h2 className="text-xl font-bold text-gray-800">
 							Heureux de vous revoir !
 						</h2>

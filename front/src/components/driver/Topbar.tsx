@@ -190,7 +190,7 @@ const TopbarDriver = () => {
 					) : (
 						<Link
 							title="Voir profil"
-							to="/"
+							to="/driver/profile"
 							className="hover:scale-105 transition-all"
 						>
 							<img

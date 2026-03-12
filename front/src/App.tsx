@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/auth/Login";
 
 import OverviewDriver from "./pages/driver/Overview";
+import ProfileDriver from "./pages/driver/Profile";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -43,6 +44,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<OverviewDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="profile"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<ProfileDriver />
 								</ProtectedRoute>
 							}
 						/>
