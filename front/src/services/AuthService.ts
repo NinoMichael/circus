@@ -1,4 +1,4 @@
-import type { LoginForm, LoginResponse } from "../lib/types/auth";
+import type { LoginForm, LoginResponse, RegisterForm, RegisterResponse } from "../lib/types/auth";
 import { api } from "./api";
 
 export const AuthService = {
@@ -6,4 +6,9 @@ export const AuthService = {
 		const { data } = await api.post<LoginResponse>("/login", credentials);
 		return data;
 	},
+	register: async (formData: RegisterForm): Promise<RegisterResponse> => {
+		const { data } = await api.post<RegisterResponse>("/register", formData, {
+		});
+		return data;
+	}
 };

@@ -1,7 +1,31 @@
 import { useEffect, useState } from "react";
 import type { LoginForm, LoginResponse } from "../lib/types/auth";
+import type { RegisterForm } from "../lib/types/auth";
 import type { User } from "../lib/types/user";
 import { AuthService } from "../services/AuthService";
+import { create } from "zustand";
+import { persist } from 'zustand/middleware';
+
+interface RegisterStore {
+	form: Partial<RegisterForm>;
+	setStep1: (data: Pick<RegisterForm, "email" | "phone" | "password" | "password_confirmation">) => void;
+	setStep2: (data: Pick<RegisterForm, "firstname" | "lastname" | "birth_date" | "is_male" | "national_id" | "address">) => void;
+	reset: () => void;
+}
+
+export const useRegisterStore = create<RegisterStore>()(
+	persist(
+		(set) => ({
+			form: {},
+			setStep1: (data) => set((state) => ({ form: { ...state.form, ...data } })),
+			setStep2: (data) => set((state) => ({ form: { ...state.form, ...data } })),
+			reset: () => set({ form: {} }),
+		}),
+		{
+			name: 'register-store',
+		}
+	)
+);
 
 export function useAuth() {
 	const [user, setUser] = useState<User | null>(null);
@@ -26,6 +50,23 @@ export function useAuth() {
 		}
 	}
 
+	/* Register hooks*/
+	async function register(data: RegisterForm): Promise<boolean> {
+		setLoading(true);
+		setError(null);
+		try {
+			await AuthService.register(data as any);
+			useRegisterStore.getState().reset();
+			return true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message ?? "Une erreur est survenue.");
+			return false;
+		} finally {
+			setLoading(false);
+		}
+	}
+
 	/* Fetch logged user hooks */
 	useEffect(() => {
 		const userCookie = document.cookie
@@ -44,6 +85,7 @@ export function useAuth() {
 
 	return {
 		login,
+		register,
 		user,
 		setUser,
 		isLoggedIn,
