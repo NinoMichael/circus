@@ -10,7 +10,6 @@ server {
     root /var/www/public;
     index index.php index.html;
 
-    add_header Access-Control-Allow-Origin https://circus-mg.vercel.app;
     add_header Access-Control-Allow-Origin *;
     add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE";
     add_header Access-Control-Allow-Headers *;
