@@ -18,6 +18,10 @@ import DashboardAdmin from "./pages/admin/Dashboard";
 
 import OverviewCooperative from "./pages/cooperative/Overview";
 
+import Register from "./pages/auth/Register";
+
+import RegisterInfo from "./pages/auth/RegisterInfo";
+
 function App() {
 	const location = useLocation();
 
@@ -36,6 +40,9 @@ function App() {
 						/>
 						<Route path="contact" element={<Contact />} />
 						<Route path="login" element={<Login />} />
+						<Route path="register" element={<Register />} />
+						<Route path="register/info" element={<RegisterInfo />} />
+
 					</Route>
 
 					<Route path="/driver" element={<DriverLayout />}>
