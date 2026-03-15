@@ -9,6 +9,11 @@ envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/d
 
 # Ensure the Laravel logs directory exists and give full permissions
 mkdir -p /var/www/storage/logs
+
+# FIX permissions
+chown -R www-data:www-data /var/www/storage
+chown -R www-data:www-data /var/www/bootstrap/cache
+
 chmod -R 777 /var/www/storage
 chmod -R 777 /var/www/bootstrap/cache
 
