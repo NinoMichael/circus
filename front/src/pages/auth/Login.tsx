@@ -209,7 +209,10 @@ const Login = () => {
 
 						<p className="text-center text-sm mt-8">
 							Pas encore de compte ?{" "}
-							<Link to="#" className="font-medium text-primary hover:underline">
+							<Link
+								to="/register"
+								className="font-medium text-primary hover:underline"
+							>
 								Créer un compte
 							</Link>
 						</p>
