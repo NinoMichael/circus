@@ -10,23 +10,8 @@ server {
     root /var/www/public;
     index index.php index.html;
 
-    # CORS headers
-    add_header Access-Control-Allow-Origin "https://circus-mg.vercel.app" always;
-    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE" always;
-    add_header Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With" always;
-    add_header Access-Control-Allow-Credentials "true" always;
-
     # Handle all standard requests
     location / {
-        if ($request_method = OPTIONS) {
-            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE" always;
-            add_header Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With" always;
-            add_header Access-Control-Allow-Credentials "true" always;
-            add_header Content-Length 0;
-            add_header Content-Type text/plain;
-            return 204;
-        }
-
         try_files $uri $uri/ /index.php?$query_string;
     }
 
