@@ -18,7 +18,6 @@ server {
     # Handle all standard requests
     location / {
         if ($request_method = OPTIONS) {
-            add_header Access-Control-Allow-Origin https://circus-mg.vercel.app;
             add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE";
             add_header Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With";
             add_header Access-Control-Allow-Credentials true;
