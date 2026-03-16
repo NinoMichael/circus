@@ -13,3 +13,7 @@ Route::name('users.')->group(function () {
 Route::name('contact.')->group(function () {
     require __DIR__ . '/modules/contact.php';
 });
+
+Route::name('bus.')->group(function () {
+    require __DIR__ . '/modules/bus.php';
+});

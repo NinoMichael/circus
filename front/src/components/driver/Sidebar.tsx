@@ -61,7 +61,7 @@ const SidebarDriver = () => {
 					</Link>
 					<Link
 						className="hover:text-primary transition-colors flex gap-2 items-center"
-						to="/"
+						to="/driver/bus"
 					>
 						<DirectionBusIcon className="opacity-80!" />
 						<span>Taxi-brousse</span>

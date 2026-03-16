@@ -14,6 +14,7 @@ import Register from "./pages/auth/Register";
 import RegisterInfo from "./pages/auth/RegisterInfo";
 
 import OverviewDriver from "./pages/driver/Overview";
+import DetailBusDriver from "./pages/driver/bus/Detail";
 import ProfileDriver from "./pages/driver/Profile";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
@@ -56,6 +57,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<ProfileDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="bus"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<DetailBusDriver />
 								</ProtectedRoute>
 							}
 						/>

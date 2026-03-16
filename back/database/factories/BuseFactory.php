@@ -33,8 +33,10 @@ class BuseFactory extends Factory
         return [
             'cooperative_id' => Cooperative::factory(),
             'driver_id' => Driver::factory(),
+            'registration_number' => fake()->bothify('??? ####'),
             'type' => $type,
             'capacity' => $capacity,
+            'cover_image_path' => "https://www.madagascar-destination.mg/uploads/images/divers/taxi_brousse.jpg",
             'status' => fake()->randomElement(['active','maintenance','suspended']),
         ];
     }

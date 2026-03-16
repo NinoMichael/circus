@@ -12,11 +12,15 @@ class Buse extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'buses';
+
     protected $fillable = [
         'cooperative_id',
         'driver_id',
+        'registration_number',
         'type',
         'capacity',
+        'cover_image_path',
         'status',
     ];
 
