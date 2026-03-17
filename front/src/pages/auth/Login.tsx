@@ -34,9 +34,8 @@ const Login = () => {
 		const data = await login({ email, password });
 
 		if (data) {
-			document.cookie = `token=${data.token}; path=/; max-age=${
-				60 * 60 * 24 * 7
-			}; secure; samesite=strict`;
+			document.cookie = `token=${data.token}; path=/; max-age=${60 * 60 * 24 * 7
+				}; secure; samesite=strict`;
 			document.cookie = `user=${encodeURIComponent(
 				JSON.stringify(data.user)
 			)}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
