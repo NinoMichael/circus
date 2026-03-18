@@ -6,7 +6,6 @@ import { GuestOrPassengerRoute } from "./middleware/GuestOrPassenger";
 import DefaultLayout from "./layouts/Default";
 import DriverLayout from "./layouts/Driver";
 
-import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 
 import Login from "./pages/auth/Login";
@@ -21,6 +20,8 @@ import DashboardAdmin from "./pages/admin/Dashboard";
 
 import OverviewCooperative from "./pages/cooperative/Overview";
 
+import Dashboard from "./pages/auth/Dashboard";
+
 function App() {
 	const location = useLocation();
 
@@ -32,7 +33,7 @@ function App() {
 						<Route
 							element={
 								<GuestOrPassengerRoute>
-									<Home />
+									<Dashboard />
 								</GuestOrPassengerRoute>
 							}
 							index

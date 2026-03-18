@@ -17,3 +17,6 @@ Route::name('contact.')->group(function () {
 Route::name('bus.')->group(function () {
     require __DIR__ . '/modules/bus.php';
 });
+Route::name('dashboard.')->group(function () {
+    require __DIR__ . '/modules/dashboard.php';
+});
