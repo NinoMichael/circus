@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { contactService } from "../services/ContactService";
+import { ContactService } from "../services/ContactService";
 import type { ContactForm, ContactResponse } from "../lib/types/contact";
 
 export function useContact() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const { send } = contactService;
+	const { send } = ContactService;
 
 	/* Create new contact hook */
 	async function createContact(

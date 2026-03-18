@@ -1,33 +1,33 @@
-import { useState, useEffect } from "react";
-import { dashboardService } from "../services/DashboardService";
+import { useState } from "react";
+import { DashboardService } from "../services/DashboardService";
+import type { KPIAboutResponse } from "../lib/types/dashboard";
 
 export const useDashboard = () => {
-    const [citiesCount, setCitiesCount] = useState<number | null>(null);
-    const [cooperativesCount, setCooperativesCount] = useState<number | null>(null);
-    const [featuredCooperatives, setFeaturedCooperatives] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+	const { getKpisAbout } = DashboardService;
 
-    useEffect(() => {
-        const fetchDashboard = async () => {
-            try {
-                setLoading(true);
-                const cities = await dashboardService.getCitiesCount();
-                const coops = await dashboardService.getCooperativesCount();
-                const featured = await dashboardService.getFeaturedCooperatives();
+	/* Get KPIs for about page hook */
+	async function fetchKpisAbout(): Promise<KPIAboutResponse | undefined> {
+		setLoading(true);
+		setError(null);
 
-                setCitiesCount(cities);
-                setCooperativesCount(coops);
-                setFeaturedCooperatives(featured);
-            } catch (err: any) {
-                setError(err.response?.data?.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+		try {
+			const data = await getKpisAbout();
+			return data;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message);
+		} finally {
+			setLoading(false);
+		}
 
-        fetchDashboard();
-    }, []);
+		return undefined;
+	}
 
-    return { citiesCount, cooperativesCount, featuredCooperatives, loading, error };
+	return {
+		error,
+		loading,
+		fetchKpisAbout,
+	};
 };

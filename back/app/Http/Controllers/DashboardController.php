@@ -4,29 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Station;
 use App\Models\Cooperative;
+use Illuminate\Http\JsonResponse;
 
 class DashboardController extends Controller
 {
-    public function countUniqueCities()
+    /**
+     * Fetch KPIs for about page
+     * 
+     * @return JsonResponse
+     */
+    public function getKpisAbout(): JsonResponse
     {
-        $count = Station::distinct('city')->count('city');
-
-        return $count;
-    }
-
-    public function countCooperatives()
-    {
-        $count = Cooperative::count();
-
-        return $count;
-    }
-
-    public function getFiveCooperatives()
-    {
+        $cityCount = Station::distinct('city')->count('city');
+        $cooperativeCount = Cooperative::count();
         $cooperatives = Cooperative::select('name', 'logo')
-            ->take(5)
+            ->take(4)
             ->get();
 
-        return response()->json($cooperatives);
+        return response()->json([
+            "city_count" => $cityCount,
+            "cooperative_count" => $cooperativeCount,
+            "cooperatives" => $cooperatives,
+        ]);
     }
 }

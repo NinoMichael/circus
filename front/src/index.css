@@ -14,5 +14,5 @@
 }
 
 body {
-	@apply bg-background ! font-jakarta text-text/80 ! text-base;
+	@apply bg-background! font-jakarta text-text/80! text-base;
 }

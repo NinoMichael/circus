@@ -1,19 +1,9 @@
+import type { KPIAboutResponse } from "../lib/types/dashboard";
 import { api } from "./api";
 
-export const dashboardService = {
-
-    getCitiesCount: async () => {
-        const { data } = await api.get("/dashboard/cities/count");
-        return data;
-    },
-
-    getCooperativesCount: async () => {
-        const { data } = await api.get("/dashboard/cooperatives/count");
-        return data;
-    },
-
-    getFeaturedCooperatives: async () => {
-        const { data } = await api.get("/dashboard/cooperatives/featured");
-        return data;
-    },
+export const DashboardService = {
+	getKpisAbout: async (): Promise<KPIAboutResponse> => {
+		const { data } = await api.get<KPIAboutResponse>("/dashboard/kpi/about");
+		return data;
+	},
 };

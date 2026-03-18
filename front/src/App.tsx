@@ -6,6 +6,8 @@ import { GuestOrPassengerRoute } from "./middleware/GuestOrPassenger";
 import DefaultLayout from "./layouts/Default";
 import DriverLayout from "./layouts/Driver";
 
+import About from "./pages/About";
+import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 
 import Login from "./pages/auth/Login";
@@ -20,8 +22,6 @@ import DashboardAdmin from "./pages/admin/Dashboard";
 
 import OverviewCooperative from "./pages/cooperative/Overview";
 
-import Dashboard from "./pages/auth/Dashboard";
-
 function App() {
 	const location = useLocation();
 
@@ -33,12 +33,28 @@ function App() {
 						<Route
 							element={
 								<GuestOrPassengerRoute>
-									<Dashboard />
+									<Home />
 								</GuestOrPassengerRoute>
 							}
 							index
 						/>
-						<Route path="contact" element={<Contact />} />
+						<Route
+							element={
+								<GuestOrPassengerRoute>
+									<About />
+								</GuestOrPassengerRoute>
+							}
+							path="about"
+						/>
+						<Route
+							element={
+								<GuestOrPassengerRoute>
+									<Contact />
+								</GuestOrPassengerRoute>
+							}
+							path="contact"
+						/>
+
 						<Route path="login" element={<Login />} />
 						<Route path="register" element={<Register />} />
 						<Route path="register/info" element={<RegisterInfo />} />
