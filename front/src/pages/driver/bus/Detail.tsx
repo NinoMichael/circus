@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { formatBusStatus, formatBusType } from "../../../lib/utils/formatter";
+import { getImageUrl } from "../../../lib/utils/media";
 import type { Bus } from "../../../lib/types/bus";
 
 import { useBus } from "../../../hooks/useBus";
@@ -62,7 +64,7 @@ const DetailBusDriver = () => {
 						<div className="relative">
 							<img
 								className="h-96 rounded-xl w-full object-cover"
-								src={bus.cover_image_path}
+								src={getImageUrl(bus.cover_image_path)}
 								alt="Bus cover image"
 							/>
 
@@ -70,7 +72,7 @@ const DetailBusDriver = () => {
 						</div>
 					)}
 
-					<div className="absolute bottom-8 right-8 left-8 flex flex-col min-[450px]:flex-row min-[450px]:justify-between gap-4 items-start min-[450px]:items-center">
+					<div className="absolute bottom-8 right-8 left-8 flex flex-col xs:flex-row xs:justify-between gap-4 items-start xs:items-center">
 						<div className="space-y-3">
 							<div className="bg-primary py-2 px-4 font-bold rounded-full tracking-widest">
 								<span className="uppercase text-xs">Véhicule</span>
@@ -86,12 +88,14 @@ const DetailBusDriver = () => {
 							)}
 						</div>
 
-						<Button
-							className="md:w-48! text-accent! bg-secondary! text-sm! hover:bg-secondary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
-							startIcon={<EditIcon />}
-						>
-							Modifier le profil
-						</Button>
+						<Link to="/driver/bus/edit">
+							<Button
+								className="md:w-48! text-accent! bg-secondary! text-sm! hover:bg-secondary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
+								startIcon={<EditIcon />}
+							>
+								Modifier
+							</Button>
+						</Link>
 					</div>
 				</div>
 
