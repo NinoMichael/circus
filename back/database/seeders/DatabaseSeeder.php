@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $users = User::factory(50)->create();
+        $users = User::factory(20)->create();
 
          /*
         |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $cooperatives = Cooperative::factory(15)->create();
+        $cooperatives = Cooperative::factory(6)->create();
 
         /*
         |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $drivers = Driver::factory(20)->create();
+        $drivers = Driver::factory(12)->create();
 
         /*
         |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $buses = Buse::factory(50)->create();
+        $buses = Buse::factory(12)->create();
 
         /*
         |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $trips = Trip::factory(40)->create();
+        $trips = Trip::factory(20)->create();
 
         /*
         |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $bookings = Booking::factory(60)->create();
+        $bookings = Booking::factory(12)->create();
 
          /*
         |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        $payments = Payment::factory(60)->create();
+        $payments = Payment::factory(12)->create();
 
          /*
         |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        Review::factory(60)->create();
+        Review::factory(20)->create();
 
 
         /*
@@ -110,6 +110,6 @@ class DatabaseSeeder extends Seeder
         |--------------------------------------------------------------------------
         */
 
-        Contact::factory(20)->create();
+        Contact::factory(10)->create();
     }
 }
