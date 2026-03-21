@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useDashboard } from "../hooks/useDashboard";
 import type { KPIAboutResponse } from "../lib/types/dashboard";
+import { pageTransition } from "../lib/utils/animation";
 
 import heroImage from "../assets/images/hero-img.jpg";
 
@@ -106,12 +107,6 @@ const About = () => {
 			a: "Présentez votre confirmation de réservation (SMS ou email) ainsi qu'une pièce d'identité valide.",
 		},
 	];
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
-	};
 
 	const item: Variants = {
 		hidden: { opacity: 0, y: 20 },

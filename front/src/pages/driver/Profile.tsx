@@ -1,4 +1,5 @@
 import { useAuth } from "../../hooks/useAuth";
+import { motion } from "framer-motion";
 
 import Button from "@mui/material/Button";
 
@@ -8,12 +9,20 @@ import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 
 import { formatDateLong, formatSlashDate } from "../../lib/utils/date";
+import { pageTransition } from "../../lib/utils/animation";
 
 const ProfileDriver = () => {
 	const { user } = useAuth();
 
 	return (
-		<div className="flex flex-col items-start gap-8">
+		<motion.div
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			variants={pageTransition}
+			transition={{ duration: 0.35 }}
+			className="flex flex-col items-start gap-8"
+		>
 			<div className="flex p-8 flex-col items-start rounded-3xl border border-secondary/10 bg-white shadow-black/30 w-full overflow-hidden relative">
 				<div className="absolute left-px top-px bg-tertiary/20 w-full h-32"></div>
 				<div className="flex flex-col xs:flex-row pt-12 xs:items-end gap-6 w-full">
@@ -249,7 +258,7 @@ const ProfileDriver = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -6,6 +6,7 @@ import { useBus } from "../../../hooks/useBus";
 import { useAuth } from "../../../hooks/useAuth";
 import { getImageUrl } from "../../../lib/utils/media";
 import { formatBusStatus, formatBusType } from "../../../lib/utils/formatter";
+import { pageTransition } from "../../../lib/utils/animation";
 
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
@@ -106,12 +107,6 @@ const EditBusDriver = () => {
 				setToastOpen(true);
 			}
 		}
-	};
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
 	};
 
 	return (

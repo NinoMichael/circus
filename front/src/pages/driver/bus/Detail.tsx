@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { formatBusStatus, formatBusType } from "../../../lib/utils/formatter";
 import { getImageUrl } from "../../../lib/utils/media";
 import type { Bus } from "../../../lib/types/bus";
+import { pageTransition } from "../../../lib/utils/animation";
 
 import { useBus } from "../../../hooks/useBus";
 import { useAuth } from "../../../hooks/useAuth";
@@ -33,12 +34,6 @@ const DetailBusDriver = () => {
 		loadBus();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user?.driver?.id]);
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
-	};
 
 	return (
 		<motion.div

@@ -40,7 +40,7 @@ class Trip extends Model
 
     public function buse(): BelongsTo
     {
-        return $this->belongsTo(Buse::class);
+        return $this->belongsTo(Buse::class, 'bus_id');
     }
 
     public function bookings(): HasMany

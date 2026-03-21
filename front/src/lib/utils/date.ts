@@ -9,6 +9,14 @@ export function formatSlashDate(dateString: string) {
 	return `${day}/${month}/${year}`;
 }
 
+// Extract time from full date
+export function formatTime(dateString: string) {
+	const date = new Date(dateString);
+	const hours = String(date.getUTCHours()).padStart(2, "0");
+	const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+	return `${hours}:${minutes}`;
+}
+
 // Explicit long date
 export function formatDateLong(dateString: string) {
 	const date = new Date(dateString);
