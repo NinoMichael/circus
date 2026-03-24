@@ -27,3 +27,21 @@ export function formatDateLong(dateString: string) {
 		year: "numeric",
 	});
 }
+
+// Extract specific part of date
+export const extractDate = (isoDate: string) => {
+	const date = new Date(isoDate);
+
+	const day = String(date.getUTCDate()).padStart(2, "0");
+
+	const month = date
+		.toLocaleString("fr-FR", {
+			month: "short",
+			timeZone: "UTC",
+		})
+		.toUpperCase();
+
+	const year = date.getUTCFullYear();
+
+	return { day, monthYear: `${month} ${year}` };
+};

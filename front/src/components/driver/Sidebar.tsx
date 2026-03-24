@@ -47,7 +47,7 @@ const SidebarDriver = () => {
 					</Link>
 					<Link
 						className="hover:text-primary transition-colors flex gap-2 items-center"
-						to="/"
+						to="/driver/planning"
 					>
 						<CalendarMonthIcon className="opacity-80!" />
 						<span>Planning</span>

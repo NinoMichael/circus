@@ -1,4 +1,22 @@
+import type { Bus } from "./bus";
 import type { Station } from "./station";
+
+export interface TripsResponse {
+	trips: Trip[];
+	meta: {
+		current_page: number;
+		last_page: number;
+		per_page: number;
+		total: number;
+	};
+}
+
+export interface TripParams {
+	page?: number;
+	per_page?: number;
+	type?: "upcoming" | "past" | "cancelled";
+	sort_by?: "earliest" | "latest";
+}
 
 export type Trip = {
 	id: number;
@@ -6,6 +24,7 @@ export type Trip = {
 	route?: Route;
 	cooperative_id: number;
 	bus_id: number;
+	buse: Bus;
 	departure_time: string;
 	arrival_time: string;
 	fees: string;

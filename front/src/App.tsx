@@ -18,6 +18,7 @@ import OverviewDriver from "./pages/driver/Overview";
 import DetailBusDriver from "./pages/driver/bus/Detail";
 import ProfileDriver from "./pages/driver/Profile";
 import EditBusDriver from "./pages/driver/bus/Edit";
+import PlanningListDriver from "./pages/driver/planning/List";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -91,6 +92,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<EditBusDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="planning"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<PlanningListDriver />
 								</ProtectedRoute>
 							}
 						/>
