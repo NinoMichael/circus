@@ -2,6 +2,8 @@
 @import "tailwindcss";
 
 @theme {
+	--breakpoint-xs: 450px;
+
 	--font-jakarta: "Plus Jakarta Sans";
 
 	--color-background: #f5f5f5;

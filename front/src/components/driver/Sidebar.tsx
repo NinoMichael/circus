@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
@@ -19,8 +19,19 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 const SidebarDriver = () => {
 	const navigateTo = useNavigate();
+	const location = useLocation();
 	const [logoutDialog, setLogoutDialog] = useState(false);
 	const { user, logout } = useAuth();
+
+	const isActive = (path: string) => {
+		if (path === "/driver/planning") {
+			return (
+				location.pathname === path ||
+				location.pathname.startsWith("/driver/planning/")
+			);
+		}
+		return location.pathname === path;
+	};
 
 	const handleLogout = async () => {
 		await logout();
@@ -39,35 +50,47 @@ const SidebarDriver = () => {
 
 				<nav className="flex flex-col gap-8">
 					<Link
-						className="hover:text-primary transition-colors flex gap-2 items-center"
+						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
+							isActive("/driver/overview") ? "bg-primary" : "hover:text-primary"
+						}`}
 						to="/driver/overview"
 					>
 						<DashboardIcon className="opacity-80!" />
 						<span>Tableau de bord</span>
 					</Link>
 					<Link
-						className="hover:text-primary transition-colors flex gap-2 items-center"
-						to="/"
+						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
+							isActive("/driver/planning") ? "bg-primary" : "hover:text-primary"
+						}`}
+						to="/driver/planning"
 					>
 						<CalendarMonthIcon className="opacity-80!" />
 						<span>Planning</span>
 					</Link>
 					<Link
-						className="hover:text-primary transition-colors flex gap-2 items-center"
+						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
+							isActive("/driver/performance")
+								? "bg-primary"
+								: "hover:text-primary"
+						}`}
 						to="/"
 					>
 						<AnalyticIcon className="opacity-80!" />
 						<span>Performance</span>
 					</Link>
 					<Link
-						className="hover:text-primary transition-colors flex gap-2 items-center"
+						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
+							isActive("/driver/bus") ? "bg-primary" : "hover:text-primary"
+						}`}
 						to="/driver/bus"
 					>
 						<DirectionBusIcon className="opacity-80!" />
 						<span>Taxi-brousse</span>
 					</Link>
 					<Link
-						className="hover:text-primary transition-colors flex gap-2 items-center"
+						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
+							isActive("/driver/settings") ? "bg-primary" : "hover:text-primary"
+						}`}
 						to="/"
 					>
 						<SettingIcon className="opacity-80!" />

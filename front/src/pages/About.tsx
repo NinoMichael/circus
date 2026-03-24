@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useDashboard } from "../hooks/useDashboard";
 import type { KPIAboutResponse } from "../lib/types/dashboard";
+import { pageTransition } from "../lib/utils/animation";
 
 import heroImage from "../assets/images/hero-img.jpg";
 
@@ -106,12 +107,6 @@ const About = () => {
 			a: "Présentez votre confirmation de réservation (SMS ou email) ainsi qu'une pièce d'identité valide.",
 		},
 	];
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
-	};
 
 	const item: Variants = {
 		hidden: { opacity: 0, y: 20 },
@@ -219,7 +214,7 @@ const About = () => {
 									<stat.icon className="w-6 h-6 text-primary" />
 								</div>
 								<span className="text-3xl font-bold">{stat.value}</span>
-								<span className="text-sm text-gray-500 font-semibold uppercase">
+								<span className="text-gray-500 font-semibold uppercase">
 									{stat.label}
 								</span>
 							</motion.div>
@@ -269,7 +264,7 @@ const About = () => {
 												<BusinessIcon className="w-5 h-5" />
 											)}
 										</div>
-										<span className="font-semibold text-sm">{coop.name}</span>
+										<span className="font-semibold">{coop.name}</span>
 									</motion.div>
 							  ))}
 					</motion.div>
@@ -306,7 +301,7 @@ const About = () => {
 									<step.icon className="w-6 h-6" />
 								</motion.div>
 								<h3 className="font-bold">{step.title}</h3>
-								<p className="text-sm text-gray-400 text-center max-w-xs">
+								<p className="text-gray-400 text-center max-w-xs">
 									{step.description}
 								</p>
 							</motion.div>
@@ -340,7 +335,7 @@ const About = () => {
 										initial="hidden"
 										whileInView="show"
 										viewport={{ once: true }}
-										className="flex items-center gap-3 text-gray-400 text-sm"
+										className="flex items-center gap-3 text-gray-400"
 									>
 										<CheckCircleOutlineOutlinedIcon className="w-5 h-5 flex-shrink-0 text-primary" />
 										{b}
@@ -387,10 +382,10 @@ const About = () => {
 										expandIcon={<AddOutlinedIcon className="text-gray-500" />}
 										className="px-4 py-2"
 									>
-										<span className="text-sm font-semibold">{faq.q}</span>
+										<span className="font-semibold">{faq.q}</span>
 									</MuiAccordionSummary>
 									<MuiAccordionDetails className="px-4 pb-4">
-										<span className="text-sm leading-relaxed">{faq.a}</span>
+										<span className="leading-relaxed">{faq.a}</span>
 									</MuiAccordionDetails>
 								</MuiAccordion>
 							</motion.div>

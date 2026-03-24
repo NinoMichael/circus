@@ -1,4 +1,5 @@
 import { useAuth } from "../../hooks/useAuth";
+import { motion } from "framer-motion";
 
 import Button from "@mui/material/Button";
 
@@ -8,15 +9,23 @@ import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 
 import { formatDateLong, formatSlashDate } from "../../lib/utils/date";
+import { pageTransition } from "../../lib/utils/animation";
 
 const ProfileDriver = () => {
 	const { user } = useAuth();
 
 	return (
-		<div className="flex flex-col items-start gap-8">
+		<motion.div
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			variants={pageTransition}
+			transition={{ duration: 0.35 }}
+			className="flex flex-col items-start gap-8"
+		>
 			<div className="flex p-8 flex-col items-start rounded-3xl border border-secondary/10 bg-white shadow-black/30 w-full overflow-hidden relative">
 				<div className="absolute left-px top-px bg-tertiary/20 w-full h-32"></div>
-				<div className="flex flex-col min-[450px]:flex-row pt-12 min-[450px]:items-end gap-6 w-full">
+				<div className="flex flex-col xs:flex-row pt-12 xs:items-end gap-6 w-full">
 					{!user?.profile.avatar ? (
 						<div className="bg-primary flex justify-center items-center rounded-3xl border-3 border-accent md:w-36 md:h-36 max-w-none">
 							{user?.firstname.charAt(0)}
@@ -73,7 +82,7 @@ const ProfileDriver = () => {
 							</div>
 						</div>
 						<div className="grid grid-cols-2 gap-6 w-full relative">
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start w-full">
 									<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
 										Nom
@@ -85,7 +94,7 @@ const ProfileDriver = () => {
 									</p>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start w-full">
 									<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
 										Prénoms
@@ -97,7 +106,7 @@ const ProfileDriver = () => {
 									</p>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start w-full">
 									<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
 										Sexe
@@ -109,7 +118,7 @@ const ProfileDriver = () => {
 									</p>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start w-full">
 									<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
 										Date de naissance
@@ -123,7 +132,7 @@ const ProfileDriver = () => {
 									</p>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-2 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-2 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start w-full">
 									<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
 										Adresse de résidence
@@ -148,7 +157,7 @@ const ProfileDriver = () => {
 							</div>
 						</div>
 						<div className="grid grid-cols-2 gap-6 w-full relative">
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start gap-1">
 									<div className="flex flex-col items-start w-full">
 										<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
@@ -162,7 +171,7 @@ const ProfileDriver = () => {
 									</div>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start gap-1">
 									<div className="flex flex-col items-start w-full">
 										<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
@@ -176,7 +185,7 @@ const ProfileDriver = () => {
 									</div>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start gap-1">
 									<div className="flex flex-col items-start w-full">
 										<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
@@ -190,7 +199,7 @@ const ProfileDriver = () => {
 									</div>
 								</div>
 							</div>
-							<div className="col-span-2 min-[450px]:col-span-1 flex flex-col items-start gap-1">
+							<div className="col-span-2 xs:col-span-1 flex flex-col items-start gap-1">
 								<div className="flex flex-col items-start gap-1">
 									<div className="flex flex-col items-start w-full">
 										<p className="text-secondary/40 text-sm font-bold leading-4 w-full tracking-wide">
@@ -249,7 +258,7 @@ const ProfileDriver = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { getImageUrl } from "../../lib/utils/media";
 import { useAuth } from "../../hooks/useAuth";
 
 import Logo from "../inc/Logo";
@@ -194,7 +195,7 @@ const TopbarDriver = () => {
 							className="hover:scale-105 transition-all"
 						>
 							<img
-								src={user.profile.avatar}
+								src={getImageUrl(user.profile.avatar)}
 								className="h-12 w-12 rounded-full border border-gray-200"
 								alt="Avatar visitor"
 							/>

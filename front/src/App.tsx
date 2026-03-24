@@ -17,6 +17,10 @@ import RegisterInfo from "./pages/auth/RegisterInfo";
 import OverviewDriver from "./pages/driver/Overview";
 import DetailBusDriver from "./pages/driver/bus/Detail";
 import ProfileDriver from "./pages/driver/Profile";
+import EditBusDriver from "./pages/driver/bus/Edit";
+import PlanningListDriver from "./pages/driver/planning/List";
+import DetailPlanningDriver from "./pages/driver/planning/Detail";
+import OpenBoardingDriver from "./pages/driver/planning/OpenBoarding";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -82,6 +86,38 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<DetailBusDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="bus/edit"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<EditBusDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="planning"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<PlanningListDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="planning/:id"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<DetailPlanningDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="planning/:id/open-boarding"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<OpenBoardingDriver />
 								</ProtectedRoute>
 							}
 						/>

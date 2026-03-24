@@ -9,3 +9,10 @@ export const formatBusStatus = {
 	maintenance: "En maintenance",
 	suspended: "Suspendu",
 };
+
+export const formatTripStatus = {
+	scheduled: "Planifié",
+	active: "Actif",
+	completed: "Terminé",
+	cancelled: "Annulé",
+};

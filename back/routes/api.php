@@ -20,3 +20,7 @@ Route::name('bus.')->group(function () {
 Route::name('dashboard.')->group(function () {
     require __DIR__ . '/modules/dashboard.php';
 });
+
+Route::name('trips.')->group(function () {
+    require __DIR__ . '/modules/trip.php';
+});
