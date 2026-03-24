@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { pageTransition } from "../../../lib/utils/animation";
+import { useNavigate } from "react-router-dom";
+import { pageTransition, statusColors } from "../../../lib/utils/animation";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTrip } from "../../../hooks/useTrip";
 import type { Trip } from "../../../lib/types/trip";
@@ -22,14 +23,8 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { formatTripStatus } from "../../../lib/utils/formatter";
 
-const statusColors: Record<string, string> = {
-	scheduled: "bg-[#f59e0b] text-white",
-	active: "bg-green-600/70 text-white",
-	completed: "bg-gray-400 text-white",
-	cancelled: "bg-red-600/70 text-white",
-};
-
 const PlanningListDriver = () => {
+	const navigate = useNavigate();
 	const { user } = useAuth();
 	const [trips, setTrips] = useState<Trip[]>([]);
 	const [tabValue, setTabValue] = useState(0);
@@ -37,6 +32,7 @@ const PlanningListDriver = () => {
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [selectedTripId, setSelectedTripId] = useState<number | null>(null);
 	const { fetchTripsByDriver, loading } = useTrip();
 
 	const tabTypes = ["upcoming", "past", "cancelled"];
@@ -70,11 +66,22 @@ const PlanningListDriver = () => {
 		setPage(1);
 	};
 
-	const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+	const handleMenuClick = (
+		event: React.MouseEvent<HTMLElement>,
+		tripId: number
+	) => {
 		setAnchorEl(event.currentTarget);
+		setSelectedTripId(tripId);
 	};
 
 	const handleMenuClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handleViewDetails = () => {
+		if (selectedTripId) {
+			navigate(`/driver/planning/${selectedTripId}`);
+		}
 		setAnchorEl(null);
 	};
 
@@ -208,7 +215,10 @@ const PlanningListDriver = () => {
 										{formatTripStatus[trip.status] || "Planifié"}
 									</span>
 
-									<IconButton size="small" onClick={handleMenuClick}>
+									<IconButton
+										size="small"
+										onClick={(e) => handleMenuClick(e, trip.id)}
+									>
 										<MoreVertIcon className="size-5" />
 									</IconButton>
 								</div>
@@ -238,22 +248,12 @@ const PlanningListDriver = () => {
 			>
 				<MenuItem
 					className="text-sm hover:text-primary"
-					onClick={handleMenuClose}
+					onClick={handleViewDetails}
 				>
 					Voir détails
 				</MenuItem>
-				<MenuItem
-					className="text-sm hover:text-primary"
-					onClick={handleMenuClose}
-				>
-					Modifier
-				</MenuItem>
-				<MenuItem
-					className="text-sm hover:text-primary"
-					onClick={handleMenuClose}
-				>
-					Annuler
-				</MenuItem>
+				<MenuItem className="text-sm hover:text-primary">Modifier</MenuItem>
+				<MenuItem className="text-sm hover:text-primary">Annuler</MenuItem>
 			</Menu>
 		</motion.div>
 	);

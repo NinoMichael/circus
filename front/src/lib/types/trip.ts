@@ -1,4 +1,6 @@
+import type { Booking } from "./booking";
 import type { Bus } from "./bus";
+import type { Cooperative } from "./cooperative";
 import type { Station } from "./station";
 
 export interface TripsResponse {
@@ -23,6 +25,7 @@ export type Trip = {
 	route_id: number;
 	route?: Route;
 	cooperative_id: number;
+	cooperative: Cooperative;
 	bus_id: number;
 	buse: Bus;
 	departure_time: string;
@@ -30,6 +33,7 @@ export type Trip = {
 	fees: string;
 	available_seats: number;
 	status: "scheduled" | "active" | "completed" | "cancelled";
+	bookings: Booking[];
 	created_at?: string;
 	updated_at?: string;
 	deleted_at?: string;

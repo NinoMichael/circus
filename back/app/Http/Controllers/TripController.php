@@ -64,4 +64,26 @@ class TripController extends Controller
             ]
         ]);
     }
+
+    /**
+     * Get a specific trip detail
+     */
+    public function show(Driver $driver, Trip $trip): JsonResponse
+    {
+        $trip->load([
+            'route.departureStation',
+            'route.arrivalStation',
+            'buse',
+            'cooperative',
+            'bookings.user'
+        ]);
+
+        if ($trip->buse->driver_id !== $driver->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json([
+            'trip' => $trip
+        ]);
+    }
 }
