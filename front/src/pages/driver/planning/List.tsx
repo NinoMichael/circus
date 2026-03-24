@@ -64,6 +64,8 @@ const PlanningListDriver = () => {
 	const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
 		setTabValue(newValue);
 		setPage(1);
+		setSelectedTripId(null);
+		setAnchorEl(null);
 	};
 
 	const handleMenuClick = (
@@ -78,9 +80,30 @@ const PlanningListDriver = () => {
 		setAnchorEl(null);
 	};
 
+	const isTripPast = (trip: Trip) => {
+		const now = new Date();
+		const departureTime = new Date(trip.departure_time);
+		return departureTime < now || trip.status === "completed";
+	};
+
+	const canModify = (trip: Trip) => {
+		return (
+			trip.status !== "cancelled" &&
+			trip.status !== "completed" &&
+			!isTripPast(trip)
+		);
+	};
+
 	const handleViewDetails = () => {
 		if (selectedTripId) {
 			navigate(`/driver/planning/${selectedTripId}`);
+		}
+		setAnchorEl(null);
+	};
+
+	const handleViewOpenBoarding = () => {
+		if (selectedTripId) {
+			navigate(`/driver/planning/${selectedTripId}/open-boarding`);
 		}
 		setAnchorEl(null);
 	};
@@ -215,12 +238,14 @@ const PlanningListDriver = () => {
 										{formatTripStatus[trip.status] || "Planifié"}
 									</span>
 
-									<IconButton
-										size="small"
-										onClick={(e) => handleMenuClick(e, trip.id)}
-									>
-										<MoreVertIcon className="size-5" />
-									</IconButton>
+									{trip.status !== "cancelled" && (
+										<IconButton
+											size="small"
+											onClick={(e) => handleMenuClick(e, trip.id)}
+										>
+											<MoreVertIcon className="size-5" />
+										</IconButton>
+									)}
 								</div>
 							</div>
 						))}
@@ -250,10 +275,28 @@ const PlanningListDriver = () => {
 					className="text-sm hover:text-primary"
 					onClick={handleViewDetails}
 				>
-					Voir détails
+					Détails
 				</MenuItem>
-				<MenuItem className="text-sm hover:text-primary">Modifier</MenuItem>
-				<MenuItem className="text-sm hover:text-primary">Annuler</MenuItem>
+				<MenuItem
+					className="text-sm hover:text-primary"
+					onClick={handleViewOpenBoarding}
+				>
+					Embarquement
+				</MenuItem>
+				{selectedTripId &&
+					(() => {
+						const trip = trips.find((t) => t.id === selectedTripId);
+						return trip && canModify(trip) ? (
+							<>
+								<MenuItem className="text-sm hover:text-primary">
+									Modifier
+								</MenuItem>
+								<MenuItem className="text-sm hover:text-primary">
+									Annuler
+								</MenuItem>
+							</>
+						) : null;
+					})()}
 			</Menu>
 		</motion.div>
 	);

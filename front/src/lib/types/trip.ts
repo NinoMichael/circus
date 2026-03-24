@@ -25,15 +25,15 @@ export type Trip = {
 	route_id: number;
 	route?: Route;
 	cooperative_id: number;
-	cooperative: Cooperative;
+	cooperative?: Cooperative;
 	bus_id: number;
-	buse: Bus;
+	buse?: Bus;
 	departure_time: string;
 	arrival_time: string;
 	fees: string;
 	available_seats: number;
 	status: "scheduled" | "active" | "completed" | "cancelled";
-	bookings: Booking[];
+	bookings?: Booking[];
 	created_at?: string;
 	updated_at?: string;
 	deleted_at?: string;
@@ -51,3 +51,33 @@ export type Route = {
 	updated_at?: string;
 	deleted_at?: string;
 };
+
+export type BusSeat = {
+	id: number;
+	bus_id: number;
+	seat_number: string;
+	seat_type: string;
+	is_available: boolean;
+	booking_id?: number;
+	is_booked: boolean;
+	booking_status?: string;
+	passenger_name?: string;
+	created_at?: string;
+	updated_at?: string;
+};
+
+export interface Progress {
+	booked_seats: number;
+	total_capacity: number;
+	percentage: number;
+	remaining: number;
+}
+
+export interface BoardingResponse {
+	trip: Trip;
+	bus: Bus;
+	cooperative?: Cooperative;
+	progress: Progress;
+	seats: BusSeat[];
+	bookings: Booking[];
+}

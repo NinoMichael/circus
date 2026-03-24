@@ -20,6 +20,7 @@ import ProfileDriver from "./pages/driver/Profile";
 import EditBusDriver from "./pages/driver/bus/Edit";
 import PlanningListDriver from "./pages/driver/planning/List";
 import DetailPlanningDriver from "./pages/driver/planning/Detail";
+import OpenBoardingDriver from "./pages/driver/planning/OpenBoarding";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -109,6 +110,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<DetailPlanningDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="planning/:id/open-boarding"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<OpenBoardingDriver />
 								</ProtectedRoute>
 							}
 						/>

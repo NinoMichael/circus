@@ -201,7 +201,7 @@ const DetailPlanningDriver = () => {
 								{trip.cooperative?.name || "N/A"}
 							</p>
 							<p className="text-sm text-gray-500">
-								{formatBusType[trip.buse?.type] || "N/A"}
+								{trip.buse?.type ? formatBusType[trip.buse.type] : "N/A"}
 							</p>
 						</div>
 					</div>

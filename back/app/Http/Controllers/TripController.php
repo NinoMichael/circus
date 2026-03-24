@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use App\Models\Trip;
+use App\Models\BusSeat;
+use App\Models\Booking;
+use App\Models\BookingSeat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -75,15 +78,76 @@ class TripController extends Controller
             'route.arrivalStation',
             'buse',
             'cooperative',
-            'bookings.user'
+            'bookings.user',
+            'bookings.bookingSeats.busSeat'
         ]);
 
         if ($trip->buse->driver_id !== $driver->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
+        return response()->json($trip);
+    }
+
+    /**
+     * Get boarding data for a specific trip
+     */
+    public function boarding(Driver $driver, Trip $trip): JsonResponse
+    {
+        if ($trip->buse->driver_id !== $driver->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $trip->load([
+            'route.departureStation',
+            'route.arrivalStation',
+            'buse.cooperative',
+            'bookings.user',
+            'bookings.bookingSeats.busSeat'
+        ]);
+
+        $busSeats = BusSeat::where('bus_id', $trip->bus_id)
+            ->orderBy('seat_number')
+            ->get()
+            ->map(function ($seat) use ($trip) {
+                $bookingSeat = BookingSeat::whereHas('booking', function ($q) use ($trip) {
+                    $q->where('trip_id', $trip->id);
+                })->where('seat_id', $seat->id)->first();
+
+                return [
+                    'id' => $seat->id,
+                    'seat_number' => $seat->seat_number,
+                    'seat_type' => $seat->seat_type,
+                    'is_available' => $seat->is_available,
+                    'booking_id' => $bookingSeat?->booking_id,
+                    'is_booked' => $bookingSeat !== null,
+                    'booking_status' => $bookingSeat?->booking?->status,
+                    'passenger_name' => $bookingSeat?->booking?->user?->fullname ?? 
+                                       $bookingSeat?->booking?->bookingPassengers?->first()?->name,
+                ];
+            });
+
+        $confirmedBookings = $trip->bookings->filter(function ($booking) {
+            return $booking->status === 'confirmed';
+        });
+
+        $totalCapacity = $trip->buse->capacity;
+        $bookedSeats = $confirmedBookings->sum(function ($booking) {
+            return $booking->bookingSeats->count();
+        });
+
         return response()->json([
-            'trip' => $trip
+            'trip' => $trip,
+            'bus' => $trip->buse,
+            'cooperative' => $trip->cooperative,
+            'progress' => [
+                'booked_seats' => $bookedSeats,
+                'total_capacity' => $totalCapacity,
+                'percentage' => $totalCapacity > 0 ? round(($bookedSeats / $totalCapacity) * 100) : 0,
+                'remaining' => $totalCapacity - $bookedSeats,
+            ],
+            'seats' => $busSeats,
+            'bookings' => $confirmedBookings->values(),
         ]);
     }
 }
