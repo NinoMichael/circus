@@ -39,7 +39,7 @@ const SidebarDriver = () => {
 	};
 
 	return (
-		<aside className="hidden lg:w-72 border-r border-primary/20 bg-white/80 p-8 lg:flex flex-col justify-between">
+		<aside className="hidden lg:flex lg:w-72 border-r border-primary/20 bg-white/80 p-8 flex-col justify-between overflow-y-auto">
 			<div className="flex flex-col gap-6">
 				<div className="flex flex-col items-start text-left gap-1 mb-4">
 					<p className="text-lg font-bold">{user?.fullname}</p>

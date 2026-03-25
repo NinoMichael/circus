@@ -5,7 +5,7 @@ import { pageTransition } from "../../../lib/utils/animation";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTrip } from "../../../hooks/useTrip";
 import { formatTime, formatDateLong } from "../../../lib/utils/date";
-import BusSeats from "../../../components/driver/BusSeats";
+import BusSeats from "../../../components/BusSeats";
 import type { BoardingResponse, BusSeat } from "../../../lib/types/trip";
 import type { Booking, BookingSeat } from "../../../lib/types/booking";
 

@@ -1,4 +1,4 @@
-import type { BusSeat } from "../../lib/types/trip";
+import type { BusSeat } from "../lib/types/trip";
 
 interface BusSeatsProps {
 	seats: BusSeat[];

@@ -34,8 +34,8 @@ const DetailPlanningDriver = () => {
 			const driverId = user.driver?.id;
 			if (!driverId) return;
 			const data = await fetchTripById(driverId, Number(id));
-			if (data && typeof data === "object" && "trip" in data) {
-				setTrip(data.trip as Trip);
+			if (data) {
+				setTrip(data);
 			}
 		};
 

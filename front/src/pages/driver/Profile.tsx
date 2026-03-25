@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
+import { useDashboard } from "../../hooks/useDashboard";
 
 import Button from "@mui/material/Button";
 
@@ -13,6 +15,23 @@ import { pageTransition } from "../../lib/utils/animation";
 
 const ProfileDriver = () => {
 	const { user } = useAuth();
+	const [completedTrips, setCompletedTrips] = useState<number | null>(null);
+	const { fetchKpisDriver } = useDashboard();
+
+	useEffect(() => {
+		const driverId = user?.driver?.id;
+		if (!driverId) return;
+
+		const fetchKpis = async () => {
+			const data = await fetchKpisDriver(driverId);
+			if (data) {
+				setCompletedTrips(data.completed_trips);
+			}
+		};
+
+		fetchKpis();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user?.driver?.id]);
 
 	return (
 		<motion.div
@@ -249,7 +268,7 @@ const ProfileDriver = () => {
 								</div>
 								<div className="flex flex-col items-start w-fit">
 									<p className="flex flex-col justify-center text-white font-bold leading-6">
-										120
+										{completedTrips ?? 0}
 									</p>
 								</div>
 							</div>

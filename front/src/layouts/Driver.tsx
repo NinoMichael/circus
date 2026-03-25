@@ -2,22 +2,19 @@ import { Outlet } from "react-router-dom";
 
 import SidebarDriver from "../components/driver/Sidebar";
 import TopbarDriver from "../components/driver/Topbar";
-import Footer from "../components/inc/Footer";
 
 const DriverLayout = () => {
 	return (
-		<div className="relative flex min-h-screen w-full flex-col">
+		<div className="flex flex-col h-screen overflow-hidden">
 			<TopbarDriver />
 
-			<div className="lg:flex flex-1">
+			<div className="flex flex-1 overflow-hidden">
 				<SidebarDriver />
 
-				<main className="flex-1 p-8">
+				<main className="flex-1 overflow-y-auto p-8">
 					<Outlet />
 				</main>
 			</div>
-
-			<Footer />
 		</div>
 	);
 };

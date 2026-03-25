@@ -44,6 +44,10 @@ class DashboardController extends Controller
             $query->where('driver_id', $driver->id);
         })->count();
 
+        $completedTrips = Trip::whereHas('buse', function ($query) use ($driver) {
+            $query->where('driver_id', $driver->id);
+        })->where('status', 'completed')->count();
+
         $busCapacity = Buse::select('capacity')->where('driver_id', $driver->id)->get();
 
         $baseQuery = Trip::whereHas('buse', function ($query) use ($driver) {
@@ -60,6 +64,7 @@ class DashboardController extends Controller
 
         return response()->json([
             "trips" => $trips,
+            "completed_trips" => $completedTrips,
             "bus" => $busCapacity,
             "next_trip" => $nextTrip
         ]);

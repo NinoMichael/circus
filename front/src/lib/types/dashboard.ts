@@ -10,6 +10,7 @@ export type KPIAboutResponse = {
 
 export type KPIDriverResponse = {
 	trips: number;
+	completed_trips: number;
 	bus: Pick<Bus, "capacity">[];
 	next_trip: Trip;
 };
