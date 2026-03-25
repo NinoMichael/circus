@@ -48,7 +48,7 @@ const SidebarDriver = () => {
 					</p>
 				</div>
 
-				<nav className="flex flex-col gap-8">
+				<nav className="flex flex-col gap-4">
 					<Link
 						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
 							isActive("/driver/overview") ? "bg-primary" : "hover:text-primary"

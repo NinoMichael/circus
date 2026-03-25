@@ -61,7 +61,7 @@ const TopbarDriver = () => {
 				<p className="text-text/60 text-sm font-medium">Chauffeur • ID #89</p>
 			</div>
 
-			<nav className="flex flex-col gap-8">
+			<nav className="flex flex-col gap-6">
 				<Link
 					className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
 						isActive("/driver/overview") ? "bg-primary" : "hover:text-primary"
@@ -82,7 +82,9 @@ const TopbarDriver = () => {
 				</Link>
 				<Link
 					className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
-						isActive("/driver/performance") ? "bg-primary" : "hover:text-primary"
+						isActive("/driver/performance")
+							? "bg-primary"
+							: "hover:text-primary"
 					}`}
 					to="/driver/performance"
 				>
