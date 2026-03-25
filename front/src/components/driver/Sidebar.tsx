@@ -73,7 +73,7 @@ const SidebarDriver = () => {
 								? "bg-primary"
 								: "hover:text-primary"
 						}`}
-						to="/"
+						to="/driver/performance"
 					>
 						<AnalyticIcon className="opacity-80!" />
 						<span>Performance</span>

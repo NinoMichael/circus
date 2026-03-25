@@ -13,6 +13,13 @@
 	--color-secondary: #393e46;
 	--color-tertiary: #ffd633;
 	--color-accent: #eeeeee;
+	--color-slate: #64748b;
+	--color-slate-light: #94a3b8;
+	--color-slate-bg: #f1f5f9;
+	--color-green-light: #ecfdf5;
+	--color-green: #10b981;
+	--color-blue: #3b82f6;
+	--color-amber: #f59e0b;
 }
 
 body {
