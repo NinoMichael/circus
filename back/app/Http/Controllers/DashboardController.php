@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buse;
+use App\Models\DriverRevenue;
 use App\Models\Station;
 use App\Models\Cooperative;
 use App\Models\Driver;
@@ -62,9 +63,15 @@ class DashboardController extends Controller
             ->orderBy('departure_time', 'asc')
             ->first();
 
+        $weeklyRevenue = DriverRevenue::where('driver_id', $driver->id)
+            ->where('status', '!=', 'pending')
+            ->where('calculation_date', '>=', now()->startOfWeek())
+            ->sum('net_amount');
+
         return response()->json([
             "trips" => $trips,
             "completed_trips" => $completedTrips,
+            "weekly_revenue" => $weeklyRevenue,
             "bus" => $busCapacity,
             "next_trip" => $nextTrip
         ]);

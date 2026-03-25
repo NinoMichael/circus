@@ -21,6 +21,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import { formatCurrency } from "../../lib/helpers";
 
 const OverviewDriver = () => {
 	const { user } = useAuth();
@@ -192,7 +193,9 @@ const OverviewDriver = () => {
 					<h4 className="uppercase font-semibold text-xs text-gray-400 tracking-widest">
 						Revenus de la semaine
 					</h4>
-					<span className="font-extrabold text-2xl">100 000 Ar</span>
+					<span className="font-extrabold text-2xl">
+						{formatCurrency(kpi?.weekly_revenue ?? 0)}
+					</span>
 				</div>
 			</div>
 		</motion.div>
