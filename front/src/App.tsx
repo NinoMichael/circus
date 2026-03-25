@@ -23,6 +23,9 @@ import DashboardAdmin from "./pages/admin/Dashboard";
 
 import OverviewCooperative from "./pages/cooperative/Overview";
 
+import Join from "./pages/auth/cooperative/Join";
+import JoinInfo from "./pages/auth/cooperative/JoinInfo";
+
 function App() {
 	const location = useLocation();
 
@@ -59,6 +62,8 @@ function App() {
 						<Route path="login" element={<Login />} />
 						<Route path="register" element={<Register />} />
 						<Route path="register/info" element={<RegisterInfo />} />
+						<Route path="register-cooperative" element={<Join />} />
+						<Route path="register-cooperative/info" element={<JoinInfo />} />
 					</Route>
 
 					<Route path="/driver" element={<DriverLayout />}>
