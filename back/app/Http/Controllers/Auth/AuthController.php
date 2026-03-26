@@ -56,6 +56,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * 
+     * @return void
+     */
     private function createSession(Request $request, User $user): void
     {
         $userAgent = $request->userAgent();
@@ -67,6 +73,11 @@ class AuthController extends Controller
         Session::put('os', $deviceInfo['os']);
     }
 
+    /**
+     * @param string $userAgent
+     * 
+     * @return array
+     */
     private function parseUserAgent(string $userAgent): array
     {
         $deviceType = 'Desktop';

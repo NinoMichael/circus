@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { pageTransition } from "../../lib/utils/animation";
 import type { DriverSettings } from "../../lib/types/settings";
 import type { SessionData } from "../../lib/types/session";
+import type { ToggleSwitchProps } from "../../lib/types/common";
 
 import { useSettings } from "../../hooks/useSettings";
 import { useAuth } from "../../hooks/useAuth";
@@ -22,13 +23,6 @@ import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import TabletMacIcon from "@mui/icons-material/TabletMac";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
-
-interface ToggleSwitchProps {
-	checked: boolean;
-	onChange: (checked: boolean) => void;
-	label: string;
-	description: string;
-}
 
 const ToggleSwitch = ({
 	checked,

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { motion } from "framer-motion";
-import { useDashboard } from "../../hooks/useDashboard";
+import { Link } from "react-router-dom";
+import { useDashboard } from "../../../hooks/useDashboard";
 
 import Button from "@mui/material/Button";
 
@@ -10,8 +11,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 
-import { formatDateLong, formatSlashDate } from "../../lib/utils/date";
-import { pageTransition } from "../../lib/utils/animation";
+import { formatDateLong, formatSlashDate } from "../../../lib/utils/date";
+import { pageTransition } from "../../../lib/utils/animation";
 
 const ProfileDriver = () => {
 	const { user } = useAuth();
@@ -70,21 +71,25 @@ const ProfileDriver = () => {
 							</p>
 						</div>
 						<div className="mt-4 md:hidden w-fit">
+							<Link to="/driver/profile/edit">
+								<Button
+									className="md:w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
+									startIcon={<EditIcon />}
+								>
+									Modifier le profil
+								</Button>
+							</Link>
+						</div>
+					</div>
+					<div className="hidden md:flex pb-2 items-start w-fit">
+						<Link to="/driver/profile/edit">
 							<Button
 								className="md:w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
 								startIcon={<EditIcon />}
 							>
 								Modifier le profil
 							</Button>
-						</div>
-					</div>
-					<div className="hidden md:flex pb-2 items-start w-fit">
-						<Button
-							className="md:w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
-							startIcon={<EditIcon />}
-						>
-							Modifier le profil
-						</Button>
+						</Link>
 					</div>
 				</div>
 			</div>

@@ -37,3 +37,8 @@ export type Profile = {
 	created_at?: string;
 	updated_at?: string;
 };
+
+export type UserResponse = {
+	message: string;
+	user: User;
+};

@@ -45,3 +45,10 @@ export const extractDate = (isoDate: string) => {
 
 	return { day, monthYear: `${month} ${year}` };
 };
+
+// Extract date for input
+export const formatDateForInput = (dateStr: string) => {
+	if (!dateStr) return "";
+	const date = new Date(dateStr);
+	return date.toISOString().split("T")[0];
+};

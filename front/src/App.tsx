@@ -16,12 +16,13 @@ import RegisterInfo from "./pages/auth/RegisterInfo";
 
 import OverviewDriver from "./pages/driver/Overview";
 import DetailBusDriver from "./pages/driver/bus/Detail";
-import ProfileDriver from "./pages/driver/Profile";
+import ProfileDriver from "./pages/driver/profile/Detail";
 import EditBusDriver from "./pages/driver/bus/Edit";
 import PlanningListDriver from "./pages/driver/planning/List";
 import DetailPlanningDriver from "./pages/driver/planning/Detail";
 import OpenBoardingDriver from "./pages/driver/planning/OpenBoarding";
 import AnalyticsDriver from "./pages/driver/Analytics";
+import EditProfileDriver from "./pages/driver/profile/Edit";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -85,6 +86,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<ProfileDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="profile/edit"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<EditProfileDriver />
 								</ProtectedRoute>
 							}
 						/>

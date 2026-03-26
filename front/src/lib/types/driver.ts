@@ -6,3 +6,15 @@ export type Driver = {
 	created_at?: string;
 	updated_at?: string;
 };
+
+export type DriverForm = {
+	firstname?: string;
+	lastname?: string;
+	phone?: string;
+	birth_date?: string;
+	national_id?: string;
+	email?: string;
+	is_male?: boolean;
+	address?: string;
+	license_number: string;
+};

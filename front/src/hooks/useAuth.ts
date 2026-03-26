@@ -165,8 +165,12 @@ export function useAuth() {
 			.find((row) => row.startsWith("user="));
 
 		if (userCookie) {
-			const userData = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
-			setUser(userData);
+			try {
+				const userData = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+				setUser(userData);
+			} catch (e) {
+				document.cookie = "user=; path=/; max-age=0; secure; samesite=strict";
+			}
 		}
 
 		setChecking(false);
