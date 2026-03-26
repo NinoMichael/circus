@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type { LoginForm, LoginResponse } from "../lib/types/auth";
 import type { RegisterForm } from "../lib/types/auth";
+import type { RegisterCooperativeForm } from "../lib/types/cooperative";
 import type { User } from "../lib/types/user";
 import { AuthService } from "../services/AuthService";
+import { CooperativeService } from "../services/CooperativeService";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -40,6 +42,48 @@ export const useRegisterStore = create<RegisterStore>()(
 		}),
 		{
 			name: "register-store",
+		}
+	)
+);
+
+interface RegisterCooperativeStore {
+	form: Partial<RegisterCooperativeForm>;
+	setStep1: (
+		data: Pick<
+			RegisterCooperativeForm,
+			"name" | "contact_email" | "contact_phone"
+		>
+	) => void;
+	setStep2: (
+		data: Pick<
+			RegisterCooperativeForm,
+			| "firstname"
+			| "lastname"
+			| "email"
+			| "phone"
+			| "password"
+			| "password_confirmation"
+			| "birth_date"
+			| "is_male"
+			| "national_id"
+			| "address"
+		>
+	) => void;
+	reset: () => void;
+}
+
+export const useRegisterCooperativeStore = create<RegisterCooperativeStore>()(
+	persist(
+		(set) => ({
+			form: {},
+			setStep1: (data) =>
+				set((state) => ({ form: { ...state.form, ...data } })),
+			setStep2: (data) =>
+				set((state) => ({ form: { ...state.form, ...data } })),
+			reset: () => set({ form: {} }),
+		}),
+		{
+			name: "register-cooperative-store",
 		}
 	)
 );
@@ -95,6 +139,25 @@ export function useAuth() {
 		}
 	}
 
+	/* Register cooperative hooks*/
+	async function registerCooperative(data: RegisterCooperativeForm): Promise<boolean> {
+		setLoading(true);
+		setError(null);
+		try {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			await CooperativeService.registerCooperative(data as any);
+			useRegisterCooperativeStore.getState().reset();
+			return true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message ?? "Une erreur est survenue.");
+			console.log(err.response?.data?.message)
+			return false;
+		} finally {
+			setLoading(false);
+		}
+	}
+
 	/* Fetch logged user hooks */
 	useEffect(() => {
 		const userCookie = document.cookie
@@ -115,6 +178,7 @@ export function useAuth() {
 		login,
 		logout,
 		register,
+		registerCooperative,
 		user,
 		setUser,
 		isLoggedIn,

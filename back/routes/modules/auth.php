@@ -7,3 +7,4 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 Route::post('register', [RegisterController::class, 'register']);
+Route::post('register-cooperative', [RegisterController::class, 'cooperativeRegister']);

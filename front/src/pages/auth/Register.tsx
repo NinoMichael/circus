@@ -183,23 +183,21 @@ const Register = () => {
 					</p>
 				</div>
 			</div>
-			{passwordMismatch && (
-				<Snackbar
-					open={toastOpen}
-					autoHideDuration={3000}
+			<Snackbar
+				open={toastOpen}
+				autoHideDuration={3000}
+				onClose={() => setToastOpen(false)}
+				anchorOrigin={{ vertical: "top", horizontal: "right" }}
+			>
+				<Alert
 					onClose={() => setToastOpen(false)}
-					anchorOrigin={{ vertical: "top", horizontal: "right" }}
+					severity={toastSeverity}
+					variant="filled"
+					sx={{ width: "100%" }}
 				>
-					<Alert
-						onClose={() => setToastOpen(false)}
-						severity={toastSeverity}
-						variant="filled"
-						sx={{ width: "100%" }}
-					>
-						{toastMessage}
-					</Alert>
-				</Snackbar>
-			)}
+					{toastMessage}
+				</Alert>
+			</Snackbar>
 		</motion.div>
 	);
 };
