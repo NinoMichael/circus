@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useDashboard } from "../hooks/useDashboard";
 import type { KPIAboutResponse } from "../lib/types/dashboard";
 import { pageTransition } from "../lib/utils/animation";
@@ -348,9 +349,12 @@ const About = () => {
 							whileHover={{ scale: 1.03 }}
 							whileTap={{ scale: 0.97 }}
 						>
-							<button className="bg-primary font-bold px-14 py-4 rounded-xl text-sm whitespace-nowrap shadow-2xl cursor-pointer">
-								Devenir partenaire
-							</button>
+							<Link to="/register-cooperative">
+								{" "}
+								<button className="bg-primary font-bold px-14 py-4 rounded-xl text-sm whitespace-nowrap shadow-2xl cursor-pointer">
+									Devenir partenaire
+								</button>
+							</Link>
 						</motion.div>
 					</motion.div>
 				</div>
