@@ -163,7 +163,7 @@ const PlanningListDriver = () => {
 
 			{loading ? (
 				<div className="flex justify-center items-center w-full h-64">
-					<CircularProgress color="primary" />
+					<CircularProgress sx={{ color: "#FFCC00" }} />
 				</div>
 			) : trips.length === 0 ? (
 				<div className="w-full flex justify-center items-center mt-8 mx-auto">

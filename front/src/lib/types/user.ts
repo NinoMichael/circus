@@ -2,6 +2,13 @@ import type { Cooperative } from "./cooperative";
 import type { Driver } from "./driver";
 import type { Station } from "./station";
 
+export type UserRole =
+	| "passenger"
+	| "driver"
+	| "cooperative"
+	| "manager"
+	| "admin";
+
 export type User = {
 	id: number;
 	firstname: string;

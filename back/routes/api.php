@@ -24,3 +24,11 @@ Route::name('dashboard.')->group(function () {
 Route::name('trips.')->group(function () {
     require __DIR__ . '/modules/trip.php';
 });
+
+Route::name('settings.')->group(function () {
+    require __DIR__ . '/modules/settings.php';
+});
+
+Route::name('sessions.')->group(function () {
+    require __DIR__ . '/modules/sessions.php';
+});

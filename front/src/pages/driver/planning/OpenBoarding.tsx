@@ -58,7 +58,7 @@ const OpenBoardingDriver = () => {
 	if (loading || !boardingData) {
 		return (
 			<div className="flex justify-center items-center w-full h-64">
-				<CircularProgress color="primary" />
+				<CircularProgress sx={{ color: "#FFCC00" }} />
 			</div>
 		);
 	}

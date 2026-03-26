@@ -101,4 +101,31 @@ class User extends Authenticatable
     {
         return $this->morphMany(Notification::class, 'notifiable');
     }
+
+    public function userSettings(): HasMany
+    {
+        return $this->hasMany(UserSetting::class, 'user_id');
+    }
+
+    public function getSetting(string $group): ?array
+    {
+        $setting = $this->userSettings()->where('group', $group)->first();
+        
+        if (!$setting) {
+            $defaults = UserSetting::getDefaultSettings($this->role);
+            return $defaults[$group] ?? null;
+        }
+        
+        return $setting->settings;
+    }
+
+    public function setSetting(string $group, array $settings): self
+    {
+        $this->userSettings()->updateOrCreate(
+            ['group' => $group],
+            ['settings' => $settings]
+        );
+        
+        return $this;
+    }
 }

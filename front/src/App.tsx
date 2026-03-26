@@ -26,6 +26,7 @@ import AnalyticsDriver from "./pages/driver/Analytics";
 import DashboardAdmin from "./pages/admin/Dashboard";
 
 import OverviewCooperative from "./pages/cooperative/Overview";
+import SettingDriver from "./pages/driver/Setting";
 
 function App() {
 	const location = useLocation();
@@ -127,6 +128,14 @@ function App() {
 							element={
 								<ProtectedRoute roles={["driver"]}>
 									<AnalyticsDriver />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="settings"
+							element={
+								<ProtectedRoute roles={["driver"]}>
+									<SettingDriver />
 								</ProtectedRoute>
 							}
 						/>

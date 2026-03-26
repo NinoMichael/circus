@@ -91,7 +91,7 @@ const SidebarDriver = () => {
 						className={`transition-colors flex gap-2 items-center px-4 py-2 rounded-lg ${
 							isActive("/driver/settings") ? "bg-primary" : "hover:text-primary"
 						}`}
-						to="/"
+						to="/driver/settings"
 					>
 						<SettingIcon className="opacity-80!" />
 						<span>Paramètres</span>
