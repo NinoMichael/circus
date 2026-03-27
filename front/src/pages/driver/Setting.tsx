@@ -182,7 +182,7 @@ const SettingDriver = () => {
 								onChange={(checked) =>
 									handleNotificationChange("email_reports", checked)
 								}
-								label="Rapports par Email"
+								label="Rapports par email"
 								description="Récapitulatif hebdomadaire de vos missions et documents de facturation."
 							/>
 							<ToggleSwitch
@@ -190,7 +190,7 @@ const SettingDriver = () => {
 								onChange={(checked) =>
 									handleNotificationChange("security_alerts", checked)
 								}
-								label="Alertes de Sécurité"
+								label="Alertes de sécurité"
 								description="Notifications immédiates pour tout changement d'itinéraire ou incident de sécurité."
 							/>
 						</div>
@@ -275,7 +275,7 @@ const SettingDriver = () => {
 								<PersonIcon className="text-primary" />
 							</div>
 							<p className="text-xl font-bold text-gray-900">
-								Statut d'Activité
+								Statut d'activité
 							</p>
 						</div>
 
