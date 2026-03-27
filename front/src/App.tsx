@@ -32,6 +32,8 @@ import SettingDriver from "./pages/driver/Setting";
 import Join from "./pages/auth/cooperative/Join";
 import JoinInfo from "./pages/auth/cooperative/JoinInfo";
 
+import NotFound from "./pages/error/NotFound";
+
 function App() {
 	const location = useLocation();
 
@@ -176,6 +178,8 @@ function App() {
 							}
 						/>
 					</Route>
+
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</div>
 		</AnimatePresence>
