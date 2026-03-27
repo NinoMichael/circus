@@ -5,7 +5,7 @@ import type { Trip, TripParams, TripsResponse, BoardingResponse } from "../lib/t
 export function useTrip() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const { fetchByDriver, fetchById, fetchBoarding } = TripService;
+	const { fetchByDriver, fetchById, fetchBoarding, startTrip } = TripService;
 
 	const fetchTripsByDriver = useCallback(
 		async (
@@ -67,11 +67,31 @@ export function useTrip() {
 		[]
 	);
 
+	const startTripById = useCallback(
+		async (tripId: number): Promise<{ message: string } | undefined> => {
+			setLoading(true);
+			setError(null);
+
+			try {
+				const data = await startTrip(tripId);
+				return data;
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (err: any) {
+				setError(err?.data?.message || null);
+			} finally {
+				setLoading(false);
+			}
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
 	return {
 		loading,
 		error,
 		fetchTripsByDriver,
 		fetchTripById,
 		fetchBoardingData,
+		startTripById,
 	};
 }

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { getImageUrl } from "../../lib/utils/media";
 import { useAuth } from "../../hooks/useAuth";
+import { useNotification } from "../../hooks/useNotification";
 
 import Logo from "../inc/Logo";
 import Drawer from "@mui/material/Drawer";
@@ -13,6 +14,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Badge from "@mui/material/Badge";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 import NotificationIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -22,13 +29,33 @@ import AnalyticIcon from "@mui/icons-material/Analytics";
 import DirectionBusIcon from "@mui/icons-material/DirectionsBus";
 import SettingIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CircleIcon from "@mui/icons-material/Circle";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/Info";
+import { formatTimeAgo } from "../../lib/utils/date";
 
 const TopbarDriver = () => {
 	const navigateTo = useNavigate();
 	const location = useLocation();
 	const { user, logout } = useAuth();
+	const {
+		notifications,
+		unreadCount,
+		fetchNotifications,
+		markAsRead,
+		markAllAsRead,
+		deleteNotification,
+	} = useNotification();
+
 	const [open, setOpen] = useState(false);
 	const [logoutDialog, setLogoutDialog] = useState(false);
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [notificationOpen, setNotificationOpen] = useState(false);
+
+	useEffect(() => {
+		fetchNotifications();
+	}, [fetchNotifications]);
 
 	const isActive = (path: string) => {
 		if (path === "/driver/planning") {
@@ -47,6 +74,28 @@ const TopbarDriver = () => {
 	const handleLogout = async () => {
 		await logout();
 		navigateTo("/");
+	};
+
+	const handleNotificationClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+		setNotificationOpen(true);
+	};
+
+	const handleNotificationClose = () => {
+		setAnchorEl(null);
+		setNotificationOpen(false);
+	};
+
+	const handleMarkAllAsRead = async () => {
+		await markAllAsRead();
+	};
+
+	const handleDeleteNotification = async (
+		notificationId: number,
+		e: React.MouseEvent
+	) => {
+		e.stopPropagation();
+		await deleteNotification(notificationId);
 	};
 
 	const DrawerMenu = (
@@ -203,9 +252,116 @@ const TopbarDriver = () => {
 						En service
 					</div>
 					<div className="flex gap-2">
-						<Button title="Notification">
-							<NotificationIcon className="opacity-80! text-lg!" />
-						</Button>
+						<IconButton
+							title="Notifications"
+							onClick={handleNotificationClick}
+							className="relative!"
+						>
+							<Badge
+								badgeContent={unreadCount}
+								color="error"
+								max={99}
+								className="!z-10"
+							>
+								<NotificationIcon className="opacity-80! text-lg!" />
+							</Badge>
+						</IconButton>
+						<Menu
+							anchorEl={anchorEl}
+							open={notificationOpen}
+							onClose={handleNotificationClose}
+							PaperProps={{
+								className: "w-80 max-h-96 overflow-hidden flex flex-col",
+							}}
+							transformOrigin={{ horizontal: "right", vertical: "top" }}
+							anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+						>
+							<div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+								<Typography className="font-bold text-base!">
+									Notifications
+								</Typography>
+								{unreadCount > 0 && (
+									<Button
+										size="small"
+										startIcon={<DoneAllIcon />}
+										onClick={handleMarkAllAsRead}
+										className="text-xs!"
+									>
+										Tout marquer
+									</Button>
+								)}
+							</div>
+
+							<Box className="overflow-y-auto flex-1">
+								{notifications.length === 0 ? (
+									<Box className="p-6 text-center text-gray-500">
+										<NotificationIcon className="text-4xl opacity-30 mb-2" />
+										<Typography className="text-sm">
+											Aucune notification
+										</Typography>
+									</Box>
+								) : (
+									notifications.slice(0, 5).map((notification) => (
+										<MenuItem
+											key={notification.id}
+											onClick={() => {
+												if (!notification.read_at) {
+													markAsRead(notification.id);
+												}
+												handleNotificationClose();
+											}}
+											className={`flex items-start gap-3 py-3 px-4! ${
+												!notification.read_at ? "bg-primary/5" : ""
+											}`}
+										>
+											<ListItemIcon className="min-w-8 mt-0">
+												{notification.read_at ? (
+													<InfoIcon className="text-gray-400 text-lg!" />
+												) : (
+													<CircleIcon className="text-primary text-xs!" />
+												)}
+											</ListItemIcon>
+											<Box className="flex-1 min-w-0">
+												<Typography className="font-semibold text-sm! truncate">
+													{notification.title}
+												</Typography>
+												<Typography className="text-xs text-gray-600 line-clamp-2">
+													{notification.message}
+												</Typography>
+												<Typography className="text-xs text-gray-400 mt-1">
+													{formatTimeAgo(notification.created_at)}
+												</Typography>
+											</Box>
+											<IconButton
+												size="small"
+												onClick={(e) =>
+													handleDeleteNotification(notification.id, e)
+												}
+												className="text-gray-400 hover:text-red-500!"
+											>
+												<DeleteIcon fontSize="small" />
+											</IconButton>
+										</MenuItem>
+									))
+								)}
+							</Box>
+
+							{notifications.length > 0 && (
+								<Box className="border-t border-gray-100 p-2">
+									<Button
+										fullWidth
+										size="small"
+										onClick={() => {
+											navigateTo("/driver/notifications");
+											handleNotificationClose();
+										}}
+										className="text-sm!"
+									>
+										Voir toutes les notifications
+									</Button>
+								</Box>
+							)}
+						</Menu>
 					</div>
 					{!user?.profile.avatar ? (
 						<div className="bg-primary text-lg font-bold flex justify-center items-center h-12 w-12 rounded-full border border-gray-200">

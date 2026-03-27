@@ -80,20 +80,6 @@ const PlanningListDriver = () => {
 		setAnchorEl(null);
 	};
 
-	const isTripPast = (trip: Trip) => {
-		const now = new Date();
-		const departureTime = new Date(trip.departure_time);
-		return departureTime < now || trip.status === "completed";
-	};
-
-	const canModify = (trip: Trip) => {
-		return (
-			trip.status !== "cancelled" &&
-			trip.status !== "completed" &&
-			!isTripPast(trip)
-		);
-	};
-
 	const handleViewDetails = () => {
 		if (selectedTripId) {
 			navigate(`/driver/planning/${selectedTripId}`);
@@ -283,20 +269,6 @@ const PlanningListDriver = () => {
 				>
 					Embarquement
 				</MenuItem>
-				{selectedTripId &&
-					(() => {
-						const trip = trips.find((t) => t.id === selectedTripId);
-						return trip && canModify(trip) ? (
-							<>
-								<MenuItem className="text-sm hover:text-primary">
-									Modifier
-								</MenuItem>
-								<MenuItem className="text-sm hover:text-primary">
-									Annuler
-								</MenuItem>
-							</>
-						) : null;
-					})()}
 			</Menu>
 		</motion.div>
 	);

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { pageTransition } from "../../lib/utils/animation";
 import { useAuth } from "../../hooks/useAuth";
 import { useDashboard } from "../../hooks/useDashboard";
+import { useTrip } from "../../hooks/useTrip";
 import type { KPIDriverResponse } from "../../lib/types/dashboard";
 import { formatTripStatus } from "../../lib/utils/formatter";
 import { formatTime } from "../../lib/utils/date";
@@ -12,6 +13,11 @@ import { getImageUrl } from "../../lib/utils/media";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import NoTrip from "../../components/inc/NoTrip";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Chip from "@mui/material/Chip";
 
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import RadioCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -21,12 +27,17 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { formatCurrency } from "../../lib/helpers";
 
 const OverviewDriver = () => {
 	const { user } = useAuth();
 	const [kpi, setKpi] = useState<KPIDriverResponse | undefined>();
 	const { fetchKpisDriver } = useDashboard();
+	const { startTripById, loading: tripLoading } = useTrip();
+
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const [tripStarted, setTripStarted] = useState(false);
 
 	useEffect(() => {
 		if (!user?.driver?.id) return;
@@ -41,6 +52,35 @@ const OverviewDriver = () => {
 		loadKpi();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user?.driver?.id]);
+
+	useEffect(() => {
+		if (kpi?.next_trip) {
+			setTripStarted(kpi.next_trip.status === "active");
+		}
+	}, [kpi?.next_trip]);
+
+	const handleStartTrip = async () => {
+		if (!kpi?.next_trip?.id) return;
+
+		const data = await startTripById(kpi.next_trip.id);
+		if (data) {
+			setTripStarted(true);
+			setKpi((prev) =>
+				prev
+					? {
+							...prev,
+							next_trip: {
+								...prev.next_trip,
+								status: "active",
+							},
+					  }
+					: prev
+			);
+		}
+		setDialogOpen(false);
+	};
+
+	const showNextTrip = kpi?.next_trip;
 
 	return (
 		<motion.div
@@ -64,19 +104,17 @@ const OverviewDriver = () => {
 				</div>
 			</div>
 
-			{kpi?.next_trip == null ? (
-				<section className="mt-6 w-full">
-					<NoTrip />
-				</section>
-			) : (
+			{showNextTrip ? (
 				<section className="mt-4 w-full">
 					<div className="flex flex-col xs:flex-row justify-between xs:items-center xs:gap-4">
 						<h5 className="flex gap-2 items-center">
 							<ExitToAppIcon className="size-7 text-primary" />
-							<span className="text-xl font-bold">Prochain voyage</span>
+							<span className="text-xl font-bold">
+								{tripStarted ? "Trajet en cours" : "Prochain voyage"}
+							</span>
 						</h5>
 						<Link
-							to="/"
+							to={`/driver/planning/${kpi.next_trip.id}`}
 							className="ml-9 xs:ml-0 text-sm xs:text-base text-primary hover:text-primary/90 underline underline-offset-2 hover:underline-offset-4 transition-all"
 						>
 							Voir détails
@@ -173,15 +211,29 @@ const OverviewDriver = () => {
 									</div>
 								</div>
 
-								<Button
-									className="md:w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
-									endIcon={<ArrowForwardIcon />}
-								>
-									Démarrer le trajet
-								</Button>
+								{tripStarted ? (
+									<Chip
+										icon={<PlayArrowIcon />}
+										label="En cours"
+										color="success"
+										variant="filled"
+									/>
+								) : (
+									<Button
+										onClick={() => setDialogOpen(true)}
+										className="md:w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
+										endIcon={<ArrowForwardIcon />}
+									>
+										Démarrer le trajet
+									</Button>
+								)}
 							</div>
 						</div>
 					</div>
+				</section>
+			) : (
+				<section className="mt-6 w-full">
+					<NoTrip />
 				</section>
 			)}
 
@@ -198,6 +250,28 @@ const OverviewDriver = () => {
 					</span>
 				</div>
 			</div>
+
+			<Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+				<DialogTitle className="font-bold">Démarrer le trajet</DialogTitle>
+				<DialogContent>
+					<p className="text-gray-600">
+						Êtes-vous sûr de vouloir démarrer le trajet #{kpi?.next_trip?.id} ?
+						<br />
+						Le statut du trajet sera changé à "Actif".
+					</p>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDialogOpen(false)}>Annuler</Button>
+					<Button
+						onClick={handleStartTrip}
+						variant="contained"
+						disabled={tripLoading}
+						startIcon={<PlayArrowIcon />}
+					>
+						{tripLoading ? "Démarrage..." : "Confirmer"}
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</motion.div>
 	);
 };

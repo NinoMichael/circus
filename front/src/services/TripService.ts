@@ -38,4 +38,12 @@ export const TripService = {
 		const rawData = response.data as { data?: BoardingResponse };
 		return rawData.data || (response.data as BoardingResponse);
 	},
+
+	startTrip: async (tripId: number): Promise<{ message: string }> => {
+		const response = await api.put<{ message: string }>(
+			`/trips/${tripId}/start`,
+			{}
+		);
+		return response.data;
+	},
 };

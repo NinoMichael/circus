@@ -32,3 +32,7 @@ Route::name('settings.')->group(function () {
 Route::name('sessions.')->group(function () {
     require __DIR__ . '/modules/sessions.php';
 });
+
+Route::name('notifications.')->group(function () {
+    require __DIR__ . '/modules/notifications.php';
+});

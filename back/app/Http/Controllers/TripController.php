@@ -150,4 +150,18 @@ class TripController extends Controller
             'bookings' => $confirmedBookings->values(),
         ]);
     }
+
+    /**
+     * Start a trip (change status to active)
+     */
+    public function start(Trip $trip): JsonResponse
+    {
+        $trip->status = 'active';
+        $trip->save();
+
+        return response()->json([
+            'message' => 'Trajet démarré avec succès',
+            'trip' => $trip
+        ]);
+    }
 }
