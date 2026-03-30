@@ -20,6 +20,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { getImageUrl } from "../lib/utils/media";
 
 const About = () => {
 	const [kpi, setKpi] = useState<KPIAboutResponse>();
@@ -257,7 +258,7 @@ const About = () => {
 										<div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
 											{coop.logo ? (
 												<img
-													src={coop.logo}
+													src={getImageUrl(coop.logo)}
 													alt={coop.name}
 													className="w-8 h-8 object-contain"
 												/>
