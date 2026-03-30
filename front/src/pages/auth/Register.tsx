@@ -61,14 +61,15 @@ const Register = () => {
 	};
 
 	const inputClass = (hasError = false) =>
-		`w-full rounded-lg border ${hasError
-			? "border-red-500 focus:ring-red-400"
-			: "border-gray-300 focus:ring-primary"
+		`w-full rounded-lg border ${
+			hasError
+				? "border-red-500 focus:ring-red-400"
+				: "border-gray-300 focus:ring-primary"
 		} bg-white pl-10 pr-9 py-3 text-sm focus:outline-none focus:ring-2 focus:border-none duration-200 transition-all`;
 
 	return (
 		<motion.div
-			className="min-h-screen flex items-center justify-center py-4"
+			className="min-h-screen flex items-center justify-center py-16 px-8 lg:px-16"
 			initial="initial"
 			animate="animate"
 			exit="exit"

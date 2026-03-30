@@ -34,8 +34,9 @@ const Login = () => {
 		const data = await login({ email, password });
 
 		if (data) {
-			document.cookie = `token=${data.token}; path=/; max-age=${60 * 60 * 24 * 7
-				}; secure; samesite=strict`;
+			document.cookie = `token=${data.token}; path=/; max-age=${
+				60 * 60 * 24 * 7
+			}; secure; samesite=strict`;
 			document.cookie = `user=${encodeURIComponent(
 				JSON.stringify(data.user)
 			)}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
@@ -108,7 +109,7 @@ const Login = () => {
 
 	return (
 		<motion.div
-			className="min-h-screen flex items-center justify-center py-4"
+			className="min-h-screen flex items-center justify-center py-16 px-8 lg:px-16"
 			initial="initial"
 			animate="animate"
 			exit="exit"

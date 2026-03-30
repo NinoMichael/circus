@@ -69,7 +69,7 @@ const RegisterInfo = () => {
 
 	return (
 		<motion.div
-			className="min-h-screen flex items-center justify-center py-4"
+			className="min-h-screen flex items-center justify-center py-16 px-8 lg:px-16"
 			initial="initial"
 			animate="animate"
 			exit="exit"

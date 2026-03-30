@@ -7,7 +7,7 @@ const DefaultLayout = () => {
 		<div className="min-h-screen flex flex-col">
 			<Header />
 
-			<main className="flex-grow py-12 px-8 lg:px-16">
+			<main className="flex-grow">
 				<Outlet />
 			</main>
 

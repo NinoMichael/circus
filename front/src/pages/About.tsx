@@ -151,7 +151,7 @@ const About = () => {
 
 	return (
 		<motion.div
-			className="min-h-screen -mt-12 -mx-8 lg:-mx-16"
+			className="min-h-screen -mt-12 -mx-8 lg:-mx-16 py-12 px-8 lg:px-16"
 			variants={pageTransition}
 			initial="initial"
 			animate="animate"

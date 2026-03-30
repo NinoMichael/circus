@@ -64,7 +64,7 @@ const Contact = () => {
 
 	return (
 		<motion.div
-			className="min-h-screen flex items-center justify-center"
+			className="min-h-screen flex items-center justify-center py-12 px-8 lg:px-16"
 			initial="initial"
 			animate="animate"
 			exit="exit"
