@@ -1,13 +1,93 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/x-icon" href="/logo.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Circus - Plateforme de réservation de voyage régional en taxi-brousse</title>
+        
+        <!-- Primary Meta Tags -->
+        <title>Circus - Plateforme de réservation de voyage régional en taxi-brousse à Madagascar</title>
+        <meta name="title" content="Circus - Plateforme de réservation de voyage régional en taxi-brousse à Madagascar" />
+        <meta name="description" content="Réservez vos voyages régionaux en taxi-brousse à Madagascar facilement et rapidement avec Circus. Connexion entre les grandes villes : Antananarivo, Toamasina, Antsirabe et plus." />
+        <meta name="keywords" content="taxi-brousse, madagascar, réservation voyage, transport régional, bus, minibus, antananarivo, toamasina, antsirabe, transport madagascar" />
+        <meta name="author" content="Circus" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="French" />
+        <meta name="revisit-after" content="7 days" />
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://circus.mg/" />
+        <meta property="og:title" content="Circus - Plateforme de réservation de taxi-brousse à Madagascar" />
+        <meta property="og:description" content="Réservez vos voyages régionaux en taxi-brousse à Madagascar facilement et rapidement avec Circus." />
+        <meta property="og:image" content="https://circus.mg/og-image.jpg" />
+        <meta property="og:locale" content="fr_MG" />
+        <meta property="og:site_name" content="Circus" />
+        
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://circus.mg/" />
+        <meta property="twitter:title" content="Circus - Plateforme de réservation de taxi-brousse à Madagascar" />
+        <meta property="twitter:description" content="Réservez vos voyages régionaux en taxi-brousse à Madagascar facilement et rapidement avec Circus." />
+        <meta property="twitter:image" content="https://circus.mg/og-image.jpg" />
+        
+        <!-- Canonical URL -->
+        <link rel="canonical" href="https://circus.mg/" />
+        
+        <!-- Theme Color -->
+        <meta name="theme-color" content="#0D7377" />
+        <meta name="msapplication-TileColor" content="#0D7377" />
+        
+        <!-- Geographic Meta Tags -->
+        <meta name="geo.region" content="MG" />
+        <meta name="geo.country" content="Madagascar" />
+        
+        <!-- Structured Data - Organization -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Circus",
+            "url": "https://circus.mg",
+            "logo": "https://circus.mg/logo.png",
+            "description": "Plateforme de réservation de voyage régional en taxi-brousse à Madagascar",
+            "areaServed": {
+                "@type": "Country",
+                "name": "Madagascar"
+            },
+            "sameAs": [
+                "https://facebook.com/circusmg",
+                "https://instagram.com/circusmg"
+            ]
+        }
+        </script>
+        
+        <!-- Structured Data - WebSite -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Circus",
+            "url": "https://circus.mg",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://circus.mg/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+        </script>
     </head>
     <body>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
+        
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        </script>
     </body>
 </html>

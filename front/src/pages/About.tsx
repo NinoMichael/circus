@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDashboard } from "../hooks/useDashboard";
 import type { KPIAboutResponse } from "../lib/types/dashboard";
 import { pageTransition } from "../lib/utils/animation";
+import SEO from "../components/seo/SEO";
 
 import heroImage from "../assets/images/hero-img.jpg";
 
@@ -151,254 +152,264 @@ const About = () => {
 	};
 
 	return (
-		<motion.div
-			className="min-h-screen -mt-12"
-			variants={pageTransition}
-			initial="initial"
-			animate="animate"
-			exit="exit"
-		>
-			<section className="relative h-screen overflow-hidden">
-				<img
-					src={heroImage}
-					alt="Paysage de Madagascar"
-					className="absolute inset-0 w-full h-full object-cover"
-				/>
-				<div className="absolute inset-0 bg-black/50" />
-				<div className="px-8 md:px-0 relative z-10 w-full h-screen flex flex-col justify-center items-center">
-					<motion.div
-						className="items-start"
-						initial="hidden"
-						animate="show"
-						variants={containerVariants}
-					>
-						<motion.span
-							variants={itemVariants}
-							className="inline-block bg-primary text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-6 w-fit"
-						>
-							À propos
-						</motion.span>
-						<motion.h1
-							variants={itemVariants}
-							className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight max-w-3xl mb-6"
-						>
-							Votre allié des transports régionaux
-						</motion.h1>
-						<motion.p
-							variants={itemVariants}
-							className="text-white/80 text-lg max-w-3xl leading-relaxed"
-						>
-							Circus connecte les voyageurs aux meilleures coopératives pour une
-							expérience de transport premium, fiable et élégante à travers les
-							22 régions.
-						</motion.p>
-					</motion.div>
-				</div>
-			</section>
-
-			<section className="py-16 bg-white">
-				<div className="container mx-auto px-6">
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true }}
-						className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
-					>
-						{stats.map((stat) => (
-							<motion.div
-								key={stat.label}
-								variants={itemVariants}
-								whileHover={{ scale: 1.05 }}
-								className="flex flex-col items-center gap-3"
-							>
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-									<stat.icon className="w-6 h-6 text-primary" />
-								</div>
-								<span className="text-3xl font-bold">{stat.value}</span>
-								<span className="text-gray-500 font-semibold uppercase">
-									{stat.label}
-								</span>
-							</motion.div>
-						))}
-					</motion.div>
-				</div>
-			</section>
-
-			<section className="py-16 bg-background">
-				<div className="container mx-auto px-6 text-center">
-					<h2 className="text-2xl md:text-3xl font-bold mb-2">
-						Nos partenaires de confiance
-					</h2>
-					<div className="w-12 h-1 bg-primary mx-auto mt-4 mb-12 rounded-full" />
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						animate="show"
-						viewport={{ once: true }}
-						className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 w-full mx-auto"
-					>
-						{loading
-							? Array.from({ length: 4 }).map((_, i) => (
-									<div
-										key={i}
-										className="bg-gray-200/60 rounded-xl px-6 py-14 flex flex-col items-center gap-3 animate-pulse"
-									>
-										<div className="w-14 h-14 rounded-full bg-gray-300" />
-										<div className="h-3 w-16 bg-gray-300 rounded" />
-									</div>
-							  ))
-							: kpi?.cooperatives.map((coop) => (
-									<motion.div
-										key={coop.id ?? coop.name}
-										variants={itemVariants}
-										whileHover={{ scale: 1.05, y: -5 }}
-										className="bg-gray-200/60 rounded-xl px-6 py-14 flex flex-col items-center gap-3 hover:shadow-md shadow-sm transition-shadow"
-									>
-										<div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
-											{coop.logo ? (
-												<img
-													src={getImageUrl(coop.logo)}
-													alt={coop.name}
-													className="w-8 h-8 object-contain"
-												/>
-											) : (
-												<BusinessIcon className="w-5 h-5" />
-											)}
-										</div>
-										<span className="font-semibold">{coop.name}</span>
-									</motion.div>
-							  ))}
-					</motion.div>
-				</div>
-			</section>
-
-			<section className="py-20 bg-white">
-				<div className="container mx-auto px-6 text-center">
-					<h2 className="text-2xl md:text-3xl font-bold mb-2">
-						Comment ça marche
-					</h2>
-					<p className="text-gray-400 mb-12">
-						Une expérience de réservation simplifiée en trois étapes intuitives.
-					</p>
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true }}
-						className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-36 max-w-6xl mx-auto relative"
-					>
-						<div className="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-gray-200 z-0" />
-						{steps.map((step, i) => (
-							<motion.div
-								key={i}
-								variants={itemVariants}
-								whileHover={{ y: -6 }}
-								className="flex flex-col items-center gap-4 relative z-10"
-							>
-								<motion.div
-									whileHover={{ scale: 1.1, rotate: 3 }}
-									className="w-20 h-20 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20"
-								>
-									<step.icon className="w-6 h-6" />
-								</motion.div>
-								<h3 className="font-bold">{step.title}</h3>
-								<p className="text-gray-400 text-center max-w-xs">
-									{step.description}
-								</p>
-							</motion.div>
-						))}
-					</motion.div>
-				</div>
-			</section>
-
-			<section className="py-20 bg-background">
-				<div className="container mx-auto px-6">
-					<motion.div
-						variants={sectionVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true }}
-						className="bg-secondary rounded-2xl px-10 py-20 md:px-20 md:py-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-10"
-					>
-						<div className="max-w-lg">
-							<h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4 text-white max-w-sm">
-								Vous êtes une coopérative de transport ?
-							</h2>
-							<p className="text-gray-400 mb-6 leading-relaxed">
-								Rejoignez notre plateforme et digitalisez vos ventes. Augmentez
-								votre visibilité et offrez un service premium à vos clients.
-							</p>
-							<ul className="space-y-3">
-								{benefits.map((b) => (
-									<motion.li
-										key={b}
-										variants={itemVariants}
-										initial="hidden"
-										whileInView="show"
-										viewport={{ once: true }}
-										className="flex items-center gap-3 text-gray-400"
-									>
-										<CheckCircleOutlineOutlinedIcon className="w-5 h-5 flex-shrink-0 text-primary" />
-										{b}
-									</motion.li>
-								))}
-							</ul>
-						</div>
+		<>
+			<SEO
+				title="À propos"
+				description="Découvrez Circus, votre partenaire pour les transports régionaux à Madagascar. Plus de 1000 coopératives partenaires, 15000+ voyageurs satisfaits."
+				keywords="à propos circus, coopérative transport madagascar, taxi-brousse fiable, transport régional"
+				url="/about"
+			/>
+			<motion.div
+				className="min-h-screen -mt-12"
+				variants={pageTransition}
+				initial="initial"
+				animate="animate"
+				exit="exit"
+			>
+				<section className="relative h-screen overflow-hidden">
+					<img
+						src={heroImage}
+						alt="Paysage de Madagascar"
+						className="absolute inset-0 w-full h-full object-cover"
+					/>
+					<div className="absolute inset-0 bg-black/50" />
+					<div className="px-8 md:px-0 relative z-10 w-full h-screen flex flex-col justify-center items-center">
 						<motion.div
-							variants={item}
-							whileHover={{ scale: 1.03 }}
-							whileTap={{ scale: 0.97 }}
+							className="items-start"
+							initial="hidden"
+							animate="show"
+							variants={containerVariants}
 						>
-							<Link to="/register-cooperative">
-								{" "}
-								<button className="bg-primary font-bold px-14 py-4 rounded-xl text-sm whitespace-nowrap shadow-2xl cursor-pointer">
-									Devenir partenaire
-								</button>
-							</Link>
+							<motion.span
+								variants={itemVariants}
+								className="inline-block bg-primary text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-6 w-fit"
+							>
+								À propos
+							</motion.span>
+							<motion.h1
+								variants={itemVariants}
+								className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight max-w-3xl mb-6"
+							>
+								Votre allié des transports régionaux
+							</motion.h1>
+							<motion.p
+								variants={itemVariants}
+								className="text-white/80 text-lg max-w-3xl leading-relaxed"
+							>
+								Circus connecte les voyageurs aux meilleures coopératives pour
+								une expérience de transport premium, fiable et élégante à
+								travers les 22 régions.
+							</motion.p>
 						</motion.div>
-					</motion.div>
-				</div>
-			</section>
+					</div>
+				</section>
 
-			<section className="py-20 bg-white">
-				<div className="container mx-auto px-6 max-w-2xl text-center">
-					<h2 className="text-2xl md:text-3xl font-bold mb-2">
-						Questions fréquentes
-					</h2>
-					<p className="text-gray-400 mb-10">
-						Tout ce que vous devez savoir pour votre prochain voyage.
-					</p>
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true }}
-						className="text-left space-y-3"
-					>
-						{faqs.map((faq, i) => (
-							<motion.div key={i} variants={itemVariants}>
-								<MuiAccordion
-									disableGutters
-									elevation={0}
-									className="border border-gray-200 rounded-xl bg-background overflow-hidden"
+				<section className="py-16 bg-white">
+					<div className="container mx-auto px-6">
+						<motion.div
+							variants={containerVariants}
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
+							className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+						>
+							{stats.map((stat) => (
+								<motion.div
+									key={stat.label}
+									variants={itemVariants}
+									whileHover={{ scale: 1.05 }}
+									className="flex flex-col items-center gap-3"
 								>
-									<MuiAccordionSummary
-										expandIcon={<AddOutlinedIcon className="text-gray-500" />}
-										className="px-4 py-2"
+									<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+										<stat.icon className="w-6 h-6 text-primary" />
+									</div>
+									<span className="text-3xl font-bold">{stat.value}</span>
+									<span className="text-gray-500 font-semibold uppercase">
+										{stat.label}
+									</span>
+								</motion.div>
+							))}
+						</motion.div>
+					</div>
+				</section>
+
+				<section className="py-16 bg-background">
+					<div className="container mx-auto px-6 text-center">
+						<h2 className="text-2xl md:text-3xl font-bold mb-2">
+							Nos partenaires de confiance
+						</h2>
+						<div className="w-12 h-1 bg-primary mx-auto mt-4 mb-12 rounded-full" />
+						<motion.div
+							variants={containerVariants}
+							initial="hidden"
+							animate="show"
+							viewport={{ once: true }}
+							className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 w-full mx-auto"
+						>
+							{loading
+								? Array.from({ length: 4 }).map((_, i) => (
+										<div
+											key={i}
+											className="bg-gray-200/60 rounded-xl px-6 py-14 flex flex-col items-center gap-3 animate-pulse"
+										>
+											<div className="w-14 h-14 rounded-full bg-gray-300" />
+											<div className="h-3 w-16 bg-gray-300 rounded" />
+										</div>
+								  ))
+								: kpi?.cooperatives.map((coop) => (
+										<motion.div
+											key={coop.id ?? coop.name}
+											variants={itemVariants}
+											whileHover={{ scale: 1.05, y: -5 }}
+											className="bg-gray-200/60 rounded-xl px-6 py-14 flex flex-col items-center gap-3 hover:shadow-md shadow-sm transition-shadow"
+										>
+											<div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
+												{coop.logo ? (
+													<img
+														src={getImageUrl(coop.logo)}
+														alt={coop.name}
+														className="w-8 h-8 object-contain"
+													/>
+												) : (
+													<BusinessIcon className="w-5 h-5" />
+												)}
+											</div>
+											<span className="font-semibold">{coop.name}</span>
+										</motion.div>
+								  ))}
+						</motion.div>
+					</div>
+				</section>
+
+				<section className="py-20 bg-white">
+					<div className="container mx-auto px-6 text-center">
+						<h2 className="text-2xl md:text-3xl font-bold mb-2">
+							Comment ça marche
+						</h2>
+						<p className="text-gray-400 mb-12">
+							Une expérience de réservation simplifiée en trois étapes
+							intuitives.
+						</p>
+						<motion.div
+							variants={containerVariants}
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
+							className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-36 max-w-6xl mx-auto relative"
+						>
+							<div className="hidden md:block absolute top-10 left-0 w-full h-[2px] bg-gray-200 z-0" />
+							{steps.map((step, i) => (
+								<motion.div
+									key={i}
+									variants={itemVariants}
+									whileHover={{ y: -6 }}
+									className="flex flex-col items-center gap-4 relative z-10"
+								>
+									<motion.div
+										whileHover={{ scale: 1.1, rotate: 3 }}
+										className="w-20 h-20 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20"
 									>
-										<span className="font-semibold">{faq.q}</span>
-									</MuiAccordionSummary>
-									<MuiAccordionDetails className="px-4 pb-4">
-										<span className="leading-relaxed">{faq.a}</span>
-									</MuiAccordionDetails>
-								</MuiAccordion>
+										<step.icon className="w-6 h-6" />
+									</motion.div>
+									<h3 className="font-bold">{step.title}</h3>
+									<p className="text-gray-400 text-center max-w-xs">
+										{step.description}
+									</p>
+								</motion.div>
+							))}
+						</motion.div>
+					</div>
+				</section>
+
+				<section className="py-20 bg-background">
+					<div className="container mx-auto px-6">
+						<motion.div
+							variants={sectionVariants}
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
+							className="bg-secondary rounded-2xl px-10 py-20 md:px-20 md:py-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-10"
+						>
+							<div className="max-w-lg">
+								<h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4 text-white max-w-sm">
+									Vous êtes une coopérative de transport ?
+								</h2>
+								<p className="text-gray-400 mb-6 leading-relaxed">
+									Rejoignez notre plateforme et digitalisez vos ventes.
+									Augmentez votre visibilité et offrez un service premium à vos
+									clients.
+								</p>
+								<ul className="space-y-3">
+									{benefits.map((b) => (
+										<motion.li
+											key={b}
+											variants={itemVariants}
+											initial="hidden"
+											whileInView="show"
+											viewport={{ once: true }}
+											className="flex items-center gap-3 text-gray-400"
+										>
+											<CheckCircleOutlineOutlinedIcon className="w-5 h-5 flex-shrink-0 text-primary" />
+											{b}
+										</motion.li>
+									))}
+								</ul>
+							</div>
+							<motion.div
+								variants={item}
+								whileHover={{ scale: 1.03 }}
+								whileTap={{ scale: 0.97 }}
+							>
+								<Link to="/register-cooperative">
+									{" "}
+									<button className="bg-primary font-bold px-14 py-4 rounded-xl text-sm whitespace-nowrap shadow-2xl cursor-pointer">
+										Devenir partenaire
+									</button>
+								</Link>
 							</motion.div>
-						))}
-					</motion.div>
-				</div>
-			</section>
-		</motion.div>
+						</motion.div>
+					</div>
+				</section>
+
+				<section className="py-20 bg-white">
+					<div className="container mx-auto px-6 max-w-2xl text-center">
+						<h2 className="text-2xl md:text-3xl font-bold mb-2">
+							Questions fréquentes
+						</h2>
+						<p className="text-gray-400 mb-10">
+							Tout ce que vous devez savoir pour votre prochain voyage.
+						</p>
+						<motion.div
+							variants={containerVariants}
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
+							className="text-left space-y-3"
+						>
+							{faqs.map((faq, i) => (
+								<motion.div key={i} variants={itemVariants}>
+									<MuiAccordion
+										disableGutters
+										elevation={0}
+										className="border border-gray-200 rounded-xl bg-background overflow-hidden"
+									>
+										<MuiAccordionSummary
+											expandIcon={<AddOutlinedIcon className="text-gray-500" />}
+											className="px-4 py-2"
+										>
+											<span className="font-semibold">{faq.q}</span>
+										</MuiAccordionSummary>
+										<MuiAccordionDetails className="px-4 pb-4">
+											<span className="leading-relaxed">{faq.a}</span>
+										</MuiAccordionDetails>
+									</MuiAccordion>
+								</motion.div>
+							))}
+						</motion.div>
+					</div>
+				</section>
+			</motion.div>
+		</>
 	);
 };
 

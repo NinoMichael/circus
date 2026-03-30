@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ProtectedRoute } from "./middleware/Protected";
 import { GuestOrPassengerRoute } from "./middleware/GuestOrPassenger";
+import { GoogleAnalytics, usePageTracking } from "./lib/helpers/seo";
 
 import DefaultLayout from "./layouts/Default";
 import DriverLayout from "./layouts/Driver";
@@ -36,153 +37,157 @@ import NotFound from "./pages/error/NotFound";
 
 function App() {
 	const location = useLocation();
+	usePageTracking();
 
 	return (
-		<AnimatePresence mode="wait">
-			<div>
-				<Routes location={location} key={location.pathname}>
-					<Route path="/" element={<DefaultLayout />}>
-						<Route
-							element={
-								<GuestOrPassengerRoute>
-									<Home />
-								</GuestOrPassengerRoute>
-							}
-							index
-						/>
-						<Route
-							element={
-								<GuestOrPassengerRoute>
-									<About />
-								</GuestOrPassengerRoute>
-							}
-							path="about"
-						/>
-						<Route
-							element={
-								<GuestOrPassengerRoute>
-									<Contact />
-								</GuestOrPassengerRoute>
-							}
-							path="contact"
-						/>
+		<>
+			<GoogleAnalytics />
+			<AnimatePresence mode="wait">
+				<div>
+					<Routes location={location} key={location.pathname}>
+						<Route path="/" element={<DefaultLayout />}>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<Home />
+									</GuestOrPassengerRoute>
+								}
+								index
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<About />
+									</GuestOrPassengerRoute>
+								}
+								path="about"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<Contact />
+									</GuestOrPassengerRoute>
+								}
+								path="contact"
+							/>
 
-						<Route path="login" element={<Login />} />
-						<Route path="register" element={<Register />} />
-						<Route path="register/info" element={<RegisterInfo />} />
-						<Route path="register-cooperative" element={<Join />} />
-						<Route path="register-cooperative/info" element={<JoinInfo />} />
-					</Route>
+							<Route path="login" element={<Login />} />
+							<Route path="register" element={<Register />} />
+							<Route path="register/info" element={<RegisterInfo />} />
+							<Route path="register-cooperative" element={<Join />} />
+							<Route path="register-cooperative/info" element={<JoinInfo />} />
+						</Route>
 
-					<Route path="/driver" element={<DriverLayout />}>
-						<Route
-							path="overview"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<OverviewDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="profile"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<ProfileDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="profile/edit"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<EditProfileDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="bus"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<DetailBusDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="bus/edit"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<EditBusDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="planning"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<PlanningListDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="planning/:id"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<DetailPlanningDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="planning/:id/open-boarding"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<OpenBoardingDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="performance"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<AnalyticsDriver />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="settings"
-							element={
-								<ProtectedRoute roles={["driver"]}>
-									<SettingDriver />
-								</ProtectedRoute>
-							}
-						/>
-					</Route>
+						<Route path="/driver" element={<DriverLayout />}>
+							<Route
+								path="overview"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<OverviewDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="profile"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<ProfileDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="profile/edit"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<EditProfileDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="bus"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<DetailBusDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="bus/edit"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<EditBusDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="planning"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<PlanningListDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="planning/:id"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<DetailPlanningDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="planning/:id/open-boarding"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<OpenBoardingDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="performance"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<AnalyticsDriver />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="settings"
+								element={
+									<ProtectedRoute roles={["driver"]}>
+										<SettingDriver />
+									</ProtectedRoute>
+								}
+							/>
+						</Route>
 
-					<Route path="/admin" element={<DriverLayout />}>
-						<Route
-							path="dashboard"
-							element={
-								<ProtectedRoute roles={["admin"]}>
-									<DashboardAdmin />
-								</ProtectedRoute>
-							}
-						/>
-					</Route>
+						<Route path="/admin" element={<DriverLayout />}>
+							<Route
+								path="dashboard"
+								element={
+									<ProtectedRoute roles={["admin"]}>
+										<DashboardAdmin />
+									</ProtectedRoute>
+								}
+							/>
+						</Route>
 
-					<Route path="/cooperative" element={<DriverLayout />}>
-						<Route
-							path="overview"
-							element={
-								<ProtectedRoute roles={["cooperative"]}>
-									<OverviewCooperative />
-								</ProtectedRoute>
-							}
-						/>
-					</Route>
+						<Route path="/cooperative" element={<DriverLayout />}>
+							<Route
+								path="overview"
+								element={
+									<ProtectedRoute roles={["cooperative"]}>
+										<OverviewCooperative />
+									</ProtectedRoute>
+								}
+							/>
+						</Route>
 
-					<Route path="*" element={<NotFound />} />
-				</Routes>
-			</div>
-		</AnimatePresence>
+						<Route path="*" element={<NotFound />} />
+					</Routes>
+				</div>
+			</AnimatePresence>
+		</>
 	);
 }
 

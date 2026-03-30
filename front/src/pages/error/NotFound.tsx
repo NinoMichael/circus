@@ -8,10 +8,18 @@ import SearchIcon from "@mui/icons-material/SearchOutlined";
 import InfoIcon from "@mui/icons-material/InfoOutlined";
 
 import busError from "../../assets/images/busError.jpg";
+import SEO from "../../components/seo/SEO";
 
 const NotFound = () => {
 	return (
-		<div className="flex flex-col gap-y-8 justify-center items-center mx-auto p-8 sm:py-12 max-sm:w-full sm:min-w-xl">
+		<>
+			<SEO
+				title="Page non trouvée"
+				description="La page que vous recherchez n'existe pas. Retournez à l'accueil Circus pour réserver votre taxi-brousse."
+				keywords="erreur 404, page non trouvée"
+				url="/404"
+			/>
+			<div className="flex flex-col gap-y-8 justify-center items-center mx-auto p-8 sm:py-12 max-sm:w-full sm:min-w-xl">
 			<div className="bg-gray-200 p-12 flex justify-center relative items-center rounded-xl max-sm:w-full sm:min-w-xl">
 				<div className="relative">
 					<img
@@ -70,6 +78,7 @@ const NotFound = () => {
 				</Link>
 			</div>
 		</div>
+		</>		
 	);
 };
 

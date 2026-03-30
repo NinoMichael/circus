@@ -19,3 +19,14 @@ export interface ToggleSwitchProps {
 	label: string;
 	description: string;
 }
+
+export interface SEOProps {
+	title: string;
+	description: string;
+	keywords?: string;
+	url?: string;
+	type?: "website" | "article" | "product";
+	author?: string;
+	publishedTime?: string;
+	modifiedTime?: string;
+}
