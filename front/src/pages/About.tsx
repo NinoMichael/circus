@@ -234,7 +234,7 @@ const About = () => {
 					<motion.div
 						variants={containerVariants}
 						initial="hidden"
-						whileInView="show"
+						animate="show"
 						viewport={{ once: true }}
 						className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 w-full mx-auto"
 					>
