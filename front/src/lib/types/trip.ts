@@ -17,7 +17,18 @@ export interface TripParams {
 	page?: number;
 	per_page?: number;
 	type?: "upcoming" | "past" | "cancelled";
-	sort_by?: "earliest" | "latest";
+	sort_by?: "earliest" | "latest" | "price_low" | "price_high";
+}
+
+export interface TripSearchParams extends TripParams {
+	departure?: string;
+	arrival?: string;
+	date?: string;
+	min_price?: number;
+	max_price?: number;
+	departure_time?: "morning" | "afternoon" | "evening";
+	cooperatives?: string;
+	bus_types?: string;
 }
 
 export type Trip = {

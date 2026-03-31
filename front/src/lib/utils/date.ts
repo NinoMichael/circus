@@ -38,12 +38,11 @@ export const extractDate = (isoDate: string) => {
 		.toLocaleString("fr-FR", {
 			month: "short",
 			timeZone: "UTC",
-		})
-		.toUpperCase();
+		});
 
 	const year = date.getUTCFullYear();
 
-	return { day, monthYear: `${month} ${year}` };
+	return { day, month: month.charAt(0).toUpperCase() + month.slice(1), monthYear: `${month} ${year}` };
 };
 
 // Extract date for input

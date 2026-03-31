@@ -9,3 +9,8 @@ Route::middleware("auth:sanctum")->prefix("trips")->group(function() {
     Route::get('/driver/{driver}/trip/{trip}/boarding', [TripController::class, 'boarding']);
     Route::put('/{trip}/start', [TripController::class, 'start']);
 });
+
+Route::prefix("trips")->group(function() {
+    Route::get('/', [TripController::class, 'publicIndex']);
+    Route::get('/search', [TripController::class, 'publicSearch']);
+});

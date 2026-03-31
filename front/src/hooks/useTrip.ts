@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
 import { TripService } from "../services/TripService";
-import type { Trip, TripParams, TripsResponse, BoardingResponse } from "../lib/types/trip";
+import type { Trip, TripParams, TripSearchParams, TripsResponse, BoardingResponse } from "../lib/types/trip";
 
 export function useTrip() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const { fetchByDriver, fetchById, fetchBoarding, startTrip } = TripService;
+	const { fetchByDriver, fetchById, fetchBoarding, startTrip, fetchPublic, fetchSearch } = TripService;
 
 	const fetchTripsByDriver = useCallback(
 		async (
@@ -86,6 +86,44 @@ export function useTrip() {
 		[]
 	);
 
+	const fetchPublicTrips = useCallback(
+		async (params: TripParams = {}): Promise<TripsResponse | undefined> => {
+			setLoading(true);
+			setError(null);
+
+			try {
+				const data = await fetchPublic(params);
+				return data;
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (err: any) {
+				setError(err?.data?.message || null);
+			} finally {
+				setLoading(false);
+			}
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
+	const searchTrips = useCallback(
+		async (params: TripSearchParams = {}): Promise<TripsResponse | undefined> => {
+			setLoading(true);
+			setError(null);
+
+			try {
+				const data = await fetchSearch(params);
+				return data;
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (err: any) {
+				setError(err?.data?.message || null);
+			} finally {
+				setLoading(false);
+			}
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
 	return {
 		loading,
 		error,
@@ -93,5 +131,7 @@ export function useTrip() {
 		fetchTripById,
 		fetchBoardingData,
 		startTripById,
+		fetchPublicTrips,
+		searchTrips,
 	};
 }

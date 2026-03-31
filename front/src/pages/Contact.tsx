@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import { pageTransition } from "../lib/utils/animation";
 
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
@@ -55,12 +56,6 @@ const Contact = () => {
 			y: 0,
 			transition: { duration: 0.4, ease: "easeOut" },
 		},
-	};
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
 	};
 
 	return (

@@ -1,6 +1,7 @@
 import type {
 	Trip,
 	TripParams,
+	TripSearchParams,
 	TripsResponse,
 	BoardingResponse,
 } from "../lib/types/trip";
@@ -44,6 +45,22 @@ export const TripService = {
 			`/trips/${tripId}/start`,
 			{}
 		);
+		return response.data;
+	},
+
+	fetchPublic: async (params: TripParams = {}): Promise<TripsResponse> => {
+		const response = await api.get<TripsResponse>("/trips/", {
+			params,
+		});
+		return response.data;
+	},
+
+	fetchSearch: async (
+		params: TripSearchParams = {}
+	): Promise<TripsResponse> => {
+		const response = await api.get<TripsResponse>("/trips/search", {
+			params,
+		});
 		return response.data;
 	},
 };

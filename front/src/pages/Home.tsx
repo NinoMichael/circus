@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import SEO from "../components/seo/SEO";
+import { useStation } from "../hooks/useStation";
 
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,6 +12,8 @@ import LocationIcon from "@mui/icons-material/LocationOnOutlined";
 import FlagIcon from "@mui/icons-material/FlagOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBusOutlined";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import bannerImage from "../assets/images/banner-home.jpg";
 import { cities } from "../assets/data/city";
@@ -29,6 +34,37 @@ const cardVariants = {
 };
 
 const Home = () => {
+	const navigate = useNavigate();
+	const { fetchCities } = useStation();
+	const [apiCities, setApiCities] = useState<string[]>([]);
+
+	const [selectedDeparture, setSelectedDeparture] = useState("");
+	const [selectedArrival, setSelectedArrival] = useState("");
+	const [selectedDate, setSelectedDate] = useState("");
+
+	useEffect(() => {
+		const loadCities = async () => {
+			const data = await fetchCities();
+			if (data) {
+				setApiCities(data);
+			}
+		};
+		loadCities();
+	}, [fetchCities]);
+
+	const handleSearch = (e: React.FormEvent) => {
+		e.preventDefault();
+		const params = new URLSearchParams();
+		if (selectedDeparture) params.set("departure", selectedDeparture);
+		if (selectedArrival) params.set("arrival", selectedArrival);
+		if (selectedDate) params.set("date", selectedDate);
+		navigate(`/trips?${params.toString()}`);
+	};
+
+	const handleCityClick = (cityName: string) => {
+		navigate(`/trips?arrival=${encodeURIComponent(cityName)}`);
+	};
+
 	return (
 		<>
 			<SEO
@@ -71,6 +107,7 @@ const Home = () => {
 						initial={{ opacity: 0, y: 40 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.4 }}
+						onSubmit={handleSearch}
 						className="max-md:w-full md:max-w-4xl mt-16 bg-white grid md:grid-cols-4 gap-4 items-end p-6 shadow rounded-xl"
 					>
 						<div>
@@ -79,13 +116,20 @@ const Home = () => {
 							</label>
 							<div className="relative mt-4">
 								<LocationIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
-								<Select className="h-11! pl-6! pr-4! rounded-lg! text-sm! w-full! border-secondary/30! focus-within:ring-primary! focus-within:border-primary! focus:ring-primary">
-									<MenuItem className="text-sm" value={1}>
-										Antananarivo
+								<Select
+									value={selectedDeparture}
+									onChange={(e) => setSelectedDeparture(e.target.value)}
+									displayEmpty
+									className="h-11! pl-6! pr-4! rounded-lg! text-sm! w-full! border-secondary/30! focus-within:ring-primary! focus-within:border-primary! focus:ring-primary"
+								>
+									<MenuItem className="text-sm" value="">
+										<span className="text-gray-400">Sélectionner</span>
 									</MenuItem>
-									<MenuItem className="text-sm" value={0}>
-										Toamasina
-									</MenuItem>
+									{apiCities.map((city) => (
+										<MenuItem key={city} className="text-sm" value={city}>
+											{city}
+										</MenuItem>
+									))}
 								</Select>
 							</div>
 						</div>
@@ -95,13 +139,20 @@ const Home = () => {
 							</label>
 							<div className="relative mt-4">
 								<FlagIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
-								<Select className="h-11! pl-6! pr-4! rounded-lg! text-sm! w-full! border-secondary/30! focus-within:ring-primary! focus-within:border-primary! focus:ring-primary">
-									<MenuItem className="text-sm" value={1}>
-										Antananarivo
+								<Select
+									value={selectedArrival}
+									onChange={(e) => setSelectedArrival(e.target.value)}
+									displayEmpty
+									className="h-11! pl-6! pr-4! rounded-lg! text-sm! w-full! border-secondary/30! focus-within:ring-primary! focus-within:border-primary! focus:ring-primary"
+								>
+									<MenuItem className="text-sm" value="">
+										<span className="text-gray-400">Sélectionner</span>
 									</MenuItem>
-									<MenuItem className="text-sm" value={0}>
-										Toamasina
-									</MenuItem>
+									{apiCities.map((city) => (
+										<MenuItem key={city} className="text-sm" value={city}>
+											{city}
+										</MenuItem>
+									))}
 								</Select>
 							</div>
 						</div>
@@ -113,13 +164,15 @@ const Home = () => {
 								<CalendarTodayOutlinedIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
 								<input
 									type="date"
-									placeholder="01/01/1990"
+									value={selectedDate}
+									onChange={(e) => setSelectedDate(e.target.value)}
 									className="w-full rounded-lg border border-gray-300 bg-white pl-10 pr-9 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none duration-200 transition-all"
 								/>
 							</div>
 						</div>
 						<div className="max-md:mt-6">
 							<Button
+								type="submit"
 								startIcon={<SearchIcon />}
 								className="w-full h-11 bg-primary text-sm hover:bg-primary/80 px-6 py-3 rounded-md font-bold transition-all shadow-sm"
 							>
@@ -160,6 +213,7 @@ const Home = () => {
 								key={city.name}
 								variants={cardVariants}
 								whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+								onClick={() => handleCityClick(city.name)}
 								className="relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
 							>
 								<img
@@ -177,6 +231,51 @@ const Home = () => {
 								</div>
 							</motion.div>
 						))}
+					</motion.div>
+				</motion.div>
+
+				<motion.div
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.5 }}
+					className="mt-8 mb-16 px-8 lg:px-16"
+				>
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.4 }}
+						className="bg-gradient-to-r from-secondary to-secondary/80 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
+					>
+						<div className="flex-1 text-center md:text-left">
+							<div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-6">
+								<DirectionsBusIcon className="size-10 text-primary" />
+							</div>
+							<h2 className="text-2xl md:text-3xl font-extrabold text-white mb-4">
+								Explorez les trajets à venir
+							</h2>
+							<p className="text-white/80 text-lg mb-6 max-w-xl">
+								Découvez tous les voyages disponibles pour vos prochains
+								déplacements. Trouvez le trajet qui correspond à vos besoins.
+							</p>
+							<Button
+								onClick={() => navigate("/trips")}
+								endIcon={<ArrowForwardIcon />}
+								className="bg-primary text-secondary hover:bg-primary/80 px-8 py-3 rounded-lg font-bold transition-all"
+							>
+								Voir tous les plannings
+							</Button>
+						</div>
+						<div className="hidden md:block">
+							<div className="relative">
+								<div className="w-48 h-48 bg-primary/20 rounded-full flex items-center justify-center">
+									<DirectionsBusIcon className="size-24 text-primary" />
+								</div>
+								<div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/30 rounded-full"></div>
+								<div className="absolute -bottom-4 -left-4 w-16 h-16 bg-primary/40 rounded-full"></div>
+							</div>
+						</div>
 					</motion.div>
 				</motion.div>
 			</motion.div>

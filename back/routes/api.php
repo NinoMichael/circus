@@ -36,3 +36,7 @@ Route::name('sessions.')->group(function () {
 Route::name('notifications.')->group(function () {
     require __DIR__ . '/modules/notifications.php';
 });
+
+Route::name('stations.')->group(function () {
+    require __DIR__ . '/modules/station.php';
+});

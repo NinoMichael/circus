@@ -10,6 +10,7 @@ import DriverLayout from "./layouts/Driver";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import ListTripVisitor from "./pages/visitor/trip/List";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -76,6 +77,15 @@ function App() {
 							<Route path="register/info" element={<RegisterInfo />} />
 							<Route path="register-cooperative" element={<Join />} />
 							<Route path="register-cooperative/info" element={<JoinInfo />} />
+
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<ListTripVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="trips"
+							/>
 						</Route>
 
 						<Route path="/driver" element={<DriverLayout />}>
