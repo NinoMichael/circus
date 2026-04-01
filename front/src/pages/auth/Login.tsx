@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth, useAuthTempStore } from "../../hooks/useAuth";
 
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
@@ -28,6 +28,7 @@ const Login = () => {
 	);
 
 	const { login, loading, error, setUser } = useAuth();
+	const { setTempAuth } = useAuthTempStore();
 
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
@@ -35,6 +36,12 @@ const Login = () => {
 		const data = await login({ email, password });
 
 		if (data) {
+			if (data.archived && data.user.role === "passenger") {
+				setTempAuth(data.token, data.user);
+				navigateTo("/profile/reactivate");
+				return;
+			}
+
 			document.cookie = `token=${data.token}; path=/; max-age=${
 				60 * 60 * 24 * 7
 			}; secure; samesite=strict`;

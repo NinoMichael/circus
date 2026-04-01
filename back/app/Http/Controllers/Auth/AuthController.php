@@ -33,7 +33,19 @@ class AuthController extends Controller
             'managerStation'
         ])->where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (!$user) {
+            return response()->json([
+                'message' => __('message.auth.failed')
+            ], 401);
+        }
+
+        if ($user->trashed()) {
+            return response()->json([
+                'message' => 'Votre compte a été supprimé définitivement. Veuillez créer un nouveau compte.'
+            ], 403);
+        }
+
+        if (!Hash::check($credentials['password'], $user->password)) {
             return response()->json([
                 'message' => __('message.auth.failed')
             ], 401);
@@ -43,6 +55,19 @@ class AuthController extends Controller
             return response()->json([
                 'message' => __('message.auth.inactive')
             ], 403);
+        }
+
+        if ($user->isPassenger() && $user->isArchived()) {
+            $user->tokens()->delete();
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Votre compte a été désactivé. Veuillez le réactiver pour accéder à vos services.',
+                'token' => $token,
+                'user' => new UserResource($user),
+                'archived' => true,
+            ], 200);
         }
 
         $user->tokens()->delete();
@@ -195,6 +220,94 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Profil mis à jour avec succès',
             'user' => new UserResource($user),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
+    public function deactivate(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        if (!$user->isPassenger()) {
+            return response()->json([
+                'message' => 'Action non autorisée pour ce type de compte'
+            ], 403);
+        }
+
+        $password = $request->input('password');
+
+        if (!Hash::check($password, $user->password)) {
+            return response()->json([
+                'message' => 'Mot de passe incorrect'
+            ], 422);
+        }
+
+        $user->archive();
+
+        $user->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Compte désactivé avec succès'
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
+    public function reactivate(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        if (!$user->isPassenger()) {
+            return response()->json([
+                'message' => 'Action non autorisée pour ce type de compte'
+            ], 403);
+        }
+
+        $user->reactivate();
+
+        $user->load(['profile']);
+
+        return response()->json([
+            'message' => 'Compte réactivé avec succès',
+            'user' => new UserResource($user),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        if (!$user->isPassenger()) {
+            return response()->json([
+                'message' => 'Action non autorisée pour ce type de compte'
+            ], 403);
+        }
+
+        $password = $request->input('password');
+
+        if (!Hash::check($password, $user->password)) {
+            return response()->json([
+                'message' => 'Mot de passe incorrect'
+            ], 422);
+        }
+
+        $user->tokens()->delete();
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Compte supprimé définitivement'
         ]);
     }
 }

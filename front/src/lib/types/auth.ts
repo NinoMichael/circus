@@ -10,6 +10,7 @@ export interface LoginResponse {
 	message: string;
 	token: string;
 	user: User;
+	archived?: boolean;
 }
 
 export interface RegisterForm {

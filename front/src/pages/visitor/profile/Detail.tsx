@@ -184,11 +184,11 @@ const DetailProfileVisitor = () => {
 						<Divider className="mt-4 mb-4" />
 
 						<div className="px-6 flex flex-col gap-6">
-							<Link to="/" className="text-red-600">
+							<Link to="/profile/deactivate" className="text-red-600">
 								<BlockIcon className="size-5 -mt-1.5 mr-2" />
 								<span className="font-medium">Désactiver le compte</span>
 							</Link>
-							<Link to="/" className="text-red-600">
+							<Link to="/profile/delete" className="text-red-600">
 								<DeleteIcon className="size-5 -mt-1.5 mr-2" />
 								<span className="font-medium">Supprimer le compte</span>
 							</Link>

@@ -16,6 +16,9 @@ import Help from "./pages/Help";
 import ListTripVisitor from "./pages/visitor/trip/List";
 import DetailProfileVisitor from "./pages/visitor/profile/Detail";
 import EditProfileVisitor from "./pages/visitor/profile/Edit";
+import DisableAccountVisitor from "./pages/visitor/profile/Disable";
+import DeleteAccountVisitor from "./pages/visitor/profile/Delete";
+import ReactivateAccountVisitor from "./pages/visitor/profile/Reactivate";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -131,6 +134,30 @@ function App() {
 									</GuestOrPassengerRoute>
 								}
 								path="profile/edit"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<DisableAccountVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="profile/deactivate"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<DeleteAccountVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="profile/delete"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<ReactivateAccountVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="profile/reactivate"
 							/>
 						</Route>
 

@@ -88,6 +88,27 @@ export const useRegisterCooperativeStore = create<RegisterCooperativeStore>()(
 	)
 );
 
+interface AuthTempStore {
+	tempToken: string | null;
+	tempUser: User | null;
+	setTempAuth: (token: string, user: User) => void;
+	clearTempAuth: () => void;
+}
+
+export const useAuthTempStore = create<AuthTempStore>()(
+	persist(
+		(set) => ({
+			tempToken: null,
+			tempUser: null,
+			setTempAuth: (token, user) => set({ tempToken: token, tempUser: user }),
+			clearTempAuth: () => set({ tempToken: null, tempUser: null }),
+		}),
+		{
+			name: "auth-temp-store",
+		}
+	)
+);
+
 export function useAuth() {
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -199,6 +220,63 @@ export function useAuth() {
 		}
 	}
 
+	/* Deactivate visitor account hooks */
+	async function deactivate(password: string): Promise<boolean> {
+		setLoading(true);
+		setError(null);
+
+		try {
+			await AuthService.deactivate(password);
+			document.cookie = "token=; path=/; max-age=0; secure; samesite=strict";
+			document.cookie = "user=; path=/; max-age=0; secure; samesite=strict";
+			setUser(null);
+			return true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message);
+			return false;
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	/* Reactivate visitor account hooks */
+	async function reactivate(token?: string): Promise<UserResponse | undefined> {
+		setLoading(true);
+		setError(null);
+
+		try {
+			const data = await AuthService.reactivate(token);
+			setUser(data.user);
+			return data;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	/* Delete visitor account hooks */
+	async function deleteUser(password: string): Promise<boolean> {
+		setLoading(true);
+		setError(null);
+
+		try {
+			await AuthService.delete(password);
+			document.cookie = "token=; path=/; max-age=0; secure; samesite=strict";
+			document.cookie = "user=; path=/; max-age=0; secure; samesite=strict";
+			setUser(null);
+			return true;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message);
+			return false;
+		} finally {
+			setLoading(false);
+		}
+	}
+
 	const isLoggedIn = !!user;
 
 	return {
@@ -214,5 +292,8 @@ export function useAuth() {
 		checking,
 		setChecking,
 		updateVisitor,
+		deactivate,
+		reactivate,
+		deleteUser,
 	};
 }

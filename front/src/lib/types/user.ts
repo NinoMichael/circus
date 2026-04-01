@@ -18,6 +18,7 @@ export type User = {
 	role: "passenger" | "driver" | "cooperative" | "manager" | "admin";
 	phone: string;
 	is_active: boolean;
+	archived_at: string | null;
 	last_login_at: string;
 	email_verified_at: string | null;
 	profile: Profile;

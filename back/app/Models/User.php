@@ -44,12 +44,43 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'archived_at' => 'datetime',
         ];
     }
 
     public function getFullnameAttribute()
     {
         return $this->firstname . " " . $this->lastname;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived_at !== null;
+    }
+
+    public function isPassenger(): bool
+    {
+        return $this->role === 'passenger';
+    }
+
+    public function archive(): bool
+    {
+        if (!$this->isPassenger()) {
+            return false;
+        }
+
+        $this->archived_at = now();
+        return $this->save();
+    }
+
+    public function reactivate(): bool
+    {
+        if (!$this->isPassenger()) {
+            return false;
+        }
+
+        $this->archived_at = null;
+        return $this->save();
     }
 
     public function profile(): HasOne

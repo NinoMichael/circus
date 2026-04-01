@@ -37,4 +37,27 @@ export const AuthService = {
 		);
 		return response.data;
 	},
+
+	deactivate: async (password: string): Promise<{ message: string }> => {
+		const { data } = await api.post<{ message: string }>(
+			"/visitor/deactivate",
+			{ password }
+		);
+		return data;
+	},
+
+	reactivate: async (token?: string): Promise<UserResponse> => {
+		const response = await api.post<UserResponse>("/visitor/reactivate", {}, {
+			headers: token ? { Authorization: `Bearer ${token}` } : {},
+		});
+		return response.data;
+	},
+
+	delete: async (password: string): Promise<{ message: string }> => {
+		const { data } = await api.post<{ message: string }>(
+			"/visitor/delete",
+			{ password }
+		);
+		return data;
+	},
 };
