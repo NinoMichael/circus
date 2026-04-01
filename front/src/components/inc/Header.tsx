@@ -137,7 +137,7 @@ const Header = () => {
 							) : (
 								<Link
 									title="Voir profil"
-									to="/"
+									to="/profile"
 									className="hover:scale-105 transition-all"
 								>
 									<img

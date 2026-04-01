@@ -19,6 +19,7 @@ export type User = {
 	phone: string;
 	is_active: boolean;
 	last_login_at: string;
+	email_verified_at: string | null;
 	profile: Profile;
 	driver?: Driver;
 	cooperative?: Cooperative;
