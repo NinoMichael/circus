@@ -17,25 +17,25 @@ const Footer = () => {
 			<nav className="hidden md:flex items-center gap-4 lg:gap-12">
 				<Link
 					className="font-light hover:text-primary transition-colors"
-					to="/"
+					to="/privacy"
 				>
 					Confidentialité
 				</Link>
 				<Link
 					className="font-light hover:text-primary transition-colors"
-					to="/"
+					to="/terms"
 				>
 					Conditions d'utilisation
 				</Link>
 				<Link
 					className="font-light hover:text-primary transition-colors"
-					to="/"
+					to="/help"
 				>
 					FAQ
 				</Link>
 				<Link
 					className="font-light hover:text-primary transition-colors"
-					to="/"
+					to="/help"
 				>
 					Aide
 				</Link>

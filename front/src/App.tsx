@@ -10,6 +10,9 @@ import DriverLayout from "./layouts/Driver";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Help from "./pages/Help";
 import ListTripVisitor from "./pages/visitor/trip/List";
 
 import Login from "./pages/auth/Login";
@@ -70,6 +73,30 @@ function App() {
 									</GuestOrPassengerRoute>
 								}
 								path="contact"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<Privacy />
+									</GuestOrPassengerRoute>
+								}
+								path="privacy"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<Terms />
+									</GuestOrPassengerRoute>
+								}
+								path="terms"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<Help />
+									</GuestOrPassengerRoute>
+								}
+								path="help"
 							/>
 
 							<Route path="login" element={<Login />} />
