@@ -15,6 +15,7 @@ import Terms from "./pages/Terms";
 import Help from "./pages/Help";
 import ListTripVisitor from "./pages/visitor/trip/List";
 import DetailProfileVisitor from "./pages/visitor/profile/Detail";
+import EditProfileVisitor from "./pages/visitor/profile/Edit";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -122,6 +123,14 @@ function App() {
 									</GuestOrPassengerRoute>
 								}
 								path="profile"
+							/>
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<EditProfileVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="profile/edit"
 							/>
 						</Route>
 

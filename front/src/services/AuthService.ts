@@ -4,7 +4,8 @@ import type {
 	RegisterForm,
 	RegisterResponse,
 } from "../lib/types/auth";
-import { api } from "./api";
+import type { UserResponse } from "../lib/types/user";
+import { api, apiFormData } from "./api";
 
 export const AuthService = {
 	login: async (credentials: LoginForm): Promise<LoginResponse> => {
@@ -22,5 +23,18 @@ export const AuthService = {
 			{}
 		);
 		return data;
+	},
+
+	update: async (data: FormData): Promise<UserResponse> => {
+		const response = await apiFormData.post<UserResponse>(
+			`/visitor/update`,
+			data,
+			{
+				headers: {
+					"X-HTTP-Method-Override": "PUT",
+				},
+			}
+		);
+		return response.data;
 	},
 };

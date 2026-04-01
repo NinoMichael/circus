@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { LoginForm, LoginResponse } from "../lib/types/auth";
 import type { RegisterForm } from "../lib/types/auth";
 import type { RegisterCooperativeForm } from "../lib/types/cooperative";
-import type { User } from "../lib/types/user";
+import type { User, UserResponse } from "../lib/types/user";
 import { AuthService } from "../services/AuthService";
 import { CooperativeService } from "../services/CooperativeService";
 import { create } from "zustand";
@@ -140,7 +140,9 @@ export function useAuth() {
 	}
 
 	/* Register cooperative hooks*/
-	async function registerCooperative(data: RegisterCooperativeForm): Promise<boolean> {
+	async function registerCooperative(
+		data: RegisterCooperativeForm
+	): Promise<boolean> {
 		setLoading(true);
 		setError(null);
 		try {
@@ -151,7 +153,7 @@ export function useAuth() {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.response?.data?.message ?? "Une erreur est survenue.");
-			console.log(err.response?.data?.message)
+			console.log(err.response?.data?.message);
 			return false;
 		} finally {
 			setLoading(false);
@@ -166,8 +168,11 @@ export function useAuth() {
 
 		if (userCookie) {
 			try {
-				const userData = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+				const userData = JSON.parse(
+					decodeURIComponent(userCookie.split("=")[1])
+				);
 				setUser(userData);
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (e) {
 				document.cookie = "user=; path=/; max-age=0; secure; samesite=strict";
 			}
@@ -175,6 +180,24 @@ export function useAuth() {
 
 		setChecking(false);
 	}, []);
+
+	/* Update visitor with profile & user information hooks */
+	async function updateVisitor(
+		formData: FormData
+	): Promise<UserResponse | undefined> {
+		setLoading(true);
+		setError(null);
+
+		try {
+			const data = await AuthService.update(formData);
+			return data;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.response?.data?.message);
+		} finally {
+			setLoading(false);
+		}
+	}
 
 	const isLoggedIn = !!user;
 
@@ -190,5 +213,6 @@ export function useAuth() {
 		error,
 		checking,
 		setChecking,
+		updateVisitor,
 	};
 }

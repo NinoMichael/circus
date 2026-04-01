@@ -39,12 +39,15 @@ const DetailProfileVisitor = () => {
 					</span>
 				</div>
 
-				<Button
-					className="w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
-					startIcon={<EditIcon />}
-				>
-					Modifier le profil
-				</Button>
+				<Link to="/profile/edit">
+					{" "}
+					<Button
+						className="w-48! bg-primary! text-sm! hover:bg-primary/80! px-6! py-3! rounded-md font-bold! transition-all! shadow-sm!"
+						startIcon={<EditIcon />}
+					>
+						Modifier le profil
+					</Button>
+				</Link>
 			</div>
 
 			<div className="mt-8 grid md:grid-cols-3 gap-8">

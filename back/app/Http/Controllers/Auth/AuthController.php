@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Js;
 
 class AuthController extends Controller
 {
@@ -134,6 +138,63 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => __('message.auth.logout_success')
+        ]);
+    }
+
+    /**
+     * @param UserProfileRequest $request
+     * 
+     * @return JsonResponse
+     */
+    public function update(UserProfileRequest $request): JsonResponse
+    {
+        $user = $request->user();
+        
+        $data = $request->validated();
+
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->phone = $data['phone'];
+        $user->email = $data['email'];
+        $user->save();
+
+        $profile = $user->profile;
+        
+        if ($profile) {
+                $profile->birth_date = $data['birth_date'];
+                $profile->national_id = $data['national_id'];
+                $profile->is_male = (bool) $data['is_male'];
+                $profile->address = $data['address'];
+                $profile->save();
+        } else {
+            $profileData = [];
+            $profileData['birth_date'] = $data['birth_date'];
+            $profileData['national_id'] = $data['national_id'];
+            $profileData['is_male'] = (bool) $data['is_male'];
+            $profileData['address'] = $data['address'];
+            
+            if (!empty($profileData)) {
+                $profile = Profile::create(array_merge(['user_id' => $user->id], $profileData));
+            }
+        }
+
+        if ($request->hasFile('avatar')) {
+            if ($profile && $profile->avatar) {
+                Storage::disk('public')->delete($profile->avatar);
+            }
+    
+            $path = $request->file('avatar')->store('profiles', 'public');
+            if ($profile) {
+                $profile->avatar = $path;
+                $profile->save();
+            }
+        }
+
+        $user->load(['profile']);
+
+        return response()->json([
+            'message' => 'Profil mis à jour avec succès',
+            'user' => new UserResource($user),
         ]);
     }
 }
