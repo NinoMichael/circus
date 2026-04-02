@@ -1,3 +1,5 @@
+import type { Booking } from "./booking";
+
 export interface ProtectedProps {
 	roles?: string[];
 	children: React.ReactNode;
@@ -29,4 +31,15 @@ export interface SEOProps {
 	author?: string;
 	publishedTime?: string;
 	modifiedTime?: string;
+}
+
+export interface TabPanelProps {
+	children?: React.ReactNode;
+	index: number;
+	value: number;
+}
+
+export interface BookingCardProps {
+	booking: Booking;
+	onCancel: (bookingId: number) => void;
 }

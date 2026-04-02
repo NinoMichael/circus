@@ -19,6 +19,7 @@ import EditProfileVisitor from "./pages/visitor/profile/Edit";
 import DisableAccountVisitor from "./pages/visitor/profile/Disable";
 import DeleteAccountVisitor from "./pages/visitor/profile/Delete";
 import ReactivateAccountVisitor from "./pages/visitor/profile/Reactivate";
+import ListHistoryVisitor from "./pages/visitor/history/List";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -121,43 +122,52 @@ function App() {
 
 							<Route
 								element={
-									<GuestOrPassengerRoute>
+									<ProtectedRoute roles={["passenger"]}>
 										<DetailProfileVisitor />
-									</GuestOrPassengerRoute>
+									</ProtectedRoute>
 								}
 								path="profile"
 							/>
 							<Route
 								element={
-									<GuestOrPassengerRoute>
+									<ProtectedRoute roles={["passenger"]}>
 										<EditProfileVisitor />
-									</GuestOrPassengerRoute>
+									</ProtectedRoute>
 								}
 								path="profile/edit"
 							/>
 							<Route
 								element={
-									<GuestOrPassengerRoute>
+									<ProtectedRoute roles={["passenger"]}>
 										<DisableAccountVisitor />
-									</GuestOrPassengerRoute>
+									</ProtectedRoute>
 								}
 								path="profile/deactivate"
 							/>
 							<Route
 								element={
-									<GuestOrPassengerRoute>
+									<ProtectedRoute roles={["passenger"]}>
 										<DeleteAccountVisitor />
-									</GuestOrPassengerRoute>
+									</ProtectedRoute>
 								}
 								path="profile/delete"
 							/>
 							<Route
 								element={
-									<GuestOrPassengerRoute>
+									<ProtectedRoute roles={["passenger"]}>
 										<ReactivateAccountVisitor />
-									</GuestOrPassengerRoute>
+									</ProtectedRoute>
 								}
 								path="profile/reactivate"
+							/>
+
+							<Route
+								element={
+									<ProtectedRoute roles={["passenger"]}>
+										<ListHistoryVisitor />
+									</ProtectedRoute>
+								}
+								path="history"
 							/>
 						</Route>
 

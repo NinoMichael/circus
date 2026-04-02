@@ -13,6 +13,17 @@ export type BookingSeat = {
 	updated_at?: string;
 };
 
+export type Payment = {
+	id: number;
+	booking_id: number;
+	amount: string;
+	payment_method: string;
+	transaction_reference: string | null;
+	paid_at: string;
+	created_at?: string;
+	updated_at?: string;
+};
+
 export type Booking = {
 	id: number;
 	user_id: number;
@@ -30,7 +41,24 @@ export type Booking = {
 		| "refunded"
 		| "archived";
 	bookingSeats?: BookingSeat[];
+	payment?: Payment;
 	created_at?: string;
 	updated_at?: string;
 	deleted_at?: string;
 };
+
+export interface BookingsResponse {
+	bookings: Booking[];
+	meta: {
+		current_page: number;
+		last_page: number;
+		per_page: number;
+		total: number;
+	};
+}
+
+export interface BookingParams {
+	page?: number;
+	per_page?: number;
+	type?: "all" | "upcoming" | "past" | "cancelled" | "pending";
+}

@@ -8,18 +8,27 @@ import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationIcon from "@mui/icons-material/Notifications";
+import HistoryIcon from "@mui/icons-material/HistoryOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 
 const Header = () => {
-	// const apiUrl = import.meta.env.VITE_API_URL;
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 
-	const { user } = useAuth();
+	const [logoutDialog, setLogoutDialog] = useState(false);
+	const { user, logout } = useAuth();
 
 	const handleLogin = () => {
 		navigate("/login");
@@ -27,6 +36,19 @@ const Header = () => {
 
 	const toggleDrawer = (newOpen: boolean) => () => {
 		setOpen(newOpen);
+	};
+
+	const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handleLogout = async () => {
+		await logout();
+		navigate("/");
 	};
 
 	const DrawerMenu = (
@@ -135,21 +157,71 @@ const Header = () => {
 									{user.firstname.charAt(0).toUpperCase()}
 								</div>
 							) : (
-								<Link
-									title="Voir profil"
-									to="/profile"
-									className="hover:scale-105 transition-all"
-								>
-									<img
-										src={user.profile.avatar}
-										className="h-12 w-12 rounded-full border border-gray-200"
-										alt="Avatar visitor"
-									/>
-								</Link>
+								<img
+									src={user.profile.avatar}
+									className="cursor-pointer -12 w-12 rounded-full border border-gray-200 hover:scale-105 transition-all"
+									alt="Avatar visitor"
+									onClick={(e) => handleMenuClick(e)}
+								/>
 							)}
 						</div>
 					)}
 				</div>
+
+				<Menu
+					anchorEl={anchorEl}
+					open={Boolean(anchorEl)}
+					onClose={handleMenuClose}
+					className="p-3!"
+				>
+					<Link to="/profile">
+						<MenuItem className="cursor-pointer text-sm hover:text-primary">
+							<PersonIcon className="size-4 mr-2" />
+							<span>Profil</span>
+						</MenuItem>
+					</Link>
+					<Link to="/history">
+						<MenuItem className="cursor-pointer text-sm hover:text-primary">
+							<HistoryIcon className="size-4 mr-2" />
+							<span>Historique</span>
+						</MenuItem>
+					</Link>
+					<MenuItem
+						className="cursor-pointer text-sm hover:text-primary"
+						onClick={() => setLogoutDialog(true)}
+					>
+						<LogoutIcon className="size-4 mr-2" />
+						<span>Déconnexion</span>
+					</MenuItem>
+				</Menu>
+
+				<Dialog
+					sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: "60%" } }}
+					maxWidth="xs"
+					open={logoutDialog}
+				>
+					<DialogTitle className="text-xl! text-secondary! font-bold!">
+						Déconnexion
+					</DialogTitle>
+					<DialogContent>
+						<p className="my-4">Etes-vous sur de vouloir vous déconnecter ?</p>
+					</DialogContent>
+					<DialogActions className="!mt-6">
+						<Button
+							className="bg-accent! w-full! text-sm! py-3!"
+							autoFocus
+							onClick={() => setLogoutDialog(false)}
+						>
+							Non
+						</Button>
+						<Button
+							className="bg-primary! w-full! text-sm! py-3!"
+							onClick={handleLogout}
+						>
+							Oui
+						</Button>
+					</DialogActions>
+				</Dialog>
 			</div>
 		</header>
 	);

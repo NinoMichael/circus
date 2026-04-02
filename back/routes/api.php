@@ -40,3 +40,7 @@ Route::name('notifications.')->group(function () {
 Route::name('stations.')->group(function () {
     require __DIR__ . '/modules/station.php';
 });
+
+Route::name('bookings.')->group(function () {
+    require __DIR__ . '/modules/booking.php';
+});
