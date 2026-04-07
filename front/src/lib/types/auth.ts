@@ -33,3 +33,30 @@ export interface RegisterResponse {
 	user: User;
 }
 
+export interface ForgotPasswordForm {
+	email: string;
+}
+
+export interface ForgotPasswordResponse {
+	message: string;
+}
+
+export interface ResetPasswordForm {
+	email: string;
+	token: string;
+	password: string;
+	password_confirmation: string;
+}
+
+export interface ResetPasswordResponse {
+	message: string;
+}
+
+export interface ResendResetLinkForm {
+	email: string;
+}
+
+export interface ResendResetLinkResponse {
+	message: string;
+}
+

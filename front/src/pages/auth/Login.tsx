@@ -1,18 +1,24 @@
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useAuthTempStore } from "../../hooks/useAuth";
+import {
+	card,
+	containerForm,
+	itemButton,
+	pageTransition,
+} from "../../lib/utils/animation";
 
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import SEO from "../../components/seo/SEO";
 
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LoginIcon from "@mui/icons-material/Login";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import LockIcon from "@mui/icons-material/Lock";
-import SEO from "../../components/seo/SEO";
 
 const Login = () => {
 	const navigateTo = useNavigate();
@@ -80,41 +86,6 @@ const Login = () => {
 		}
 	}
 
-	const container: Variants = {
-		hidden: { opacity: 0 },
-		show: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.15,
-			},
-		},
-	};
-
-	const item: Variants = {
-		hidden: { opacity: 0, y: 20 },
-		show: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.4, ease: "easeOut" },
-		},
-	};
-
-	const card: Variants = {
-		hidden: { opacity: 0, y: 40, scale: 0.96 },
-		show: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: { duration: 0.5, ease: "easeOut" },
-		},
-	};
-
-	const pageTransition = {
-		initial: { opacity: 0, y: 20 },
-		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
-	};
-
 	return (
 		<>
 			<SEO
@@ -153,7 +124,7 @@ const Login = () => {
 							<motion.form
 								className="space-y-5 mt-8"
 								onSubmit={handleSubmit}
-								variants={container}
+								variants={containerForm}
 								initial="hidden"
 								animate="show"
 							>
@@ -177,7 +148,7 @@ const Login = () => {
 									<div className="flex items-center justify-between">
 										<label className="font-medium">Mot de passe</label>
 										<Link
-											to="#"
+											to="/forgotten-password"
 											className="text-sm font-semibold text-primary hover:underline"
 										>
 											Oublié ?
@@ -207,7 +178,7 @@ const Login = () => {
 								</div>
 
 								<motion.div
-									variants={item}
+									variants={itemButton}
 									whileHover={{ scale: 1.03 }}
 									whileTap={{ scale: 0.97 }}
 								>

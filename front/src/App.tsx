@@ -24,6 +24,9 @@ import ListHistoryVisitor from "./pages/visitor/history/List";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import RegisterInfo from "./pages/auth/RegisterInfo";
+import ForgottenPassword from "./pages/auth/ForgottenPassword";
+import VerifyEmail from "./pages/auth/VerifyEmail";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 import OverviewDriver from "./pages/driver/Overview";
 import DetailBusDriver from "./pages/driver/bus/Detail";
@@ -108,6 +111,14 @@ function App() {
 							<Route path="login" element={<Login />} />
 							<Route path="register" element={<Register />} />
 							<Route path="register/info" element={<RegisterInfo />} />
+
+							<Route
+								path="forgotten-password"
+								element={<ForgottenPassword />}
+							/>
+							<Route path="verify-email" element={<VerifyEmail />} />
+							<Route path="reset-password" element={<ResetPassword />} />
+
 							<Route path="register-cooperative" element={<Join />} />
 							<Route path="register-cooperative/info" element={<JoinInfo />} />
 
