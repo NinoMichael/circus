@@ -230,7 +230,7 @@ const TopbarDriver = () => {
 	);
 
 	return (
-		<header>
+		<>
 			<header className="sticky top-0 z-50 flex items-center justify-between border-b border-primary/20 bg-white/80 px-4 md:px-8 py-4 lg:px-16">
 				<div className="flex gap-4">
 					<Button className="lg:hidden! p-0!" onClick={toggleDrawer(true)}>
@@ -376,13 +376,13 @@ const TopbarDriver = () => {
 							<img
 								src={getImageUrl(user.profile.avatar)}
 								className="h-12 w-12 rounded-full border border-gray-200"
-								alt="Avatar visitor"
+								alt="Avatar driver"
 							/>
 						</Link>
 					)}
 				</div>
 			</header>
-		</header>
+		</>
 	);
 };
 

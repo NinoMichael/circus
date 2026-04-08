@@ -39,8 +39,9 @@ class UserResource extends JsonResource
                 return $this->cooperative;
             }),
 
-            'manager_station' => $this->whenLoaded('managerStation', function () {
-                return $this->managerStation;
+            'station' => $this->when($this->role === 'manager', function () {
+                $this->loadMissing('station');
+                return $this->station;
             }),
         ];
     }

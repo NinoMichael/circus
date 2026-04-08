@@ -6,6 +6,7 @@ import { GoogleAnalytics, usePageTracking } from "./lib/helpers/seo";
 
 import DefaultLayout from "./layouts/Default";
 import DriverLayout from "./layouts/Driver";
+import StationLayout from "./layouts/Station";
 
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -37,6 +38,8 @@ import DetailPlanningDriver from "./pages/driver/planning/Detail";
 import OpenBoardingDriver from "./pages/driver/planning/OpenBoarding";
 import AnalyticsDriver from "./pages/driver/Analytics";
 import EditProfileDriver from "./pages/driver/profile/Edit";
+
+import DashboardStation from "./pages/station/Dashboard";
 
 import DashboardAdmin from "./pages/admin/Dashboard";
 
@@ -260,6 +263,17 @@ function App() {
 								element={
 									<ProtectedRoute roles={["driver"]}>
 										<SettingDriver />
+									</ProtectedRoute>
+								}
+							/>
+						</Route>
+
+						<Route path="/station" element={<StationLayout />}>
+							<Route
+								path="dashboard"
+								element={
+									<ProtectedRoute roles={["manager"]}>
+										<DashboardStation />
 									</ProtectedRoute>
 								}
 							/>

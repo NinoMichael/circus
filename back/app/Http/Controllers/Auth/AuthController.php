@@ -30,7 +30,7 @@ class AuthController extends Controller
             'profile',
             'driver',
             'cooperative',
-            'managerStation'
+            'station',
         ])->where('email', $credentials['email'])->first();
 
         if (!$user) {

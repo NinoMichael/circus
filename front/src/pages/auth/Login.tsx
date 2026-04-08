@@ -68,7 +68,7 @@ const Login = () => {
 					navigateTo(`/cooperative/overview`);
 					break;
 				case "manager":
-					navigateTo(`/`);
+					navigateTo(`/station/dashboard`);
 					break;
 				case "admin":
 					navigateTo(`/admin/dashboard`);

@@ -98,7 +98,7 @@ class User extends Authenticatable
         return $this->hasOne(Driver::class);
     }
 
-    public function managerStation(): HasOne
+    public function station(): HasOne
     {
         return $this->hasOne(Station::class, 'manager_user_id');
     }
