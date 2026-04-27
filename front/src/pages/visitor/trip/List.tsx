@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -587,9 +588,9 @@ const ListTripVisitor = () => {
 											<span className="bg-gray-200 text-sm rounded-full px-3 py-2 text-red-600/70 font-semibold">
 												{trip.available_seats} places restantes
 											</span>
-											<Button className="w-full mt-8 md:mt-2 h-11 bg-primary text-sm hover:bg-primary/80 px-6 py-3 rounded-md font-bold transition-all shadow-sm">
+											<Link to={`/trips/${trip.id}`} className="w-full mt-8 md:mt-2 h-11 bg-primary text-sm hover:bg-primary/80 px-6 py-3 rounded-md font-bold transition-all shadow-sm flex items-center justify-center">
 												Détail
-											</Button>
+											</Link>
 										</div>
 									</div>
 								))}

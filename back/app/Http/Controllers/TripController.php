@@ -324,4 +324,31 @@ class TripController extends Controller
             ]
         ]);
     }
+
+    /**
+     * Get a single public trip detail
+     */
+    public function publicShow(Trip $trip): JsonResponse
+    {
+        $trip->load([
+            'route.departureStation',
+            'route.arrivalStation',
+            'buse.cooperative',
+            'buse.driver.user',
+            'cooperative'
+        ]);
+
+        $tripData = $trip->toArray();
+        
+        if (isset($tripData['buse']['driver']['user'])) {
+            $tripData['buse']['driver']['firstname'] = $tripData['buse']['driver']['user']['firstname'] ?? null;
+            $tripData['buse']['driver']['lastname'] = $tripData['buse']['driver']['user']['lastname'] ?? null;
+            $tripData['buse']['driver']['phone'] = $tripData['buse']['driver']['user']['phone'] ?? null;
+            $tripData['buse']['driver']['email'] = $tripData['buse']['driver']['user']['email'] ?? null;
+            $tripData['buse']['driver']['avatar'] = $tripData['buse']['driver']['user']['profile']['avatar'] ?? null;
+            unset($tripData['buse']['driver']['user']);
+        }
+
+        return response()->json($tripData);
+    }
 }

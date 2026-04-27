@@ -63,4 +63,10 @@ export const TripService = {
 		});
 		return response.data;
 	},
+
+	fetchPublicById: async (tripId: number): Promise<Trip> => {
+		const response = await api.get<Trip>(`/trips/${tripId}`);
+		const rawData = response.data as { data?: Trip };
+		return rawData.data || (response.data as Trip);
+	},
 };

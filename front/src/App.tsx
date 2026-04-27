@@ -15,6 +15,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Help from "./pages/Help";
 import ListTripVisitor from "./pages/visitor/trip/List";
+import DetailTripVisitor from "./pages/visitor/trip/Detail";
 import DetailProfileVisitor from "./pages/visitor/profile/Detail";
 import EditProfileVisitor from "./pages/visitor/profile/Edit";
 import DisableAccountVisitor from "./pages/visitor/profile/Disable";
@@ -132,6 +133,15 @@ function App() {
 									</GuestOrPassengerRoute>
 								}
 								path="trips"
+							/>
+
+							<Route
+								element={
+									<GuestOrPassengerRoute>
+										<DetailTripVisitor />
+									</GuestOrPassengerRoute>
+								}
+								path="trips/:id"
 							/>
 
 							<Route
