@@ -3,6 +3,11 @@ export type Driver = {
 	user_id: number;
 	license_number: string;
 	status: "active" | "suspended";
+	firstname?: string;
+	lastname?: string;
+	phone?: string;
+	email?: string;
+	avatar?: string;
 	created_at?: string;
 	updated_at?: string;
 };

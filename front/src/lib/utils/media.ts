@@ -1,5 +1,5 @@
-export const getImageUrl = (path?: string) => {
-	if (!path) return;
+export const getImageUrl = (path?: string | null) => {
+	if (!path) return undefined;
 
 	return path.startsWith("http")
 		? path

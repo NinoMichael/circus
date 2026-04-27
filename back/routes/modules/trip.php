@@ -13,4 +13,5 @@ Route::middleware("auth:sanctum")->prefix("trips")->group(function() {
 Route::prefix("trips")->group(function() {
     Route::get('/', [TripController::class, 'publicIndex']);
     Route::get('/search', [TripController::class, 'publicSearch']);
+    Route::get('/{trip}', [TripController::class, 'publicShow']);
 });
