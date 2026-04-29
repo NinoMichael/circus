@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { getImageUrl } from "../../lib/utils/media";
-import { stationMenuItems } from "../../lib/data";
+import { cooperativeMenuItems } from "../../lib/data";
 
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -20,7 +20,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationIcon from "@mui/icons-material/Notifications";
 
-const TopbarStation = () => {
+const TopbarCooperative = () => {
     const navigateTo = useNavigate();
     const location = useLocation();
     const { user, logout } = useAuth();
@@ -53,13 +53,13 @@ const TopbarStation = () => {
                 <div className="space-y-2">
                     <h3 className="font-extrabold tracking-tight">Circus</h3>
                     <span className="opacity-50 font-semibold tracking-widest uppercase text-xs">
-                        {user?.station?.name + " " + user?.station?.city}
+                        {user?.cooperative?.name}
                     </span>
                 </div>
             </div>
 
-            <nav className="flex flex-col gap-4">
-                {stationMenuItems.map((item) => {
+            <nav className="flex flex-col gap-6">
+                {cooperativeMenuItems.map((item) => {
                     const Icon = item.icon;
 
                     return (
@@ -179,27 +179,33 @@ const TopbarStation = () => {
                             </Badge>
                         </IconButton>
                     </div>
-                    {!user?.profile.avatar ? (
-                        <div className="bg-primary text-lg font-bold flex justify-center items-center h-12 w-12 rounded-full border border-gray-200">
-                            {user?.firstname.charAt(0).toUpperCase()}
+                    <Link
+                        to="/"
+                        title="Voir profil"
+                        className="flex gap-4 items-center hover:scale-105 transition-all"
+                    >
+                        <div className="space-y-1 text-end">
+                            <p className="font-semibold text-sm">
+                                {user?.fullname}
+                            </p>
+                            <p className="font-light text-xs">Gérant</p>
                         </div>
-                    ) : (
-                        <Link
-                            title="Voir profil"
-                            to="/station/profile"
-                            className="hover:scale-105 transition-all"
-                        >
+                        {!user?.profile.avatar ? (
+                            <div className="bg-primary text-lg font-bold flex justify-center items-center h-12 w-12 rounded-full border border-gray-200">
+                                {user?.firstname.charAt(0).toUpperCase()}
+                            </div>
+                        ) : (
                             <img
                                 src={getImageUrl(user?.profile.avatar)}
                                 className="h-12 w-12 rounded-full border border-gray-200"
                                 alt="Avatar station manager"
                             />
-                        </Link>
-                    )}
+                        )}
+                    </Link>
                 </div>
             </header>
         </>
     );
 };
 
-export default TopbarStation;
+export default TopbarCooperative;

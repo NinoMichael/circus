@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { stationMenuItems } from "../../lib/data";
+import { cooperativeMenuItems } from "../../lib/data";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -13,7 +13,7 @@ import Divider from "@mui/material/Divider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 
-const SidebarStation = () => {
+const SidebarCooperative = () => {
     const navigateTo = useNavigate();
     const location = useLocation();
     const [logoutDialog, setLogoutDialog] = useState(false);
@@ -40,13 +40,13 @@ const SidebarStation = () => {
                             Circus
                         </h3>
                         <span className="opacity-50 font-semibold tracking-widest uppercase text-xs">
-                            {user?.station?.name + " " + user?.station?.city}
+                            {user?.cooperative?.name}
                         </span>
                     </div>
                 </div>
 
                 <nav className="mt-4 flex flex-col gap-4">
-                    {stationMenuItems.map((item) => {
+                    {cooperativeMenuItems.map((item) => {
                         const Icon = item.icon;
 
                         return (
@@ -117,4 +117,4 @@ const SidebarStation = () => {
     );
 };
 
-export default SidebarStation;
+export default SidebarCooperative;

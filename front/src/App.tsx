@@ -51,272 +51,291 @@ import Join from "./pages/auth/cooperative/Join";
 import JoinInfo from "./pages/auth/cooperative/JoinInfo";
 
 import NotFound from "./pages/error/NotFound";
+import CooperativeLayout from "./layouts/Cooperative";
 
 function App() {
-	const location = useLocation();
-	usePageTracking();
+    const location = useLocation();
+    usePageTracking();
 
-	return (
-		<>
-			<GoogleAnalytics />
-			<AnimatePresence mode="wait">
-				<div>
-					<Routes location={location} key={location.pathname}>
-						<Route path="/" element={<DefaultLayout />}>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<Home />
-									</GuestOrPassengerRoute>
-								}
-								index
-							/>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<About />
-									</GuestOrPassengerRoute>
-								}
-								path="about"
-							/>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<Contact />
-									</GuestOrPassengerRoute>
-								}
-								path="contact"
-							/>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<Privacy />
-									</GuestOrPassengerRoute>
-								}
-								path="privacy"
-							/>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<Terms />
-									</GuestOrPassengerRoute>
-								}
-								path="terms"
-							/>
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<Help />
-									</GuestOrPassengerRoute>
-								}
-								path="help"
-							/>
+    return (
+        <>
+            <GoogleAnalytics />
+            <AnimatePresence mode="wait">
+                <div>
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<DefaultLayout />}>
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <Home />
+                                    </GuestOrPassengerRoute>
+                                }
+                                index
+                            />
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <About />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="about"
+                            />
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <Contact />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="contact"
+                            />
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <Privacy />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="privacy"
+                            />
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <Terms />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="terms"
+                            />
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <Help />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="help"
+                            />
 
-							<Route path="login" element={<Login />} />
-							<Route path="register" element={<Register />} />
-							<Route path="register/info" element={<RegisterInfo />} />
+                            <Route path="login" element={<Login />} />
+                            <Route path="register" element={<Register />} />
+                            <Route
+                                path="register/info"
+                                element={<RegisterInfo />}
+                            />
 
-							<Route
-								path="forgotten-password"
-								element={<ForgottenPassword />}
-							/>
-							<Route path="verify-email" element={<VerifyEmail />} />
-							<Route path="reset-password" element={<ResetPassword />} />
+                            <Route
+                                path="forgotten-password"
+                                element={<ForgottenPassword />}
+                            />
+                            <Route
+                                path="verify-email"
+                                element={<VerifyEmail />}
+                            />
+                            <Route
+                                path="reset-password"
+                                element={<ResetPassword />}
+                            />
 
-							<Route path="register-cooperative" element={<Join />} />
-							<Route path="register-cooperative/info" element={<JoinInfo />} />
+                            <Route
+                                path="register-cooperative"
+                                element={<Join />}
+                            />
+                            <Route
+                                path="register-cooperative/info"
+                                element={<JoinInfo />}
+                            />
 
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<ListTripVisitor />
-									</GuestOrPassengerRoute>
-								}
-								path="trips"
-							/>
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <ListTripVisitor />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="trips"
+                            />
 
-							<Route
-								element={
-									<GuestOrPassengerRoute>
-										<DetailTripVisitor />
-									</GuestOrPassengerRoute>
-								}
-								path="trips/:id"
-							/>
+                            <Route
+                                element={
+                                    <GuestOrPassengerRoute>
+                                        <DetailTripVisitor />
+                                    </GuestOrPassengerRoute>
+                                }
+                                path="trips/:id"
+                            />
 
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<DetailProfileVisitor />
-									</ProtectedRoute>
-								}
-								path="profile"
-							/>
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<EditProfileVisitor />
-									</ProtectedRoute>
-								}
-								path="profile/edit"
-							/>
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<DisableAccountVisitor />
-									</ProtectedRoute>
-								}
-								path="profile/deactivate"
-							/>
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<DeleteAccountVisitor />
-									</ProtectedRoute>
-								}
-								path="profile/delete"
-							/>
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<ReactivateAccountVisitor />
-									</ProtectedRoute>
-								}
-								path="profile/reactivate"
-							/>
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <DetailProfileVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="profile"
+                            />
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <EditProfileVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="profile/edit"
+                            />
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <DisableAccountVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="profile/deactivate"
+                            />
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <DeleteAccountVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="profile/delete"
+                            />
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <ReactivateAccountVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="profile/reactivate"
+                            />
 
-							<Route
-								element={
-									<ProtectedRoute roles={["passenger"]}>
-										<ListHistoryVisitor />
-									</ProtectedRoute>
-								}
-								path="history"
-							/>
-						</Route>
+                            <Route
+                                element={
+                                    <ProtectedRoute roles={["passenger"]}>
+                                        <ListHistoryVisitor />
+                                    </ProtectedRoute>
+                                }
+                                path="history"
+                            />
+                        </Route>
 
-						<Route path="/driver" element={<DriverLayout />}>
-							<Route
-								path="overview"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<OverviewDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="profile"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<ProfileDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="profile/edit"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<EditProfileDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="bus"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<DetailBusDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="bus/edit"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<EditBusDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="planning"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<PlanningListDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="planning/:id"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<DetailPlanningDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="planning/:id/open-boarding"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<OpenBoardingDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="performance"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<AnalyticsDriver />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path="settings"
-								element={
-									<ProtectedRoute roles={["driver"]}>
-										<SettingDriver />
-									</ProtectedRoute>
-								}
-							/>
-						</Route>
+                        <Route path="/driver" element={<DriverLayout />}>
+                            <Route
+                                path="overview"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <OverviewDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="profile"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <ProfileDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="profile/edit"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <EditProfileDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="bus"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <DetailBusDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="bus/edit"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <EditBusDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="planning"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <PlanningListDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="planning/:id"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <DetailPlanningDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="planning/:id/open-boarding"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <OpenBoardingDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="performance"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <AnalyticsDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="settings"
+                                element={
+                                    <ProtectedRoute roles={["driver"]}>
+                                        <SettingDriver />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
 
-						<Route path="/station" element={<StationLayout />}>
-							<Route
-								path="dashboard"
-								element={
-									<ProtectedRoute roles={["manager"]}>
-										<DashboardStation />
-									</ProtectedRoute>
-								}
-							/>
-						</Route>
+                        <Route path="/station" element={<StationLayout />}>
+                            <Route
+                                path="dashboard"
+                                element={
+                                    <ProtectedRoute roles={["manager"]}>
+                                        <DashboardStation />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
 
-						<Route path="/admin" element={<DriverLayout />}>
-							<Route
-								path="dashboard"
-								element={
-									<ProtectedRoute roles={["admin"]}>
-										<DashboardAdmin />
-									</ProtectedRoute>
-								}
-							/>
-						</Route>
+                        <Route path="/admin" element={<DriverLayout />}>
+                            <Route
+                                path="dashboard"
+                                element={
+                                    <ProtectedRoute roles={["admin"]}>
+                                        <DashboardAdmin />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
 
-						<Route path="/cooperative" element={<DriverLayout />}>
-							<Route
-								path="overview"
-								element={
-									<ProtectedRoute roles={["cooperative"]}>
-										<OverviewCooperative />
-									</ProtectedRoute>
-								}
-							/>
-						</Route>
+                        <Route
+                            path="/cooperative"
+                            element={<CooperativeLayout />}
+                        >
+                            <Route
+                                path="overview"
+                                element={
+                                    <ProtectedRoute roles={["cooperative"]}>
+                                        <OverviewCooperative />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
 
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</div>
-			</AnimatePresence>
-		</>
-	);
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </div>
+            </AnimatePresence>
+        </>
+    );
 }
 
 export default App;
